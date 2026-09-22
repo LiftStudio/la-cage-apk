@@ -1,0 +1,5 @@
+{
+  "_lisez": "L'adresse du terrain public de LA CAGE. Le jeu la lit au lancement quand il n'en trouve aucune autre. Elle est ICI, et pas dans le code, parce que l'APK embarque le jeu : une adresse ecrite en dur ne pourrait changer qu'en reinstallant l'application sur chaque telephone. Ici, il suffit de modifier ce fichier.",
+  "_exemple": "wss://la-cage-salon.TON-COMPTE.workers.dev/ws",
+  "ws": ""
+}
