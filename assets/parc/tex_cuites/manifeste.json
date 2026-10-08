@@ -1,0 +1,3664 @@
+{
+ "note": "Textures procédurales du parc, cuites par tools/cuire_textures.html (voir js/tex_cuites.js). Ne pas modifier à la main : relancer la cuisson.",
+ "outils": {
+  "canvasTex": "5176259f",
+  "rnd": "18fc0631"
+ },
+ "pc": {
+  "aiguillesCedreTexBrut()": {
+   "empreinte": "1fb97f26",
+   "ms": 70.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/aiguillesCedreTexBrut_1fb97f26.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "aiguillesTexture()": {
+   "empreinte": "a5ce7e1a",
+   "ms": 83.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/aiguillesTexture_a5ce7e1a.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "allees()": {
+   "empreinte": "de39f590",
+   "ms": 28.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/allees_de39f590.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "asphalteRougeTex()": {
+   "empreinte": "ec646b59",
+   "ms": 51.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/asphalteRougeTex_ec646b59.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "atlasArbustesPinBrut()": {
+   "empreinte": "797685b1",
+   "ms": 58.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/atlasArbustesPinBrut_797685b1.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "betonMarchesTex()": {
+   "empreinte": "1bcbaf45",
+   "ms": 44.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/betonMarchesTex_1bcbaf45.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "bitumeParc()": {
+   "empreinte": "8c4b77aa",
+   "ms": 103.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/bitumeParc_8c4b77aa.webp",
+     "h": 2048,
+     "l": 2048,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "bordsParc(29.2,18.2)": {
+   "empreinte": "a4be14f9",
+   "ms": 23.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/bordsParc-29.2-18.2_a4be14f9.webp",
+     "h": 437,
+     "l": 701,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "chaumesBambouBrut()": {
+   "empreinte": "b7e49f1c",
+   "ms": 18.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/chaumesBambouBrut_b7e49f1c.webp",
+     "h": 512,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "cielSoir(1.7457)": {
+   "empreinte": "ff04ae45",
+   "ms": 11.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/cielSoir-1.7457_ff04ae45.webp",
+     "h": 128,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "ecorceFondTex()": {
+   "empreinte": "d6bf6db8",
+   "ms": 3.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/ecorceFondTex_d6bf6db8.webp",
+     "h": 256,
+     "l": 64,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorcePin()": {
+   "empreinte": "83d09918",
+   "ms": 13.4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/ecorcePin_83d09918.webp",
+     "h": 256,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorcePlatane()": {
+   "empreinte": "e0a856f5",
+   "ms": 7.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/ecorcePlatane_e0a856f5.webp",
+     "h": 512,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorceQuai()": {
+   "empreinte": "ff5baafe",
+   "ms": 12.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/ecorceQuai_ff5baafe.webp",
+     "h": 512,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "facadeModerneTex()": {
+   "empreinte": "82729908",
+   "ms": 7.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/facadeModerneTex_82729908.webp",
+     "h": 448,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "facadePavillonTex()": {
+   "empreinte": "22627a0f",
+   "ms": 18.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/facadePavillonTex_22627a0f.webp",
+     "h": 192,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "feuillageBergeBrut()": {
+   "empreinte": "5ec54189",
+   "ms": 14.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageBergeBrut_5ec54189.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(false,false)": {
+   "empreinte": "129a968b",
+   "ms": 5.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-false-false_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(true,false)": {
+   "empreinte": "129a968b",
+   "ms": 4.4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-true-false_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(true,true)": {
+   "empreinte": "129a968b",
+   "ms": 5.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-true-true_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesEtroitesBrut()": {
+   "empreinte": "ab26975c",
+   "ms": 21.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesEtroitesBrut_ab26975c.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesFondTexBrut()": {
+   "empreinte": "a81e7519",
+   "ms": 57.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesFondTexBrut_a81e7519.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesLierreBrut()": {
+   "empreinte": "30991708",
+   "ms": 128.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesLierreBrut_30991708.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesMurierBrut()": {
+   "empreinte": "ad22cfcf",
+   "ms": 114,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesMurierBrut_ad22cfcf.webp",
+     "h": 1024,
+     "l": 1024,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesPourpresBrut()": {
+   "empreinte": "a3569701",
+   "ms": 10.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesPourpresBrut_a3569701.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesTroeneBrut()": {
+   "empreinte": "982e8f7b",
+   "ms": 28.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesTroeneBrut_982e8f7b.webp",
+     "h": 512,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "fondRideau()": {
+   "empreinte": "4e617605",
+   "ms": 3.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/fondRideau_4e617605.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "gazonJardin()": {
+   "empreinte": "d6e4dbdb",
+   "ms": 22.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/gazonJardin_d6e4dbdb.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "gramineesTex()": {
+   "empreinte": "71efafe2",
+   "ms": 15.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/gramineesTex_71efafe2.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "masquesPlateau(29.2,18.2,23.7,-16.1,7.525)": {
+   "empreinte": "7bb91fbd",
+   "ms": 313.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {
+      "flaques": [
+       [
+        1.1,
+        11.9,
+        0.9091,
+        1.8182,
+        0.9801,
+        0.1987
+       ],
+       [
+        15.3,
+        6.5,
+        0.6667,
+        1.1111,
+        0.9553,
+        -0.2955
+       ],
+       [
+        28.4,
+        1.5,
+        0.8333,
+        1.5152,
+        0.995,
+        0.0998
+       ],
+       [
+        8.8,
+        2.9,
+        1,
+        1.5385,
+        0.9888,
+        -0.1494
+       ],
+       [
+        11.2,
+        16,
+        1.1111,
+        2.2222,
+        0.9394,
+        0.3429
+       ],
+       [
+        25.9,
+        12.7,
+        1.25,
+        1.7857,
+        0.9988,
+        -0.05
+       ]
+      ],
+      "usureMoy": 0.2143
+     },
+     "fichier": "pc/masquesPlateau-29.2-18.2-23.7-16.1-7.525_7bb91fbd.webp",
+     "h": 874,
+     "l": 1402,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "meuliereTexture(19.8,2.3)": {
+   "empreinte": "89567550",
+   "ms": 530.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-19.8-2.3_89567550_0.webp",
+     "h": 253,
+     "l": 2178,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-19.8-2.3_89567550_1.webp",
+     "h": 253,
+     "l": 2178,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "meuliereTexture(24.0147,2.3)": {
+   "empreinte": "89567550",
+   "ms": 501.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-24.0147-2.3_89567550_0.webp",
+     "h": 253,
+     "l": 2642,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-24.0147-2.3_89567550_1.webp",
+     "h": 253,
+     "l": 2642,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "meuliereTexture(8.2,0.6)": {
+   "empreinte": "89567550",
+   "ms": 410.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-8.2-0.6_89567550_0.webp",
+     "h": 66,
+     "l": 902,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "pc/meuliereTexture-8.2-0.6_89567550_1.webp",
+     "h": 66,
+     "l": 902,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "moellonsDosTex()": {
+   "empreinte": "5ede64ac",
+   "ms": 81.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/moellonsDosTex_5ede64ac_0.webp",
+     "h": 132,
+     "l": 440,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "pc/moellonsDosTex_5ede64ac_1.webp",
+     "h": 132,
+     "l": 440,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "pelouseParc()": {
+   "empreinte": "e0a872af",
+   "ms": 29.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/pelouseParc_e0a872af.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       60,
+       60
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "pierrePavillonTex()": {
+   "empreinte": "aa17c138",
+   "ms": 15.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/pierrePavillonTex_aa17c138.webp",
+     "h": 96,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "stabiliseTexture()": {
+   "empreinte": "0131735b",
+   "ms": 130.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/stabiliseTexture_0131735b.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreCoinCouleur(21.95,3.2)": {
+   "empreinte": "5053e0ca",
+   "ms": 124.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/terreCoinCouleur-21.95-3.2_5053e0ca.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       10.975,
+       1.5999999999999996
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreCoinMasque(878,128,3.2)": {
+   "empreinte": "11f1682e",
+   "ms": 98.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/terreCoinMasque-878-128-3.2_11f1682e.webp",
+     "h": 128,
+     "l": 878,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "terreQuai()": {
+   "empreinte": "56d7f37b",
+   "ms": 38.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/terreQuai_56d7f37b.webp",
+     "h": 512,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreTalusPin()": {
+   "empreinte": "3142817f",
+   "ms": 11.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/terreTalusPin_3142817f.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  }
+ },
+ "tel": {
+  "aiguillesCedreTexBrut()": {
+   "empreinte": "1fb97f26",
+   "ms": 47.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/aiguillesCedreTexBrut_1fb97f26.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "aiguillesTexture()": {
+   "empreinte": "a5ce7e1a",
+   "ms": 71.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/aiguillesTexture_a5ce7e1a.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "allees()": {
+   "empreinte": "de39f590",
+   "ms": 36.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/allees_de39f590.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "asphalteRougeTex()": {
+   "empreinte": "ec646b59",
+   "ms": 49.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/asphalteRougeTex_ec646b59.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "atlasArbustesPinBrut()": {
+   "empreinte": "797685b1",
+   "ms": 75.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/atlasArbustesPinBrut_797685b1.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "betonMarchesTex()": {
+   "empreinte": "1bcbaf45",
+   "ms": 73.4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/betonMarchesTex_1bcbaf45.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "bitumeParc()": {
+   "empreinte": "8c4b77aa",
+   "ms": 31.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/bitumeParc_8c4b77aa.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "bordsParc(29.2,18.2)": {
+   "empreinte": "a4be14f9",
+   "ms": 27.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/bordsParc-29.2-18.2_a4be14f9.webp",
+     "h": 219,
+     "l": 351,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "chaumesBambouBrut()": {
+   "empreinte": "b7e49f1c",
+   "ms": 13.4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/chaumesBambouBrut_b7e49f1c.webp",
+     "h": 256,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "cielSoir(1.7457)": {
+   "empreinte": "ff04ae45",
+   "ms": 12.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/cielSoir-1.7457_ff04ae45.webp",
+     "h": 64,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "ecorceFondTex()": {
+   "empreinte": "d6bf6db8",
+   "ms": 2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/ecorceFondTex_d6bf6db8.webp",
+     "h": 256,
+     "l": 64,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorcePin()": {
+   "empreinte": "83d09918",
+   "ms": 22.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/ecorcePin_83d09918.webp",
+     "h": 128,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorcePlatane()": {
+   "empreinte": "e0a856f5",
+   "ms": 7.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/ecorcePlatane_e0a856f5.webp",
+     "h": 256,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "ecorceQuai()": {
+   "empreinte": "ff5baafe",
+   "ms": 12.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/ecorceQuai_ff5baafe.webp",
+     "h": 256,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "facadeModerneTex()": {
+   "empreinte": "82729908",
+   "ms": 7.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/facadeModerneTex_82729908.webp",
+     "h": 224,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "facadePavillonTex()": {
+   "empreinte": "22627a0f",
+   "ms": 28.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/facadePavillonTex_22627a0f.webp",
+     "h": 96,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "feuillageBergeBrut()": {
+   "empreinte": "5ec54189",
+   "ms": 46.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageBergeBrut_5ec54189.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(false,false)": {
+   "empreinte": "129a968b",
+   "ms": 4.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-false-false_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(true,false)": {
+   "empreinte": "129a968b",
+   "ms": 4.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-true-false_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillageIf(true,true)": {
+   "empreinte": "129a968b",
+   "ms": 4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillageIf-true-true_129a968b.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       2,
+       2
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesEtroitesBrut()": {
+   "empreinte": "ab26975c",
+   "ms": 23.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/feuillesEtroitesBrut_ab26975c.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesFondTexBrut()": {
+   "empreinte": "a81e7519",
+   "ms": 59.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/feuillesFondTexBrut_a81e7519.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesLierreBrut()": {
+   "empreinte": "30991708",
+   "ms": 200,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesLierreBrut_30991708.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesMurierBrut()": {
+   "empreinte": "ad22cfcf",
+   "ms": 207.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/feuillesMurierBrut_ad22cfcf.webp",
+     "h": 512,
+     "l": 512,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesPourpresBrut()": {
+   "empreinte": "a3569701",
+   "ms": 13.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/feuillesPourpresBrut_a3569701.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "feuillesTroeneBrut()": {
+   "empreinte": "982e8f7b",
+   "ms": 28.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/feuillesTroeneBrut_982e8f7b.webp",
+     "h": 256,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "fondRideau()": {
+   "empreinte": "4e617605",
+   "ms": 6.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/fondRideau_4e617605.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "gazonJardin()": {
+   "empreinte": "d6e4dbdb",
+   "ms": 23.5,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/gazonJardin_d6e4dbdb.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "gramineesTex()": {
+   "empreinte": "71efafe2",
+   "ms": 38.3,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/gramineesTex_71efafe2.webp",
+     "h": 128,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "masquesPlateau(29.2,18.2,23.7,-16.1,7.525)": {
+   "empreinte": "7bb91fbd",
+   "ms": 305.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {
+      "flaques": [
+       [
+        1.1,
+        11.9,
+        0.9091,
+        1.8182,
+        0.9801,
+        0.1987
+       ],
+       [
+        15.3,
+        6.5,
+        0.6667,
+        1.1111,
+        0.9553,
+        -0.2955
+       ],
+       [
+        28.4,
+        1.5,
+        0.8333,
+        1.5152,
+        0.995,
+        0.0998
+       ],
+       [
+        8.8,
+        2.9,
+        1,
+        1.5385,
+        0.9888,
+        -0.1494
+       ],
+       [
+        11.2,
+        16,
+        1.1111,
+        2.2222,
+        0.9394,
+        0.3429
+       ],
+       [
+        25.9,
+        12.7,
+        1.25,
+        1.7857,
+        0.9988,
+        -0.05
+       ]
+      ],
+      "usureMoy": 0.2143
+     },
+     "fichier": "tel/masquesPlateau-29.2-18.2-23.7-16.1-7.525_7bb91fbd.webp",
+     "h": 437,
+     "l": 701,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "massifFleurs(court)": {
+   "empreinte": "be13dbd6",
+   "ms": 5.4,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/massifFleurs-court_be13dbd6.webp",
+     "h": 230,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "massifFleurs(false)": {
+   "empreinte": "be13dbd6",
+   "ms": 5.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/massifFleurs-false_be13dbd6.webp",
+     "h": 64,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "meuliereTexture(19.8,2.3)": {
+   "empreinte": "89567550",
+   "ms": 638.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-19.8-2.3_89567550_0.webp",
+     "h": 127,
+     "l": 1089,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-19.8-2.3_89567550_1.webp",
+     "h": 127,
+     "l": 1089,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "meuliereTexture(24.0147,2.3)": {
+   "empreinte": "89567550",
+   "ms": 2036.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-24.0147-2.3_89567550_0.webp",
+     "h": 127,
+     "l": 1321,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-24.0147-2.3_89567550_1.webp",
+     "h": 127,
+     "l": 1321,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "meuliereTexture(8.2,0.6)": {
+   "empreinte": "89567550",
+   "ms": 999.8,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-8.2-0.6_89567550_0.webp",
+     "h": 33,
+     "l": 451,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "tel/meuliereTexture-8.2-0.6_89567550_1.webp",
+     "h": 33,
+     "l": 451,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "moellonsDosTex()": {
+   "empreinte": "5ede64ac",
+   "ms": 62.7,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/moellonsDosTex_5ede64ac_0.webp",
+     "h": 66,
+     "l": 220,
+     "liens": {
+      "relief": 1
+     },
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    },
+    {
+     "donnees": {},
+     "fichier": "tel/moellonsDosTex_5ede64ac_1.webp",
+     "h": 66,
+     "l": 220,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "pelouseParc()": {
+   "empreinte": "e0a872af",
+   "ms": 44.2,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/pelouseParc_e0a872af.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       60,
+       60
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "pierrePavillonTex()": {
+   "empreinte": "aa17c138",
+   "ms": 5.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/pierrePavillonTex_aa17c138.webp",
+     "h": 96,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "stabiliseTexture()": {
+   "empreinte": "0131735b",
+   "ms": 163.1,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/stabiliseTexture_0131735b.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreCoinCouleur(21.95,3.2)": {
+   "empreinte": "5053e0ca",
+   "ms": 463.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/terreCoinCouleur-21.95-3.2_5053e0ca.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 16,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       10.975,
+       1.5999999999999996
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreCoinMasque(878,128,3.2)": {
+   "empreinte": "11f1682e",
+   "ms": 267.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/terreCoinMasque-878-128-3.2_11f1682e.webp",
+     "h": 64,
+     "l": 439,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 4,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1001,
+      "wrapT": 1001
+     }
+    }
+   ]
+  },
+  "terreQuai()": {
+   "empreinte": "56d7f37b",
+   "ms": 206.6,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "tel/terreQuai_56d7f37b.webp",
+     "h": 256,
+     "l": 128,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  },
+  "terreTalusPin()": {
+   "empreinte": "3142817f",
+   "ms": 10.9,
+   "retour": 0,
+   "textures": [
+    {
+     "donnees": {},
+     "fichier": "pc/terreTalusPin_3142817f.webp",
+     "h": 256,
+     "l": 256,
+     "liens": {},
+     "reglages": {
+      "anisotropy": 8,
+      "center": [
+       0,
+       0
+      ],
+      "colorSpace": "srgb",
+      "flipY": true,
+      "generateMipmaps": true,
+      "magFilter": 1006,
+      "minFilter": 1008,
+      "name": "",
+      "offset": [
+       0,
+       0
+      ],
+      "premultiplyAlpha": false,
+      "repeat": [
+       1,
+       1
+      ],
+      "rotation": 0,
+      "wrapS": 1000,
+      "wrapT": 1000
+     }
+    }
+   ]
+  }
+ },
+ "version": 1
+}

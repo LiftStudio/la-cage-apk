@@ -1,0 +1,1537 @@
+:root {
+  --bg: #0b0e14;
+  --panel: #131826;
+  --panel2: #1b2233;
+  --line: #273046;
+  --text: #f2f4f8;
+  --muted: #9aa3b5;
+  --accent: #ff7a1a;
+  --accent2: #ffb347;
+  --good: #3ddc84;
+  --bad: #ff4d4d;
+  --warn: #ffd166;
+  --blue: #4aa3ff;
+  --head: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  --ui: "Oswald", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, -apple-system, sans-serif; overflow: hidden; }
+[hidden] { display: none !important; }
+button { font-family: inherit; }
+kbd { display: inline-block; min-width: 26px; text-align: center; padding: 3px 8px; border-radius: 6px; background: #1c2434; border: 1px solid #3a4457; border-bottom-width: 3px; font-size: 12px; margin-right: 3px; color: #fff; font-family: var(--ui); letter-spacing: 1px; }
+
+#game { position: fixed; inset: 0; }
+#game canvas { display: block; }
+
+/* ---------- écrans ---------- */
+.screen { position: fixed; inset: 0; overflow: auto; z-index: 20; }
+.btn-primary { display: inline-block; padding: 16px 34px; font-size: 26px; font-family: var(--head); letter-spacing: 3px; background: linear-gradient(135deg, var(--accent), #ff5e00); color: #000; border: 0; border-radius: 6px; cursor: pointer; box-shadow: 0 10px 30px rgba(255,122,26,.35); transition: transform .12s, box-shadow .12s, filter .12s; }
+.btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 14px 36px rgba(255,122,26,.45); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-secondary { padding: 13px 22px; font-size: 16px; font-family: var(--ui); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; background: rgba(27,34,51,.85); color: var(--text); border: 1px solid #3a4560; border-radius: 6px; cursor: pointer; transition: border-color .12s, background .12s; }
+.btn-secondary:hover { border-color: var(--accent); background: #232c40; }
+
+/* ---------- menu principal : le terrain 3D est visible derrière ---------- */
+.menu { background: transparent; font-family: var(--ui); }
+.menu-bg { position: fixed; inset: 0; pointer-events: none; }
+.menu-bg .shade { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(4,6,10,.93) 0%, rgba(4,6,10,.82) 32%, rgba(4,6,10,.35) 58%, rgba(4,6,10,.12) 100%); transition: opacity .3s; }
+.menu[data-screen="select"] .menu-bg .shade { background: linear-gradient(90deg, rgba(4,6,10,.94) 0%, rgba(4,6,10,.9) 30%, rgba(4,6,10,.55) 44%, rgba(4,6,10,0) 60%); }
+.menu[data-screen="help"] .menu-bg .shade { background: rgba(4,6,10,.85); }
+.menu-bg .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%); }
+.menu-screen { position: relative; z-index: 1; min-height: 100%; display: flex; flex-direction: column; padding: 36px clamp(20px, 5vw, 80px) 40px; animation: fadeIn .35s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* accueil */
+.home { justify-content: center; }
+.brand { margin-bottom: 40px; }
+.brand-kicker { font-size: 14px; letter-spacing: 6px; color: var(--accent2); font-weight: 500; }
+.brand-title { font-family: var(--head); font-size: clamp(96px, 16vw, 200px); line-height: .9; margin: 4px 0 0; letter-spacing: 4px; color: #fff; text-shadow: 0 10px 50px rgba(0,0,0,.6); }
+.brand-title::after { content: ""; display: block; width: 120px; height: 6px; background: var(--accent); margin-top: 14px; }
+.brand-sub { font-family: var(--head); font-size: clamp(22px, 3vw, 34px); letter-spacing: 8px; color: var(--muted); margin-top: 14px; }
+/* le logo officiel devant LA CAGE (assets/icons/logo.webp, tools/icones.py), à la hauteur des capitales. Quand la
+   colonne est étroite (iPhone en paysage : l'encoche élargit les marges de 47 à 62 px), c'est d'abord le logo qui
+   rapetisse (object-fit), centré sur les capitales, de .69 em de large (sa taille) jusqu'à .3 em. S'il n'y suffit pas,
+   CAGE passe à la ligne, comme le titre le faisait avant le logo : c'est le cas d'une police de secours plus large que
+   Bebas Neue (Roboto sur Android, Impact...), hors ligne ou sans Google Fonts ; sans ça, « LA CAGE » filait sous les
+   entrées du menu. (Le logo part d'une base nulle et grandit dans la place qui reste sur sa ligne : c'est à sa largeur
+   minimale qu'il compte pour couper la ligne. « LA » garde son espace : l'écart entre les mots reste celui de la
+   police.) (Bebas Neue, interligne .9 : les capitales vont de .04 à .76 em du haut de la ligne, leur milieu est .05 em
+   au-dessus de celui de la ligne.) */
+.brand-ligne { display: flex; flex-wrap: wrap; align-items: center; }
+.brand-mot { white-space: pre; }
+.brand-logo { flex: 1 1 0; min-width: .3em; max-width: .69em; height: .86em; margin-right: .1em; object-fit: contain; position: relative; top: -.05em; filter: drop-shadow(0 8px 22px rgba(0,0,0,.6)); }
+.main-nav { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+.nav-btn { display: grid; grid-template-columns: 44px 1fr; grid-template-rows: auto auto; column-gap: 14px; align-items: center; text-align: left; padding: 14px 22px; background: rgba(10,13,20,.72); border: 1px solid rgba(255,255,255,.08); border-left: 4px solid transparent; color: var(--text); cursor: pointer; backdrop-filter: blur(6px); transition: transform .14s, border-color .14s, background .14s; }
+.nav-btn:hover, .nav-btn:focus-visible { transform: translateX(10px); border-left-color: var(--accent); background: rgba(27,34,51,.9); outline: none; }
+.nav-btn.primary { border-left-color: var(--accent); }
+.nav-idx { grid-row: 1 / 3; font-family: var(--head); font-size: 28px; color: var(--accent); }
+.nav-label { font-family: var(--head); font-size: 34px; letter-spacing: 3px; line-height: 1; }
+.nav-desc { font-size: 13px; color: var(--muted); letter-spacing: 1px; }
+.home-foot { position: absolute; left: clamp(20px, 5vw, 80px); right: clamp(20px, 5vw, 80px); bottom: 18px; display: flex; gap: 24px; font-size: 12px; letter-spacing: 1.5px; color: #7c8699; text-transform: uppercase; text-shadow: 0 1px 4px #000; }
+
+/* sous-écrans */
+.screen-head { display: flex; align-items: center; gap: 22px; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 22px; }
+.screen-head h2 { font-family: var(--head); font-size: 44px; letter-spacing: 4px; margin: 0; line-height: 1; }
+.screen-head .crumb { margin-left: auto; font-size: 13px; letter-spacing: 3px; color: var(--muted); }
+.back { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 10px 14px; border-radius: 6px; cursor: pointer; letter-spacing: 2px; font-family: var(--ui); text-transform: uppercase; }
+.back:hover { color: var(--text); border-color: var(--accent); }
+.screen-foot { margin-top: auto; padding-top: 22px; display: flex; justify-content: flex-end; gap: 14px; align-items: center; flex-wrap: wrap; }
+h3 { font-family: var(--head); font-size: 22px; letter-spacing: 3px; color: var(--muted); margin: 0 0 12px; font-weight: 400; }
+.panel-wide { width: 100%; max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; min-height: calc(100vh - 76px); }
+
+/* choix du joueur : panneau gauche, joueur 3D à droite (le canvas) */
+.select { padding: 28px clamp(16px, 3vw, 48px); }
+.select-panel { width: min(440px, 100%); display: flex; flex-direction: column; min-height: calc(100vh - 56px); }
+.select-list { display: flex; flex-direction: column; gap: 6px; max-height: 42vh; overflow: auto; padding-right: 4px; }
+.pick { --c1: #333; --c2: #eee; display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; text-align: left; padding: 8px 12px; background: rgba(10,13,20,.8); border: 1px solid rgba(255,255,255,.08); border-left: 5px solid var(--c1); border-radius: 6px; color: var(--text); cursor: pointer; transition: transform .12s, border-color .12s, background .12s; }
+.pick:hover { transform: translateX(6px); background: rgba(27,34,51,.9); }
+.pick.selected { border-color: var(--accent); background: rgba(255,122,26,.16); transform: translateX(6px); }
+.pick .num { font-family: var(--head); font-size: 26px; color: var(--c1); -webkit-text-stroke: 1px var(--c2); text-align: center; }
+.pick .who { display: flex; flex-direction: column; font-family: var(--ui); }
+.pick .who b { font-weight: 600; font-size: 16px; }
+.pick .who small { color: var(--muted); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.pick .badge { font-size: 10px; letter-spacing: 2px; color: var(--good); border: 1px solid rgba(61,220,132,.4); padding: 3px 7px; border-radius: 4px; }
+.select-info { margin-top: 14px; background: rgba(10,13,20,.8); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 14px 16px; }
+.si-name { font-family: var(--head); font-size: 40px; letter-spacing: 3px; line-height: 1; }
+.si-meta { color: var(--accent2); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+.si-style { color: var(--muted); font-size: 14px; margin: 6px 0 10px; }
+.si-avatar { margin-top: 10px; font-size: 11px; letter-spacing: 2px; color: var(--good); }
+.si-avatar.muted { color: var(--muted); }
+.stats.big { grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.stats.big .stat { font-size: 11px; letter-spacing: 1px; }
+.select-hint { position: fixed; right: clamp(16px, 3vw, 48px); bottom: 18px; max-width: 46vw; text-align: right; font-size: 13px; color: var(--muted); text-shadow: 0 1px 6px #000; }
+
+/* fiches joueurs */
+.roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+.card { --c1: #333; --c2: #eee; text-align: left; background: var(--panel); border: 2px solid #232b3d; border-top: 6px solid var(--c1); border-radius: 8px; padding: 12px; color: var(--text); cursor: pointer; transition: transform .12s, border-color .12s, box-shadow .12s; font-family: "Segoe UI", system-ui, sans-serif; }
+.card:hover { transform: translateY(-2px); border-color: #3a4560; }
+.card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,122,26,.25), 0 10px 30px rgba(0,0,0,.4); }
+.card.used { opacity: .6; }
+.card-head { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.card-head .num { font-family: var(--head); font-size: 26px; color: var(--c1); -webkit-text-stroke: 1px var(--c2); }
+.card-name { font-weight: 800; font-size: 16px; margin-top: 4px; }
+.card-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+.stat { font-size: 11px; color: var(--muted); }
+.stat b { color: var(--text); float: right; }
+.stat .bar { height: 4px; background: #242c3f; border-radius: 3px; margin-top: 2px; overflow: hidden; }
+.stat .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+/* aide */
+.help-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; }
+.help-box { background: rgba(19,24,38,.85); border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; font-size: 14px; color: #c9d0dd; line-height: 1.55; }
+.help-box p { margin: 0 0 12px; }
+.help-keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; align-items: center; }
+.help-keys .k { white-space: nowrap; }
+.help-note { color: var(--muted); font-size: 12px; margin-top: 14px; }
+
+/* ---------- choix du match (overlay sur la balade) ---------- */
+/* LA COLONNE EST BORNÉE À L'ÉCRAN (minmax(0, 1fr)), et c'est tout le correctif de la recette du 02/10/2026. Sans
+   elle, la grille n'a qu'une piste implicite « auto », qui ne descend jamais sous la largeur minimale de son
+   contenu : la barre des neuf onglets de la boutique (1 320 px) ou les champs des noms d'équipe élargissaient la
+   piste, et la boîte avec. « Choisir un match » faisait 878 px sur un téléphone de 740, la boutique 1 080 : cartes
+   coupées, SUIVANT et RETOUR À LA BALADE hors de l'écran, barre de défilement horizontale. */
+.setup { background: rgba(5,7,11,.8); backdrop-filter: blur(8px); z-index: 25; font-family: var(--ui); display: grid; grid-template-columns: minmax(0, 1fr); place-items: start center; padding: 24px 16px; }
+.setup-box { width: min(1180px, 100%); background: linear-gradient(180deg, rgba(20,26,40,.98), rgba(14,18,27,.98)); border: 1px solid var(--line); border-radius: 12px; padding: 24px 28px; box-shadow: 0 30px 80px rgba(0,0,0,.6); animation: fadeIn .25s ease-out; }
+.setup-box .screen-foot { margin-top: 26px; }
+.modes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.mode-card { position: relative; text-align: left; background: rgba(19,24,38,.85); border: 1px solid var(--line); border-radius: 8px; padding: 22px 18px 18px; color: var(--text); cursor: pointer; min-height: 190px; overflow: hidden; transition: transform .14s, border-color .14s, box-shadow .14s; }
+.mode-card::before { content: attr(data-big); position: absolute; right: -6px; bottom: -22px; font-family: var(--head); font-size: 110px; color: rgba(255,255,255,.04); line-height: 1; }
+.mode-card:hover { transform: translateY(-4px); border-color: #3a4560; }
+.mode-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,122,26,.35), 0 16px 40px rgba(0,0,0,.45); background: linear-gradient(180deg, rgba(255,122,26,.12), rgba(19,24,38,.9)); }
+.mode-size { font-family: var(--head); font-size: 54px; line-height: 1; color: var(--accent); }
+.mode-name { font-family: var(--head); font-size: 24px; letter-spacing: 2px; margin-top: 4px; }
+.mode-desc { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+.mode-tag { position: absolute; top: 12px; right: 12px; font-size: 10px; letter-spacing: 2px; padding: 3px 8px; border-radius: 4px; background: rgba(61,220,132,.15); color: var(--good); }
+.match-opts { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 26px; margin-top: 28px; }
+.opt-block { background: rgba(19,24,38,.6); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; }
+/* Un groupe de boutons ne passe à la ligne QUE sur un petit écran (règle `.seg` du bloc « LES LIGNES DES OPTIONS SUR
+   UN ÉCRAN ÉTROIT », plus bas). Sur ordinateur il reste sur une ligne : c'est lui qui élargit la colonne des réglages
+   des Options. Avec le retour à la ligne partout, « Qualité » (480 px de boutons pour une colonne de 475) passait
+   sur deux lignes même en 1920. */
+.seg { display: inline-flex; background: #0e121b; border-radius: 6px; padding: 4px; border: 1px solid var(--line); }
+.seg button { background: transparent; border: 0; color: var(--muted); padding: 9px 18px; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: var(--ui); letter-spacing: 1px; text-transform: uppercase; font-size: 13px; }
+.seg button.on { background: var(--accent); color: #000; }
+/* preglage que la machine ne peut pas tenir : grise et non cliquable (cf. PostFX.plafond) */
+.seg button.ko { opacity: .34; cursor: not-allowed; text-decoration: line-through; }
+.seg button.ko:hover { background: transparent; }
+.names { display: flex; align-items: center; gap: 10px; }
+.names input { flex: 1; min-width: 0; background: #0e121b; border: 1px solid var(--line); color: var(--text); padding: 10px 12px; border-radius: 6px; font-family: var(--head); font-size: 22px; letter-spacing: 2px; text-transform: uppercase; }
+.names input:focus { outline: none; border-color: var(--accent); }
+.names span { color: var(--muted); font-family: var(--head); font-size: 20px; }
+
+/* équipes */
+.teams-layout { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: 22px; align-items: start; }
+.team-col { background: rgba(19,24,38,.7); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.team-col.user h3 { color: var(--accent); } .team-col.cpu h3 { color: #8fb3ff; }
+.slots { display: flex; flex-direction: column; gap: 8px; }
+.slot { --c1: #333; --c2: #eee; display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; text-align: left; padding: 10px 12px; background: #0e121b; border: 1px solid var(--line); border-left: 5px solid var(--c1); border-radius: 6px; color: var(--text); cursor: pointer; transition: border-color .12s, background .12s; }
+.slot:hover { background: #151b29; }
+.slot.active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,122,26,.3); }
+.slot.locked { cursor: default; background: rgba(255,122,26,.08); }
+.slot .num { font-family: var(--head); font-size: 30px; color: var(--c1); -webkit-text-stroke: 1px var(--c2); text-align: center; }
+.slot .who { font-family: var(--ui); font-weight: 600; font-size: 16px; }
+.slot .role { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.slot .badge { font-size: 10px; letter-spacing: 2px; color: var(--good); border: 1px solid rgba(61,220,132,.4); padding: 3px 7px; border-radius: 4px; }
+.slot .badge.cap { color: var(--accent2); border-color: rgba(255,179,71,.5); }
+.pick-col { background: rgba(19,24,38,.5); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.pick-hint { color: var(--muted); font-size: 13px; margin: -4px 0 12px; }
+
+/* ---------- options ---------- */
+.options { background: rgba(5,7,11,.82); backdrop-filter: blur(8px); display: grid; place-items: center; z-index: 40; font-family: var(--ui); }
+.options-box { width: min(980px, 94vw); max-height: 92vh; display: flex; flex-direction: column; background: linear-gradient(180deg, #141a28, #0e121b); border: 1px solid var(--line); border-radius: 12px; padding: 24px 28px; box-shadow: 0 30px 80px rgba(0,0,0,.6); animation: fadeIn .25s ease-out; }
+.options-box .screen-head { margin-bottom: 14px; }
+/* En portrait, 94vw (352 px sur un écran de 375) dépassait la place laissée par les marges de l'écran (2 × 12 px) :
+   la page des Options défilait en largeur d'un pixel et demi. Même remède que pour `.setup` : une colonne bornée
+   à l'écran, et une fiche qui ne la dépasse pas. Sur ordinateur, 980 px tiennent toujours : rien ne change. */
+.options { grid-template-columns: minmax(0, 1fr); }
+.options-box { max-width: 100%; }
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.tabs button { background: transparent; border: 0; color: var(--muted); padding: 12px 18px; font-family: var(--head); font-size: 22px; letter-spacing: 3px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+.tabs button.on { color: var(--text); border-bottom-color: var(--accent); }
+.tab-panels { overflow: auto; padding: 8px 4px 8px 0; min-height: 300px; }
+/* LES BARRES D'ONGLETS DES OPTIONS ET DE LA BOUTIQUE DÉFILENT EN LARGEUR au lieu d'élargir leur fiche (recette du
+   02/10/2026 : les neuf onglets de la boutique font 1 320 px, et GLISSE, EMOTES, CAPACITÉS et MON JOUEUR sortaient
+   de l'écran du téléphone). Un onglet garde sa largeur (flex: 0 0 auto) et son libellé sur une ligne. Le trait
+   sous la barre devient une ombre intérieure : avec `overflow`, le débord de -1 px des onglets sur la bordure
+   aurait fait naître une barre de défilement verticale d'un pixel. Le dock du téléphone, qui est aussi une
+   `.tabs`, n'est pas concerné (ses règles sont plus loin, sous #phone). `flex-shrink: 0` : dans la fiche des
+   options (une colonne flexible), une barre qui défile n'a plus de hauteur minimale, et le panneau l'écrasait
+   à 2 px en paysage. */
+.setup-box .tabs, .options-box .tabs { flex-shrink: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; border-bottom: 0; box-shadow: inset 0 -1px 0 var(--line); }
+.setup-box .tabs button, .options-box .tabs button { flex: 0 0 auto; white-space: nowrap; margin-bottom: 0; }
+/* au doigt, on fait glisser la barre : sa barre de défilement, un trait gris sous les onglets, se confondait avec
+   le soulignement de l'onglet choisi. À la souris elle reste (fine) : sans elle, pas moyen de faire défiler. */
+@media (hover: none) {
+  .setup-box .tabs, .options-box .tabs { scrollbar-width: none; }
+  .setup-box .tabs::-webkit-scrollbar, .options-box .tabs::-webkit-scrollbar { display: none; }
+}
+/* La boutique : ses neuf onglets plus serrés, pour qu'ils tiennent tous dans la fiche sur ordinateur (1 005 px
+   mesurés pour 1 024 de place). Au téléphone, la barre défile ; l'onglet choisi y est ramené au milieu (js/ui.js). */
+.shop-box .tabs { gap: 4px; }
+.shop-box .tabs button { padding: 12px 11px; font-size: 18px; letter-spacing: 2px; }
+.opt-row { display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px; align-items: center; padding: 12px 8px; border-bottom: 1px solid rgba(39,48,70,.6); }
+.opt-row:hover { background: rgba(255,255,255,.02); }
+.opt-row .lbl { font-size: 15px; font-weight: 500; letter-spacing: .5px; }
+.opt-row .lbl small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+.opt-row .ctl { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
+.opt-row .val { min-width: 54px; text-align: right; font-family: var(--head); font-size: 20px; color: var(--accent2); letter-spacing: 1px; }
+input[type=range] { -webkit-appearance: none; width: 100%; max-width: 260px; height: 6px; background: #242c3f; border-radius: 3px; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.5); }
+input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; cursor: pointer; }
+.toggle { position: relative; width: 56px; height: 28px; border-radius: 14px; background: #242c3f; border: 1px solid #3a4560; cursor: pointer; transition: background .15s; }
+.toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #9aa3b5; transition: left .15s, background .15s; }
+.toggle.on { background: rgba(255,122,26,.35); border-color: var(--accent); }
+.toggle.on::after { left: 31px; background: var(--accent); }
+.opt-group { font-family: var(--head); font-size: 20px; letter-spacing: 3px; color: var(--accent2); padding: 16px 8px 6px; }
+.bind-head { display: grid; grid-template-columns: 1fr 130px 130px 170px; gap: 10px; padding: 6px 8px; font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+.bind-row { display: grid; grid-template-columns: 1fr 130px 130px 170px; gap: 10px; align-items: center; padding: 7px 8px; border-bottom: 1px solid rgba(39,48,70,.6); }
+.bind-row .lbl { font-size: 14px; }
+.key-btn { font-family: var(--ui); font-weight: 600; letter-spacing: 1px; background: #1c2434; border: 1px solid #3a4457; border-bottom-width: 3px; color: #fff; padding: 8px 10px; border-radius: 6px; cursor: pointer; text-align: center; min-height: 38px; transition: border-color .12s; }
+.key-btn:hover { border-color: var(--accent); }
+.key-btn.empty { color: #5d6779; }
+.key-btn.listening { border-color: var(--warn); color: var(--warn); animation: blink .6s steps(2) infinite; }
+.opt-note { color: var(--muted); font-size: 12px; padding: 10px 8px; }
+
+/* ---------- HUD ---------- */
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.scoreboard { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: stretch; background: rgba(10,13,20,.85); border: 1px solid #2a3348; border-radius: 12px; overflow: hidden; backdrop-filter: blur(6px); }
+.team { display: flex; align-items: center; gap: 12px; padding: 8px 16px; }
+.team .name { font-weight: 800; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+.team .score { font-family: Impact, "Arial Black", sans-serif; font-size: 34px; line-height: 1; }
+.team.user .score { color: var(--accent); }
+.team.cpu .score { color: #8fb3ff; }
+.clock { display: grid; place-items: center; min-width: 64px; background: #05070b; font-family: Impact, "Arial Black", sans-serif; font-size: 30px; color: var(--warn); border-left: 1px solid #2a3348; border-right: 1px solid #2a3348; }
+.clock.low { color: var(--bad); animation: blink .5s steps(2) infinite; }
+@keyframes blink { to { opacity: .35; } }
+
+.possession { position: absolute; top: 98px; left: 50%; transform: translateX(-50%); font-size: 12px; letter-spacing: 3px; font-weight: 800; color: var(--muted); white-space: nowrap; }
+.possession.on { color: var(--accent); }
+.ctrl-tag { position: absolute; left: 50%; top: 122px; transform: translateX(-50%); font-family: var(--head); font-size: 22px; letter-spacing: 3px; color: var(--accent); text-shadow: 0 2px 10px #000; opacity: 0; }
+.ctrl-tag.pop { animation: pop 1.2s ease-out forwards; }
+/* (06/10/2026) en portrait, la rangée du haut (pause, caméra, emotes : js/touch.js) passe sous le tableau des scores, à
+   la hauteur de ce nom (« ▶ NOM » quand on change de joueur), qui se dessinait sur le bouton des emotes. Il passe juste
+   dessous : --tc-haut, posé par js/touch.js, compte déjà l'encoche. */
+body.touch.portrait .ctrl-tag { top: var(--tc-haut, 170px); margin-top: 0; }
+
+.feedback { position: absolute; top: 24%; left: 0; right: 0; text-align: center; font-family: Impact, "Arial Black", sans-serif; font-size: 54px; letter-spacing: 3px; text-shadow: 0 4px 24px rgba(0,0,0,.7); opacity: 0; }
+.feedback.pop { animation: pop 1.4s ease-out forwards; }
+.feedback.good { color: var(--good); }
+.feedback.bad { color: var(--bad); }
+.feedback.warn { color: var(--warn); }
+.feedback.info { color: #fff; }
+@keyframes pop { 0% { opacity: 0; transform: scale(.6); } 12% { opacity: 1; transform: scale(1.08); } 20% { transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: translateY(-20px); } }
+
+.hint { position: absolute; top: 34%; left: 10%; right: 10%; text-align: center; font-weight: 700; color: var(--warn); font-size: 14px; letter-spacing: 0.5px; text-shadow: 0 2px 10px #000; }
+
+.meter { position: absolute; right: 50%; margin-right: -180px; top: 50%; transform: translateY(-50%); width: 18px; height: 230px; background: rgba(0,0,0,.6); border: 2px solid #fff; border-radius: 9px; overflow: hidden; }
+.meter-zone { position: absolute; left: 0; right: 0; background: rgba(61,220,132,.55); }
+.meter-fill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(0deg, var(--accent), #fff); }
+.meter-mark { position: absolute; left: 0; right: 0; height: 3px; background: #000; }
+
+.stamina { position: absolute; left: 18px; bottom: 18px; width: 220px; }
+.stamina-label { font-size: 11px; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
+.stamina-bar { height: 8px; background: rgba(0,0,0,.6); border: 1px solid #2a3348; border-radius: 5px; overflow: hidden; }
+.stamina-fill { height: 100%; width: 100%; background: linear-gradient(90deg, var(--good), #b7ff5a); transition: width .1s linear; }
+
+.play-btn { position: absolute; top: 16px; right: 18px; width: auto; margin: 0; padding: 12px 22px; font-size: 20px; pointer-events: auto; }
+.keys { position: absolute; right: 18px; bottom: 18px; font-size: 12px; color: var(--muted); background: rgba(0,0,0,.45); padding: 6px 10px; border-radius: 8px; max-width: 60vw; text-align: right; }
+.fps { position: absolute; left: 18px; top: 62px; font-family: var(--head); font-size: 18px; letter-spacing: 2px; color: var(--good); background: rgba(0,0,0,.45); padding: 4px 10px; border-radius: 6px; }
+
+/* ---------- overlay ---------- */
+#overlay { background: rgba(5,7,11,.72); backdrop-filter: blur(4px); display: grid; place-items: center; z-index: 30; }
+/* `min(360px, 100%)` : en portrait (375 px moins les marges), un minimum fixe de 360 px l'emportait sur le maximum,
+   et la fiche de pause débordait de 9 px à droite, décentrée. */
+.overlay-box { background: var(--panel); border: 1px solid #2a3348; border-radius: 12px; padding: 34px 40px; text-align: center; min-width: min(360px, 100%); max-width: 92vw; font-family: var(--ui); }
+.overlay-box h2 { font-family: var(--head); font-size: 60px; letter-spacing: 4px; color: var(--accent); margin: 0 0 8px; display: block; line-height: 1; }
+.overlay-box p { color: var(--muted); font-size: 18px; margin: 0 0 22px; }
+.overlay-box .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.overlay-box .btn-primary { width: auto; margin: 0; padding: 14px 28px; font-size: 22px; }
+
+@media (max-width: 900px) {
+  .modes { grid-template-columns: repeat(2, 1fr); }
+  .match-opts, .teams-layout, .help-grid { grid-template-columns: 1fr; }
+  .feedback { font-size: 36px; }
+  .keys { display: none; }
+  .meter { margin-right: -120px; }
+  /* Le pied de l'accueil passe dans le flux, sous les boutons, et n'y garde que la version du jeu (recette du
+     02/10/2026) : posé en absolu, il recouvrait le dernier bouton d'un téléphone en paysage ; masqué en entier
+     comme avant, la version ne se lisait nulle part au téléphone. */
+  .home-foot { position: static; margin-top: 14px; }
+  .home-foot > :not(#menu-version) { display: none; }
+  .select-hint { display: none; }
+  .menu[data-screen="select"] .menu-bg .shade { background: rgba(4,6,10,.6); }
+}
+
+/* ---- momentum / en feu ---- */
+.momentum { position: absolute; top: 74px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; }
+.mo { width: 120px; height: 7px; background: rgba(0,0,0,.55); border: 1px solid #2a3348; border-radius: 4px; overflow: hidden; }
+.mo.user { transform: scaleX(-1); }
+.mo-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffb347, #ff7a1a, #ff3d1a); transition: width .25s ease-out; }
+.mo-fill.full { background: linear-gradient(90deg, #ffe08a, #ff7a1a, #ff2a1a); animation: moFire .5s ease-in-out infinite alternate; }
+@keyframes moFire { from { filter: brightness(1); } to { filter: brightness(1.6); } }
+.mo-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); min-width: 92px; text-align: center; }
+.mo-label.fire { color: #ffb347; font-weight: 800; text-shadow: 0 0 10px #ff7a1a; animation: moFire .4s ease-in-out infinite alternate; }
+.fire-vignette { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .6s;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(255,110,20,.28) 100%); }
+.fire-vignette.on { opacity: 1; animation: fireBreath 1.6s ease-in-out infinite alternate; }
+@keyframes fireBreath { from { opacity: .7; } to { opacity: 1; } }
+.streak { position: absolute; top: 33%; left: 0; right: 0; text-align: center; font-family: Impact, "Arial Black", sans-serif; font-size: 26px; letter-spacing: 4px; color: #ffb347; text-shadow: 0 0 14px #ff7a1a, 0 2px 8px #000; opacity: 0; }
+.streak.pop { animation: pop 1.6s ease-out forwards; }
+
+/* ---- roue des emotes ---- */
+.emote-wheel { position: absolute; left: 50%; top: 50%; width: 420px; height: 420px; transform: translate(-50%, -50%); pointer-events: auto; border-radius: 50%;
+  background: radial-gradient(circle, rgba(10,13,20,.25) 0 36%, rgba(10,13,20,.78) 37% 100%); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 20px 60px rgba(0,0,0,.5); animation: wheelIn .15s ease-out; }
+@keyframes wheelIn { from { opacity: 0; transform: translate(-50%, -50%) scale(.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+.wheel-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 150px; text-align: center; font-family: var(--head); font-size: 26px; letter-spacing: 3px; color: var(--accent2); text-shadow: 0 2px 10px #000; }
+.wheel-seg { position: absolute; width: 106px; height: 80px; transform: translate(-50%, -50%); background: rgba(19,24,38,.92); border: 1px solid var(--line); border-radius: 10px; color: var(--text); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-family: var(--ui); transition: transform .1s, border-color .1s, background .1s; }
+.wheel-seg .ico { font-size: 26px; line-height: 1; }
+.wheel-seg .lbl { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.wheel-seg .num { position: absolute; top: 4px; left: 8px; font-size: 10px; color: var(--muted); font-family: var(--head); letter-spacing: 1px; }
+.wheel-seg.on, .wheel-seg:hover { border-color: var(--accent); background: rgba(255,122,26,.28); transform: translate(-50%, -50%) scale(1.1); }
+
+/* ---- contrôles tactiles (écran tactile seulement, js/touch.js) ----
+   Tout est placé en JS, en px depuis les coins et à l'intérieur de la zone sûre (left / top / width / height de chaque
+   commande) : ici, seulement l'allure. `--tc-op` : l'opacité réglée dans les options. Le calque ne prend AUCUN appui
+   (pointer-events: none), sauf sur ses boutons : le joystick flottant et la caméra se lisent sur le terrain lui-même. */
+.touch-ui { position: fixed; inset: 0; z-index: 15; pointer-events: none; font-family: var(--ui); --tc-op: .8; }
+.touch-ui, .touch-ui * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+/* le terrain porte le joystick flottant et la caméra : ni défilement, ni zoom, ni loupe ou menu à l'appui long (iOS) */
+body.touch #game canvas { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.tc-btn { position: absolute; left: 0; top: 0; box-sizing: border-box; display: grid; place-items: center; margin: 0; padding: 0;
+  border-radius: 50%; border: 2px solid rgba(255,255,255,.42); background: rgba(10,13,20,.5); color: #fff;
+  font-family: var(--head); font-size: 16px; letter-spacing: 1px; line-height: 1; white-space: nowrap; overflow: hidden;
+  opacity: var(--tc-op); pointer-events: auto; touch-action: none; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,.35); transition: transform .07s ease-out, background-color .07s, opacity .15s; }
+.tc-btn[hidden] { display: none; }
+.tc-btn .tc-lbl { pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.tc-btn.tc-xl { background: rgba(255,122,26,.5); border-color: rgba(255,255,255,.62); border-width: 3px; }
+.tc-btn.tc-l { background: rgba(22,30,46,.6); border-color: rgba(143,179,255,.6); }
+.tc-btn.tc-u { background: rgba(10,13,20,.55); border-width: 1px; }
+/* appuyé : net, même à faible opacité */
+.tc-btn.on { opacity: 1; transform: scale(.9); background: rgba(255,122,26,.92); border-color: #fff; color: #0b0e14; }
+.tc-btn.on .tc-lbl { text-shadow: none; }
+/* le joystick : socle (anneau du sprint au bord, cercle pointillé = au-delà on court), manche orange */
+.tc-stick { position: absolute; left: 0; top: 0; box-sizing: border-box; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(10,13,20,.12) 0 52%, rgba(10,13,20,.38) 53% 100%); border: 2px solid rgba(255,255,255,.34);
+  opacity: var(--tc-op); transition: opacity .15s, border-color .1s, box-shadow .1s; }
+.tc-stick.repos { opacity: var(--tc-op-repos, .4); }
+.tc-stick.sprint { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,122,26,.5), 0 0 24px rgba(255,122,26,.55); }
+.tc-seuil { position: absolute; left: 25%; top: 25%; width: 50%; height: 50%; box-sizing: border-box; border-radius: 50%; border: 1px dashed rgba(255,255,255,.28); }
+.tc-knob { position: absolute; left: 50%; top: 50%; box-sizing: border-box; border-radius: 50%; background: rgba(255,122,26,.78); border: 2px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+.tc-stick.sprint .tc-knob { background: var(--accent); }
+/* messages non lus, sur le coin du bouton du téléphone (recopiés de #phone-badge, qui est sous le calque) */
+.tc-pastille { position: absolute; left: 0; top: 0; box-sizing: border-box; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 9px; background: var(--bad); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.5); pointer-events: none; }
+body.touch:not(.pad-actif) .phone-badge { display: none !important; }
+/* DISPOSITION TACTILE : le calque passe devant tout et prend les appuis ; chaque commande se déplace au doigt */
+.touch-ui.edition { z-index: 50; pointer-events: auto; background: rgba(5,7,11,.62); }
+.touch-ui.edition .tc-btn, .touch-ui.edition .tc-stick { pointer-events: auto; opacity: 1; cursor: grab; outline: 2px dashed rgba(255,209,102,.85); outline-offset: 3px; }
+.touch-ui.edition .tc-btn.on { transform: scale(1.06); }
+.touch-ui .chevauche { outline-color: var(--bad) !important; outline-style: solid !important; }
+/* un doigt fait glisser une commande : la barre s'efface pour qu'on voie (et qu'on lâche) dessous */
+.touch-ui.glisse .tc-barre { opacity: .2; pointer-events: none; }
+/* la barre de l'éditeur : centrée en largeur, sa hauteur posée par js/touch.js (_placerBarre) là où elle ne cache rien */
+.tc-barre { position: absolute; left: 50%; top: 20%; transform: translateX(-50%); width: min(420px, calc(100% - 24px)); box-sizing: border-box;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 9px 12px; pointer-events: auto;
+  background: rgba(13,17,26,.94); border: 1px solid #2a3348; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,.55); color: var(--text);
+  transition: opacity .15s; }
+.tc-barre[hidden] { display: none; }
+.tc-barre-haut { flex: 1 1 100%; display: flex; align-items: center; gap: 8px; }
+.tc-barre b { flex: 1; font-family: var(--head); font-size: 19px; letter-spacing: 2px; color: var(--accent2); white-space: nowrap; }
+.tc-barre-haut .btn-secondary { margin: 0; padding: 7px 11px; font-size: 12px; }
+.tc-barre-haut .btn-primary { margin: 0; padding: 6px 16px; font-size: 17px; }
+.tc-barre small { flex: 1 1 100%; color: var(--muted); font-size: 11px; line-height: 1.3; }
+.tc-barre label { flex: 1 1 140px; display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.tc-barre input[type=range] { flex: 1; min-width: 70px; touch-action: auto; }
+/* Options > Commandes, manette active : elle masque les commandes tactiles, DÉPLACER LES BOUTONS attend un appui sur
+   l'écran (js/touch.js peutEditer) et la ligne le dit */
+.tc-opt-manette { display: none; color: var(--accent2); }
+body.pad-actif .tc-opt-manette { display: block; }
+body.pad-actif [data-tactile="editer"] { opacity: .45; }
+/* LE HUD S'ÉCARTE DES POUCES (variables posées par js/touch.js à chaque disposition) : la jauge de tir à gauche de la
+   grappe de boutons, les pièces et les gains sous la rangée du haut, l'endurance en bas au milieu (entre le joystick et
+   les boutons, sinon dans le plus grand espace libre entre eux : --tc-endu-x / -l / --tc-endu, zone sûre comprise). */
+body.touch .keys, body.touch .fps { display: none; }
+body.touch .stamina { left: var(--tc-endu-x, 50%); transform: translateX(-50%); bottom: var(--tc-endu, calc(6px + var(--sa-b)));
+  width: var(--tc-endu-l, 140px); margin-left: 0; margin-bottom: 0; }
+body.touch .play-btn { top: 12px; right: 12px; padding: 8px 14px; font-size: 16px; }
+body.touch .hint { top: 22%; font-size: 12px; }
+/* « BALLE À SORTIR » (demi-terrain, js/game.js majAideSortie) : ce rappel-là reste affiché tant que l'équipe n'a pas
+   ressorti la balle. Au doigt, la place des rappels (22 %) est aussi celle de la ligne de possession et du gros texte
+   de retour (« SORS LA BALLE… ») : on le pose à gauche, au-dessus du pouce gauche, sur UNE ligne (texte court au doigt,
+   js/game.js AIDE_SORTIE), dans la zone sûre (encoche de l'iPhone en paysage, barre de gestes). À droite il s'arrête
+   avant la grappe des boutons d'action, dont js/touch.js pose la largeur dans --tc-droite à chaque disposition. */
+body.touch .hint.sortie { top: auto; bottom: calc(176px + var(--sa-b, 0px)); left: calc(12px + var(--sa-l, 0px)); right: calc(var(--tc-droite, 278px) + 12px); text-align: left; }
+@media (max-width: 520px) {
+  body.touch .hint.sortie { bottom: calc(128px + var(--sa-b, 0px)); }
+}
+/* (la jauge grandit avec l'écran : 160 px sur un téléphone, jusqu'aux 230 px du PC sur une tablette) */
+body.touch .meter { right: max(calc(50% - 140px), calc(var(--tc-droite, 240px) + 14px)); margin-right: 0; height: clamp(160px, 40vh, 230px); }
+body.touch .coins { top: var(--tc-haut, 62px); left: 14px; font-size: 22px; }
+body.touch .boost-tag { top: calc(var(--tc-haut, 62px) + 27px); left: 14px; margin-left: var(--sa-l); }
+body.touch .gains { right: auto; left: calc(14px + var(--sa-l)); top: calc(var(--tc-haut, 62px) + 46px); align-items: flex-start; }
+body.touch .emote-wheel { width: 340px; height: 340px; }
+body.touch .wheel-seg { width: 88px; height: 66px; }
+
+@media (max-height: 520px) {
+  .scoreboard { transform: translateX(-50%) scale(.8); transform-origin: top center; }
+  .momentum { top: 62px; transform: translateX(-50%) scale(.85); }
+  .possession { top: 80px; }
+  .feedback { font-size: 34px; top: 20%; }
+  .brand-title { font-size: 64px; }
+  .menu-screen { padding: 14px 18px 20px; }
+  .brand { margin-bottom: 12px; }
+  .nav-btn { padding: 8px 14px; }
+  .nav-label { font-size: 24px; }
+  .select-list { max-height: 36vh; }
+  .si-name { font-size: 28px; }
+  .stats.big { display: none; }
+  .options-box, .setup-box { padding: 12px 14px; }
+  .mode-card { min-height: 120px; padding: 12px; }
+  .mode-size { font-size: 34px; }
+  .overlay-box { padding: 18px 20px; }
+  .overlay-box h2 { font-size: 40px; }
+}
+
+/* LA FICHE DES OPTIONS TIENT DANS UN TÉLÉPHONE EN PAYSAGE (recette du 02/10/2026). Elle était bornée à 92 % de la
+   hauteur, mais son panneau gardait 300 px au moins (.tab-panels) : en 740 × 360 il sortait de la fiche, et OK et
+   « Réinitialiser » tombaient à y = 495-561, sous l'écran, sur le fond sombre. Ici le panneau prend la place qui
+   reste et défile à l'intérieur ; titre, onglets et boutons du bas se serrent pour lui en laisser. La hauteur
+   retire les marges de l'écran (12 px, ou la zone sûre si elle est plus grande) : la fiche ne fait plus défiler
+   le fond. La valeur en `dvh` est sous @supports, et pas en seconde déclaration : une déclaration qui contient
+   var() n'est jamais rejetée à la lecture, et sur une WebView qui ignore `dvh` elle aurait annulé la première
+   (max-height: none), la fiche redébordant comme avant. */
+@media (max-height: 520px) {
+  .options-box { max-height: calc(100vh - 24px); }
+  @supports (height: 100dvh) {
+    .options-box { max-height: calc(100dvh - max(var(--sa-t), 12px) - max(var(--sa-b), 12px)); }
+  }
+  .options-box .tab-panels { min-height: 0; flex: 1 1 auto; }
+  .screen-head h2 { font-size: 32px; }
+  .options-box .screen-head, .setup-box .screen-head { padding-bottom: 8px; margin-bottom: 6px; }
+  .options-box .tabs button { padding: 7px 14px; font-size: 18px; }
+  .options-box .screen-foot { padding-top: 8px; }
+  .options-box .screen-foot .btn-primary { padding: 8px 26px; font-size: 20px; }
+  .options-box .screen-foot .btn-secondary { padding: 9px 14px; font-size: 13px; }
+}
+/* LES LIGNES DES OPTIONS SUR UN ÉCRAN ÉTROIT. La grille `1fr 1.2fr` serrait le libellé dans 120 px (un mot par
+   ligne en portrait) et ne rétrécissait pas sous ses boutons : ceux de « Qualité » sortaient de la fiche (jusqu'à
+   x = 630 sur un écran de 375). En paysage, la colonne des réglages s'élargit et ses boutons passent à la ligne
+   (.seg) ; en portrait, le libellé passe au-dessus de son réglage. Le retour à la ligne des `.seg` vaut aussi pour
+   le choix du match (« Terrain entier / Demi-terrain » dans un bloc étroit) : `max-width` borne le groupe à son
+   bloc, et ce sont ses boutons qui passent à la ligne au lieu de sortir de la fiche. */
+@media (max-width: 900px), (max-height: 520px) {
+  .opt-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+  .opt-row .ctl { flex-wrap: wrap; }
+  .seg { flex-wrap: wrap; max-width: 100%; }
+}
+@media (max-width: 600px) {
+  .options-box { padding: 16px 14px; }
+  .opt-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .opt-row .ctl { justify-content: flex-start; }
+  .options-box .tabs button { padding: 10px 12px; font-size: 18px; letter-spacing: 2px; }
+  .screen-head h2 { font-size: 32px; }
+}
+
+/* ---------- marchand / boutique ---------- */
+.coins { position: absolute; top: 16px; left: 18px; font-family: var(--head); font-size: 28px; letter-spacing: 2px; color: var(--accent2); text-shadow: 0 2px 10px #000; }
+.coins.pop { animation: coinPop .5s ease-out; }
+@keyframes coinPop { 0% { transform: scale(1.35); color: #fff; } 100% { transform: scale(1); } }
+.boost-tag { position: absolute; top: 46px; left: 18px; font-size: 11px; letter-spacing: 2px; color: var(--good); text-transform: uppercase; text-shadow: 0 2px 8px #000; }
+.shop-box { width: min(1080px, 100%); }
+.shop-coins { margin-left: auto; font-family: var(--head); font-size: 34px; color: var(--accent2); letter-spacing: 2px; }
+.shop-msg { margin: 0 0 6px; min-height: 22px; font-size: 15px; color: var(--text); }
+.shop-msg.good { color: var(--good); } .shop-msg.bad { color: var(--bad); }
+.shop-boost { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-top: 12px; }
+.shop-card { display: flex; flex-direction: column; gap: 6px; background: rgba(19,24,38,.85); border: 1px solid var(--line); border-radius: 8px; padding: 16px; text-align: center; }
+.shop-card.equipped { border-color: var(--good); box-shadow: 0 0 0 2px rgba(61,220,132,.25); }
+.shop-card.soon { opacity: .55; }
+.shop-emoji { font-size: 46px; line-height: 1.1; }
+.shop-swatch { width: 54px; height: 54px; border-radius: 50%; margin: 0 auto; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.45) 0, transparent 40%), var(--sw); box-shadow: inset 0 -6px 12px rgba(0,0,0,.4); }
+.shop-name { font-family: var(--head); font-size: 22px; letter-spacing: 2px; }
+.shop-desc { font-size: 12px; color: var(--muted); min-height: 32px; }
+.shop-bonus { font-size: 12px; color: var(--good); letter-spacing: 1px; }
+.shop-price { font-family: var(--head); font-size: 20px; color: var(--accent2); letter-spacing: 1px; }
+.shop-card button { margin-top: auto; }
+.btn-primary.small { padding: 10px 16px; font-size: 18px; letter-spacing: 2px; }
+.btn-secondary.small { padding: 9px 14px; font-size: 13px; }
+.btn-primary:disabled, .btn-secondary:disabled { opacity: .45; cursor: default; filter: none; transform: none; box-shadow: none; }
+.shop-hint { margin-right: auto; font-size: 12px; color: var(--muted); max-width: 60%; }
+/* téléphone en paysage : des cartes plus étroites, quatre de front en 740 px (la règle des deux colonnes, juste
+   dessous, reprend la main en portrait) */
+@media (max-width: 900px) { .shop-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; } .shop-card { padding: 12px; } }
+@media (max-width: 720px) { .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } .shop-card { padding: 10px; } .shop-hint { display: none; } }
+
+/* LES QUATRE BLOCS DU CHOIX DU MATCH (difficulté, terrain, points, noms des équipes) : des blocs qui passent à la
+   ligne, et non plus une grille à quatre colonnes. L'ancienne grille `1fr 1fr 1fr 1.2fr` ne tenait nulle part :
+   ses pistes `1fr` ne rétrécissent pas sous la largeur des deux champs de noms (224 px chacun), si bien que le
+   bloc des noms sortait du panneau même en 1920 (jusqu'à x = 1 760 pour un panneau qui finit à 1 550) ; et,
+   déclarée après la règle « une colonne sous 900 px », elle l'écrasait au téléphone. Ici chaque bloc prend la
+   largeur de ses boutons (265, 266 et 199 px) et les noms en demandent 340 : sur ordinateur, les trois réglages
+   sur une ligne et les noms dessous, sur toute la largeur ; en paysage au téléphone, deux et deux ; en portrait,
+   un par ligne. `min-width: 0` laisse un bloc rétrécir sous la largeur de son contenu, qui passe alors à la
+   ligne (.seg) au lieu de déborder. */
+.match-opts.match-opts-4 { display: flex; flex-wrap: wrap; gap: 18px 26px; }
+.match-opts-4 .opt-block { flex: 1 1 auto; min-width: 0; }
+.match-opts-4 .opt-block:last-child { flex: 1 1 340px; }
+.match-opts-4 .names { max-width: 720px; }
+/* Le même écran au téléphone en paysage : trois cartes de mode de front au lieu de deux, et les deux équipes côte à
+   côte au-dessus des fiches. C'est un écran de défilement de moins avant SUIVANT, puis avant LANCER LE MATCH. */
+@media (max-height: 520px) and (min-width: 600px) and (max-width: 900px) {
+  .modes { grid-template-columns: repeat(3, 1fr); }
+  .teams-layout { grid-template-columns: 1fr 1fr; }
+  .teams-layout .pick-col { grid-column: 1 / -1; }
+}
+/* En portrait, la fiche (choix du match, boutique) serre ses marges et les groupes de boutons leurs boutons :
+   « Facile · Normal · Difficile » et « Terrain entier · Demi-terrain » (265 px) tiennent encore sur une ligne. */
+@media (max-width: 520px) {
+  .setup-box { padding: 18px 14px; }
+  .seg button { padding: 9px 13px; }
+}
+
+/* ---------- téléphone (groupe LA CAGE) ---------- */
+/* Le telephone SORT de la poche : il monte du bas en se redressant, et redescend en basculant. */
+#phone { position: fixed; right: 26px; bottom: 16px; z-index: 45; transform: translateY(118%) rotate(9deg); transform-origin: 70% 100%; opacity: 0; transition: transform .34s cubic-bezier(.2,.9,.25,1.08), opacity .22s; pointer-events: auto;
+  --ph-font: -apple-system, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif; font-family: var(--ph-font); }
+#phone.on { transform: translateY(0) rotate(-1.5deg); opacity: 1; }
+/* cadre : titane brosse, avec l'epaisseur de la tranche (liseres clairs et sombres) */
+.phone-body { position: relative; width: 300px; height: 612px; padding: 11px; border-radius: 52px;
+  background: linear-gradient(145deg, #8d9098 0%, #3c3f46 18%, #6b6e76 45%, #2a2c31 72%, #7e8189 100%);
+  box-shadow: 0 34px 70px rgba(0,0,0,.7), 0 0 0 1px #1a1b1f, inset 0 0 0 1.5px rgba(255,255,255,.28), inset 0 0 0 4px #17181c, inset 0 0 6px 5px #000; }
+.ph-btn { position: absolute; width: 4px; border-radius: 2px; background: linear-gradient(90deg, #2c2e33, #8a8d94, #3a3c42); }
+.ph-vol1 { left: -3px; top: 130px; height: 46px; } .ph-vol2 { left: -3px; top: 188px; height: 46px; }
+.ph-power { right: -3px; top: 160px; height: 74px; }
+.phone-screen { position: relative; height: 100%; border-radius: 42px; overflow: hidden; display: flex; flex-direction: column; background: #0b0d11; color: #f3f5f8; }
+.phone-glare { position: absolute; inset: 11px; border-radius: 42px; pointer-events: none; background: linear-gradient(118deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 22%, transparent 38%); }
+/* barre d'etat + ilot */
+.phone-status { position: relative; flex: 0 0 auto; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 6px 24px 0 30px; font-size: 13.5px; font-weight: 600; background: #14171e; }
+.phone-island { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 14px; background: #000; box-shadow: inset 60px 0 0 -52px #0c1830; }
+.ph-icons { display: flex; align-items: center; gap: 5px; } .ph-icons svg { fill: #f3f5f8; }
+.ph-batt { position: relative; width: 23px; height: 11px; border: 1.3px solid rgba(243,245,248,.55); border-radius: 3.5px; padding: 1px; box-sizing: border-box; }
+.ph-batt::after { content: ""; position: absolute; right: -3.5px; top: 3px; width: 2px; height: 4px; border-radius: 0 1px 1px 0; background: rgba(243,245,248,.55); }
+.ph-batt > i { display: block; height: 100%; width: 78%; border-radius: 1.5px; background: #f3f5f8; }
+/* en-tete de conversation */
+.phone-head { flex: 0 0 auto; display: flex; align-items: center; gap: 9px; padding: 6px 12px 9px 6px; background: #14171e; border-bottom: 1px solid #232833; }
+.phone-head button { background: transparent; border: 0; color: #3b9dff; cursor: pointer; padding: 4px 4px 2px; display: grid; place-items: center; }
+.phone-head button:hover { color: #7cc0ff; }
+.phone-av { width: 36px; height: 36px; flex: 0 0 auto; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #ff5e00); color: #000; font-family: var(--head); font-size: 16px; display: grid; place-items: center; letter-spacing: 1px; box-shadow: 0 0 0 2px #14171e, 0 0 0 3.5px rgba(255,122,26,.45); }
+.phone-title { display: flex; flex-direction: column; line-height: 1.2; flex: 1; min-width: 0; }
+.phone-title b { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.phone-title span { font-size: 11.5px; color: #8b93a3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph-act { color: #3b9dff; display: grid; place-items: center; padding: 0 3px; }
+/* fil : fond « papier peint » discret (ballons et points), date, bulles a queue */
+.phone-msgs { flex: 1; overflow-y: auto; padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 3px; scrollbar-width: none;
+  background-color: #0e1117;
+  background-image: radial-gradient(circle at 20px 20px, rgba(255,122,26,.07) 0 7px, transparent 7.5px), radial-gradient(circle at 60px 64px, rgba(255,255,255,.035) 0 2px, transparent 2.5px), radial-gradient(circle at 88px 26px, rgba(255,255,255,.03) 0 1.5px, transparent 2px);
+  background-size: 104px 96px; }
+.phone-msgs::-webkit-scrollbar { display: none; }
+.ph-day { align-self: center; margin: 4px 0 8px; padding: 3px 10px; border-radius: 10px; background: rgba(40,46,58,.85); color: #aeb5c3; font-size: 11px; font-weight: 600; }
+.pm { max-width: 80%; align-self: flex-start; margin-top: 5px; }
+.pm.suite { margin-top: 0; }
+.pm.me { align-self: flex-end; }
+.pw { font-size: 11.5px; font-weight: 700; margin: 0 0 1px 12px; }
+.pb { position: relative; background: #252a34; color: #eef1f6; padding: 7px 11px 6px; border-radius: 18px; font-size: 14px; line-height: 1.32; word-break: break-word; }
+.pm:not(.suite) .pb { border-bottom-left-radius: 5px; }
+.pm.me .pb { background: linear-gradient(180deg, #2f8bff, #1a6ef0); color: #fff; }
+.pm.me:not(.suite) .pb { border-bottom-left-radius: 18px; border-bottom-right-radius: 5px; }
+.ph-t { float: right; margin: 5px 0 -3px 8px; font-size: 10px; color: rgba(238,241,246,.5); }
+.pm.me .ph-t { color: rgba(255,255,255,.72); }
+/* reponses rapides et barre de saisie */
+.phone-quick { flex: 0 0 auto; display: flex; gap: 6px; padding: 7px 10px 2px; overflow-x: auto; scrollbar-width: none; background: #11141a; }
+.phone-quick::-webkit-scrollbar { display: none; }
+.phone-q { flex: 0 0 auto; background: #1d222c; border: 1px solid #2c3340; color: #e8ebf1; border-radius: 15px; padding: 5px 11px; font: 12.5px var(--ph-font); cursor: pointer; white-space: nowrap; }
+.phone-q:hover { border-color: #3b9dff; }
+.phone-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 7px 10px 6px; background: #11141a; }
+.ph-plus { width: 30px; height: 30px; flex: 0 0 auto; border-radius: 50%; background: #232833; color: #aeb5c3; display: grid; place-items: center; font-size: 21px; line-height: 1; }
+.phone-bar input { flex: 1; min-width: 0; background: #0b0d11; border: 1px solid #2c3340; color: #f3f5f8; border-radius: 18px; padding: 8px 13px; font: 14px var(--ph-font); }
+.phone-bar input:focus { outline: none; border-color: #3b9dff; }
+.phone-bar button { flex: 0 0 auto; background: #1a6ef0; border: 0; color: #fff; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; cursor: pointer; }
+.phone-home { flex: 0 0 auto; height: 22px; background: #11141a; position: relative; }
+.phone-home::after { content: ""; position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); width: 112px; height: 4.5px; border-radius: 3px; background: rgba(243,245,248,.8); }
+.phone-badge { position: absolute; right: 22px; bottom: 18px; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; background: var(--bad); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+/* La taille s'adapte a l'ecran par js/phone.js (taille) : zoom uniforme, et sur un ecran tres bas le
+   telephone raccourcit un peu plutot que de devenir illisible. */
+@media (max-width: 560px) { #phone { right: 10px; bottom: 10px; } }
+/* Le dock des applis (messages, plan) : une barre d'onglets (.tabs : LB / RB a la manette), en icones. Les regles
+   generales de .tabs (gros titres soulignes des options) sont annulees ici. */
+#phone .phone-dock { flex: 0 0 auto; display: flex; gap: 0; margin: 0; padding: 4px 18px 0; border: 0; border-top: 1px solid #232833; background: #11141a; }
+#phone .phone-dock button { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 5px 4px 3px; margin: 0;
+  border: 0; border-radius: 10px; background: transparent; color: #7d8594; font: 600 10.5px var(--ph-font); letter-spacing: 0; cursor: pointer; }
+#phone .phone-dock button.on { color: #3b9dff; }
+#phone .phone-dock button:hover { color: #9ccaff; }
+.ph-dot { position: absolute; top: 3px; left: calc(50% + 8px); width: 9px; height: 9px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 2px #11141a; }
+/* l'appli Plan a la place du fil de messages */
+#phone.app-plan .phone-msgs, #phone.app-plan .phone-quick, #phone.app-plan .phone-bar, #phone.app-plan .ph-act { display: none; }
+#phone.app-plan .phone-av { background: linear-gradient(135deg, #34c759, #1a8f3c); color: #fff; box-shadow: 0 0 0 2px #14171e, 0 0 0 3.5px rgba(52,199,89,.45); }
+.phone-plan { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #0f1218; }
+.phone-plan[hidden] { display: none; }
+/* la carte (canevas dessine par js/plan_parc.js) et ses commandes posees dessus */
+.plan-carte { position: relative; flex: 1 1 60%; min-height: 130px; overflow: hidden; background: #e4e1da; touch-action: none; }
+.plan-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+.plan-canvas:active { cursor: grabbing; }
+.plan-zoom { position: absolute; right: 8px; top: 8px; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: rgba(255,255,255,.94); box-shadow: 0 1px 4px rgba(0,0,0,.28); }
+.plan-zoom button, .plan-moi { width: 34px; height: 32px; border: 0; background: transparent; color: #1f2a36; font: 500 21px/1 var(--ph-font); cursor: pointer; display: grid; place-items: center; padding: 0; }
+.plan-zoom button + button { border-top: 1px solid #dfe2e7; }
+.plan-moi { position: absolute; right: 8px; bottom: 8px; border-radius: 10px; background: rgba(255,255,255,.94); box-shadow: 0 1px 4px rgba(0,0,0,.28); color: #8a929e; }
+.plan-moi.on { color: #1a73e8; }
+.plan-echelle { position: absolute; left: 8px; bottom: 8px; display: flex; align-items: flex-end; gap: 5px; pointer-events: none; font: 600 10px var(--ph-font); color: #2a323d; text-shadow: 0 0 3px #fff, 0 0 2px #fff; }
+.plan-echelle i { display: block; height: 5px; border: 2px solid #2a323d; border-top: 0; box-shadow: 0 0 0 1px rgba(255,255,255,.7); }
+.plan-note { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); max-width: 70%; padding: 6px 10px; border-radius: 10px; background: rgba(20,23,30,.92); color: #fff; font: 600 12px/1.3 var(--ph-font); text-align: center; pointer-events: none; }
+/* la liste des lieux : une ligne = un bouton (choisir) et, sur la ligne choisie, « Y aller » */
+.plan-liste { flex: 1 1 40%; min-height: 96px; overflow-y: auto; padding: 0 6px 6px; scrollbar-width: none; background: #0f1218; }
+.plan-liste::-webkit-scrollbar { display: none; }
+.plan-sec { padding: 9px 8px 3px; color: #8b93a3; font: 700 10.5px var(--ph-font); letter-spacing: .6px; text-transform: uppercase; }
+.plan-lieu { display: flex; align-items: center; gap: 4px; border-radius: 12px; }
+.plan-lieu.sel { background: #1b2130; }
+.plan-nom { flex: 1; min-width: 0; display: flex; align-items: center; gap: 9px; min-height: 38px; padding: 4px 6px; border: 0; border-radius: 12px; background: transparent; color: #eef1f6; font: 14px var(--ph-font); text-align: left; cursor: pointer; }
+.plan-nom:hover { background: #1b2130; }
+.plan-nom .ic { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: normal 700 11px var(--ph-font); color: #fff; }
+.plan-nom .n { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plan-nom .d { flex: 0 0 auto; color: #8b93a3; font-size: 12px; }
+.plan-go { display: none; flex: 0 0 auto; margin-right: 4px; padding: 7px 11px; border: 0; border-radius: 15px; background: #1a6ef0; color: #fff; font: 700 12.5px var(--ph-font); cursor: pointer; white-space: nowrap; }
+.plan-go:hover { background: #2f8bff; }
+.plan-lieu.sel .plan-go { display: block; }
+.plan-lieu.sel .plan-nom .n { white-space: normal; line-height: 1.2; }
+/* hors du parc entier (et pendant le chargement) */
+.plan-msg { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px 26px; text-align: center; color: #aeb5c3; font: 13.5px/1.4 var(--ph-font); }
+.plan-msg b { color: #eef1f6; font-size: 17px; }
+.plan-msg-ic { font-style: normal; font-size: 40px; line-height: 1; margin-bottom: 4px; }
+.plan-msg-pt { font-size: 12px; color: #7d8594; }
+/* le fondu au noir du voyage (« Y aller ») : par-dessus tout le jeu, le nom du lieu au milieu */
+#plan-fondu { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; background: #000; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+#plan-fondu.on { opacity: 1; }
+#plan-fondu span { color: #fff; font-family: var(--head); font-size: clamp(26px, 5vw, 44px); letter-spacing: 3px; text-transform: uppercase; opacity: .9; }
+
+/* ---------- progression du joueur (onglet MON JOUEUR) ---------- */
+.shop-grid-wide { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.up-val { font-family: var(--head); font-size: 34px; color: var(--text); letter-spacing: 1px; }
+.up-val b { color: var(--good); font-size: 20px; }
+.up-bar { height: 7px; border-radius: 4px; background: #242c3f; overflow: hidden; margin: 2px 0 4px; }
+.up-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), #ff5e00); }
+
+
+/* Gains immédiats (pièces et points d'entraînement) : chaque ligne monte puis s'efface. */
+.gains { position: absolute; right: 18px; top: 28%; display: flex; flex-direction: column; align-items: flex-end;
+  gap: 4px; pointer-events: none; z-index: 6; }
+.gain { font: 700 15px/1.1 Inter, system-ui, sans-serif; letter-spacing: .04em; color: #ffd166;
+  text-shadow: 0 2px 6px rgba(0,0,0,.85); animation: gainUp 1.5s ease-out forwards; white-space: nowrap; }
+.gain .xp { color: #8fd8ff; margin-left: 7px; }
+.gain .why { color: #ffffff; opacity: .78; margin-right: 8px; font-weight: 600; font-size: 13px; }
+@keyframes gainUp { 0% { opacity: 0; transform: translateY(12px) scale(.9); } 15% { opacity: 1; transform: none; }
+  70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-22px); } }
+
+
+/* Capacités : pastilles de niveau (bronze / argent / or) et séparateur de catégorie. */
+.shop-sep { grid-column: 1 / -1; font: 800 12px/1 Inter, system-ui, sans-serif; letter-spacing: .16em;
+  color: #ffb347; text-transform: uppercase; margin: 12px 0 2px; opacity: .9; }
+.pips { display: flex; align-items: center; gap: 5px; margin: 6px 0 2px; }
+.pips .pip { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.22); }
+.pips .pip.on { background: var(--pc); border-color: var(--pc); box-shadow: 0 0 8px var(--pc); }
+.pips .tier { margin-left: 7px; font: 700 11px/1 Inter, system-ui, sans-serif; letter-spacing: .08em;
+  text-transform: uppercase; opacity: .8; }
+/* capacités signature affichées sur la fiche de sélection */
+.badge-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.badge-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px;
+  font: 700 11px/1 Inter, system-ui, sans-serif; background: rgba(255,255,255,.07);
+  border: 1px solid var(--bc, rgba(255,255,255,.2)); color: #f2f4f8; }
+.badge-chip b { color: var(--bc, #ffd166); font-weight: 800; }
+
+
+/* ---------- Salon en ligne ---------- */
+.online-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 1100px; margin: 0 auto;
+  width: 100%; align-items: start; }
+.on-row { margin-bottom: 16px; }
+.on-row label { display: block; font: 800 11px/1 Inter, system-ui, sans-serif; letter-spacing: .16em;
+  color: #ffb347; margin-bottom: 7px; text-transform: uppercase; }
+.on-row small { display: block; margin-top: 6px; font-size: 12px; opacity: .62; }
+.on-row input { width: 100%; padding: 11px 13px; border-radius: 9px; border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.35); color: #f2f4f8; font: 600 15px/1 Inter, system-ui, sans-serif; }
+.on-row input:focus { outline: none; border-color: #ffb347; }
+.on-code { display: flex; gap: 8px; }
+.on-code input { text-transform: uppercase; letter-spacing: .12em; }
+.on-code button { white-space: nowrap; }
+.on-actions { display: flex; gap: 10px; margin-top: 22px; }
+.on-actions button { flex: 1; }
+.online-right { background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.1); border-radius: 13px;
+  padding: 15px; display: flex; flex-direction: column; min-height: 380px; }
+.on-head { font: 800 12px/1 Inter, system-ui, sans-serif; letter-spacing: .16em; color: #9aa3b2;
+  text-transform: uppercase; margin-bottom: 11px; }
+.on-head b { color: #ffd166; letter-spacing: .22em; font-size: 16px; margin-left: 6px; }
+.on-players { display: flex; flex-direction: column; gap: 6px; margin-bottom: 13px; }
+.on-p { display: flex; align-items: center; gap: 9px; padding: 8px 11px; border-radius: 8px;
+  background: rgba(255,255,255,.05); border-left: 4px solid var(--tc, #888); font-size: 14px; }
+.on-p .nm { font-weight: 700; flex: 1; }
+.on-p .tag { font: 700 10px/1 Inter, system-ui, sans-serif; letter-spacing: .1em; padding: 3px 7px;
+  border-radius: 999px; text-transform: uppercase; }
+.on-p .tag.host { background: rgba(255,179,71,.2); color: #ffb347; }
+.on-p .tag.ready { background: rgba(77,255,136,.16); color: #4dff88; }
+.on-p .tag.wait { background: rgba(255,255,255,.08); color: #9aa3b2; }
+.on-chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; padding: 9px;
+  background: rgba(0,0,0,.28); border-radius: 9px; min-height: 130px; max-height: 230px; font-size: 13.5px; }
+.on-chat .cm b { color: #ffd166; margin-right: 6px; }
+.on-chat .sys { opacity: .55; font-style: italic; }
+.on-send { display: flex; gap: 8px; margin-top: 10px; }
+.on-send input { flex: 1; padding: 10px 12px; border-radius: 9px; border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.35); color: #f2f4f8; font: 500 14px/1 Inter, system-ui, sans-serif; }
+.on-send input:focus { outline: none; border-color: #ffb347; }
+/* `minmax(0, 1fr)` et non `1fr` : une piste `1fr` ne descend pas sous la largeur minimale de son contenu, et en
+   portrait (375 px) le champ « TON PSEUDO » et le bouton REJOINDRE dépassaient de 12 px la marge droite de l'écran.
+   C'était la ligne d'envoi du chat qui imposait cette largeur : un champ de saisie ne rétrécit pas sous sa largeur
+   par défaut (une vingtaine de caractères) sans `min-width: 0`, et ENVOYER serait sorti du panneau du salon. */
+.on-send input { min-width: 0; }
+@media (max-width: 900px) { .online-wrap { grid-template-columns: minmax(0, 1fr); } }
+
+.on-note { background: rgba(255,179,71,.09); border: 1px solid rgba(255,179,71,.28); border-radius: 10px;
+  padding: 12px 14px; font-size: 13.5px; line-height: 1.5; color: #e8ebf2; margin-bottom: 4px; }
+.on-note b { color: #ffd166; }
+#on-count { float: right; color: #4dff88; letter-spacing: .06em; }
+
+
+/* ---------- Vœux ---------- */
+.vx-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 1100px; margin: 0 auto; width: 100%; }
+.vx-banner { border-radius: 14px; padding: 20px; background:
+  linear-gradient(135deg, rgba(59,130,246,.25), rgba(168,85,247,.25) 45%, rgba(255,201,60,.22) 80%, rgba(255,79,163,.22));
+  border: 1px solid rgba(255,255,255,.14); margin-bottom: 14px; }
+.vx-banner-kicker { font: 800 11px/1 Inter, system-ui, sans-serif; letter-spacing: .2em; color: #ffb347; }
+.vx-banner-title { font: 800 26px/1.1 Inter, system-ui, sans-serif; margin: 8px 0 12px; }
+.vx-rates { display: flex; flex-wrap: wrap; gap: 8px; }
+.vx-rate { font: 700 11px/1 Inter, system-ui, sans-serif; padding: 5px 9px; border-radius: 999px;
+  border: 1px solid var(--rc); color: var(--rc); background: rgba(0,0,0,.28); letter-spacing: .04em; }
+.vx-solde { display: flex; gap: 16px; font: 800 17px/1 Inter, system-ui, sans-serif; margin-bottom: 8px; }
+.vx-pity { font-size: 12.5px; opacity: .72; margin-bottom: 14px; line-height: 1.6; }
+.vx-actions { display: flex; gap: 10px; }
+.vx-actions button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 10px; }
+.vx-actions button small { font-weight: 600; opacity: .72; font-size: 11px; letter-spacing: .02em; }
+.vx-buy { width: 100%; margin-top: 10px; }
+.vx-note { font-size: 12.5px; opacity: .6; margin-top: 12px; line-height: 1.5; }
+.vx-right { background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.1); border-radius: 13px; padding: 15px; }
+.vx-collec { display: flex; flex-direction: column; gap: 14px; max-height: 430px; overflow-y: auto; }
+.vx-grp-nom { font: 800 11px/1 Inter, system-ui, sans-serif; letter-spacing: .16em; margin-bottom: 7px; color: var(--rc); }
+.vx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.vx-p { border-radius: 9px; padding: 9px 7px; text-align: center; border: 1px solid var(--rc);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.25)); }
+.vx-p.locked { opacity: .32; filter: grayscale(1); }
+.vx-p .nm { font: 700 12.5px/1.2 Inter, system-ui, sans-serif; }
+.vx-p .st { font-size: 11px; color: var(--rc); letter-spacing: .04em; margin-top: 3px; }
+/* la rareté immortelle est arc-en-ciel : le dégradé tourne */
+.arc { background: linear-gradient(90deg, #ff4fa3, #ffc93c, #4dff88, #4dd0ff, #a855f7, #ff4fa3);
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: arcFlow 3.4s linear infinite; }
+.vx-p.arcbox { border-color: transparent; background:
+  linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.3)) padding-box,
+  linear-gradient(90deg, #ff4fa3, #ffc93c, #4dff88, #4dd0ff, #a855f7, #ff4fa3) border-box;
+  border: 1px solid transparent; background-size: auto, 300% 100%; animation: arcFlow 3.4s linear infinite; }
+@keyframes arcFlow { to { background-position: 300% 0, 300% 0; } }
+
+/* révélation */
+.vx-reveal { position: fixed; inset: 0; background: rgba(4,6,10,.93); z-index: 60; display: flex;
+  flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 26px; }
+.vx-cards { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 1000px; }
+.vx-card { width: 132px; border-radius: 12px; padding: 16px 10px; text-align: center; border: 2px solid var(--rc);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rc) 24%, transparent), rgba(0,0,0,.55));
+  box-shadow: 0 0 26px color-mix(in srgb, var(--rc) 40%, transparent);
+  animation: vxPop .45s cubic-bezier(.2,1.4,.4,1) backwards; }
+.vx-card .rar { font: 800 10px/1 Inter, system-ui, sans-serif; letter-spacing: .16em; color: var(--rc); }
+.vx-card .nm { font: 800 17px/1.15 Inter, system-ui, sans-serif; margin: 9px 0 5px; }
+.vx-card .st { font-size: 15px; color: var(--rc); letter-spacing: .08em; }
+.vx-card .dup { font-size: 11px; opacity: .8; margin-top: 8px; line-height: 1.4; }
+.vx-card .neuf { font: 800 10px/1 Inter, system-ui, sans-serif; letter-spacing: .14em; color: #4dff88; margin-top: 8px; }
+@keyframes vxPop { from { opacity: 0; transform: translateY(18px) scale(.82) rotate(-4deg); } }
+@media (max-width: 900px) { .vx-wrap { grid-template-columns: 1fr; } }
+
+.si-lock { display: inline-block; font: 800 11px/1 Inter, system-ui, sans-serif; letter-spacing: .12em;
+  color: #ff9f68; background: rgba(255,120,40,.12); border: 1px solid rgba(255,120,40,.4);
+  border-radius: 999px; padding: 6px 11px; margin-bottom: 10px; }
+.pick .rar-st { color: var(--rar, #888); font-size: 12px; letter-spacing: .06em; margin-left: auto; }
+
+.pick.pick-lock { opacity: .55; }
+.pick.pick-lock b { color: #ff9f68; }
+
+.vx-rate.vide { opacity: .45; font-style: italic; }
+
+
+/* Portraits : rendus depuis les vrais avatars 3D (js/portraits.js). */
+.vx-face { width: 74px; height: 74px; margin: 0 auto 8px; border-radius: 50%; overflow: hidden;
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.14), rgba(0,0,0,.4));
+  border: 2px solid color-mix(in srgb, var(--rc) 70%, transparent); }
+.vx-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vx-face.sm { width: 46px; height: 46px; margin-bottom: 5px; border-width: 1px; }
+.pick-face { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; flex: 0 0 38px;
+  display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.16); font: 800 12px/1 Inter, system-ui, sans-serif; color: var(--c1, #fff); }
+.pick-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.qtable { display: flex; flex-direction: column; gap: 6px; max-width: 420px; }
+.qtable div { display: flex; gap: 9px; align-items: baseline; font-size: 12.5px; }
+.qtable b { color: #ffb347; min-width: 62px; font-weight: 800; }
+.qtable span { opacity: .72; line-height: 1.4; }
+
+
+/* ---------- Plein écran mobile : zones sûres ----------
+   `viewport-fit=cover` fait dessiner le jeu SOUS l'encoche et sous la barre de gestes, ce qu'on veut pour la 3D.
+   Mais l'interface, elle, doit rester lisible : on décale tout ce qui est collé aux bords de la valeur des
+   marges système (env(safe-area-inset-*)), qui vaut 0 sur un écran sans encoche. */
+:root {
+  --sa-t: env(safe-area-inset-top, 0px);
+  --sa-r: env(safe-area-inset-right, 0px);
+  --sa-b: env(safe-area-inset-bottom, 0px);
+  --sa-l: env(safe-area-inset-left, 0px);
+}
+#hud, #touch { padding: var(--sa-t) var(--sa-r) var(--sa-b) var(--sa-l); box-sizing: border-box; }
+.scorebar { margin-top: var(--sa-t); }
+.coins { margin-left: var(--sa-l); }
+.gains { right: calc(18px + var(--sa-r)); }
+.stamina-wrap, .hud-stamina { margin-bottom: var(--sa-b); margin-left: var(--sa-l); }
+.screen, .menu, .setup, .shop { padding-top: max(var(--sa-t), 12px); padding-bottom: max(var(--sa-b), 12px);
+  padding-left: max(var(--sa-l), 12px); padding-right: max(var(--sa-r), 12px); box-sizing: border-box; }
+/* en plein écran le navigateur peut laisser une bande : on force le fond du jeu partout */
+html, body { background: #0b0e14; overscroll-behavior: none; }
+
+/* ---------- Choix du terrain ---------- */
+.terrain-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 2px 10px; }
+.terrain-card { display: flex; align-items: stretch; gap: 0; text-align: left; cursor: pointer;
+  background: #0e121b; border: 1px solid var(--line); border-left: 5px solid var(--c1); border-radius: 8px;
+  color: var(--text); padding: 0; overflow: hidden; font-family: var(--ui); }
+.terrain-card:hover { border-color: var(--c1); background: #131826; }
+.terrain-card.selected { border-color: var(--c1); box-shadow: 0 0 0 1px var(--c1) inset; }
+/* pastille bicolore : les deux couleurs dominantes du terrain, ca suffit a les distinguer d'un coup d'oeil */
+.terrain-card .tc-vis { flex: 0 0 76px; background: linear-gradient(135deg, var(--c1) 0 50%, var(--c2) 50% 100%); }
+.terrain-card .tc-txt { flex: 1 1 auto; min-width: 0; padding: 14px 16px; }
+.terrain-card .tc-nom { font-family: var(--head); font-size: 21px; letter-spacing: 2px; }
+.terrain-card .tc-lieu { color: var(--muted); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
+.terrain-card .tc-desc { color: var(--muted); font-size: 13px; line-height: 1.45; margin: 9px 0 0; }
+.terrain-card .tc-etat { flex: 0 0 auto; align-self: center; padding: 0 18px; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; color: var(--c1); white-space: nowrap; }
+.terrain-card.selected .tc-etat { color: var(--muted); }
+.terrain-note { color: var(--muted); font-size: 12.5px; padding: 0 2px; }
+@media (max-width: 620px) {
+  .terrain-card { flex-wrap: wrap; }
+  .terrain-card .tc-vis { flex-basis: 100%; height: 10px; }
+  .terrain-card .tc-etat { padding: 0 16px 14px; align-self: flex-start; }
+}
+
+/* Crédits : la liste des œuvres CC BY. Serrée, sans puces rondes — c'est un générique, pas un menu. */
+.credits-list { list-style: none; margin: .5rem 0 0; padding: 0; }
+.credits-list li { padding: .26rem 0 .26rem .9rem; position: relative; line-height: 1.35; opacity: .92; }
+.credits-list li::before { content: '·'; position: absolute; left: .1rem; opacity: .55; }
+
+/* Vignette de tenue dans la boutique. La largeur et la hauteur sont OBLIGATOIRES : un <svg> sans
+   dimension CSS retombe sur 300x150 px dans la plupart des navigateurs et fait exploser une carte
+   qui en fait 190. */
+.shop-fit { display: block; width: 62px; height: 68px; margin: 0 auto; }
+
+/* L'adresse a donner a ses amis : c'est le renseignement le plus utile de tout l'ecran quand on veut jouer
+   a deux, donc il est gros, lisible de loin, et selectionnable d'un seul geste (user-select: all). */
+.on-share { margin: 10px 0 0; padding: 12px 14px; border: 1px solid rgba(255,122,26,.45);
+  border-radius: 10px; background: rgba(255,122,26,.08); }
+.on-share b { display: block; font-size: .82rem; letter-spacing: .08em; text-transform: uppercase;
+  color: #ff9a4a; margin-bottom: 6px; }
+.on-share .adr { display: inline-block; user-select: all; font-family: ui-monospace, Consolas, monospace;
+  font-size: 1.15rem; color: #fff; background: rgba(0,0,0,.35); padding: 4px 10px; border-radius: 6px;
+  margin: 2px 6px 2px 0; }
+.on-share small { display: block; margin-top: 8px; color: #b9c2cf; line-height: 1.45;
+  font-size: .82rem; letter-spacing: 0; text-transform: none; }
+.on-share small em { font-style: normal; color: #ffd7b0; font-family: ui-monospace, Consolas, monospace; }
+.on-share .sinon { margin-top: 6px; color: #8c94a1; }
+.on-share .adr.petite { font-size: .92rem; padding: 2px 7px; }
+
+/* ---- ecran EN LIGNE : l'etat du terrain en une ligne ---- */
+.on-statut { display: flex; align-items: center; gap: 10px; margin: 6px 0 2px; padding: 11px 14px;
+  border: 1px solid rgba(255,255,255,.14); border-radius: 10px; background: rgba(10,13,20,.45); }
+.on-statut .pastille { width: 11px; height: 11px; border-radius: 50%; background: #6b7686; flex: none;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+/* La pastille pulse tant qu'on cherche : c'est ce qui distingue « ca charge » de « c'est mort ». */
+.on-statut.cherche .pastille { background: #ffb020; animation: pastille 1.1s ease-in-out infinite; }
+.on-statut.pret .pastille { background: #35d07f; box-shadow: 0 0 10px rgba(53,208,127,.6); }
+.on-statut.seul .pastille { background: #6b7686; }
+.on-statut.casse .pastille { background: #ff5a4d; box-shadow: 0 0 10px rgba(255,90,77,.5); }
+@keyframes pastille { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+.on-statut .txt { font-size: .95rem; color: #dfe5ee; line-height: 1.35; }
+.on-statut.pret .txt b { color: #35d07f; }
+
+.on-avance { margin: 10px 0 0; border: 1px solid rgba(255,255,255,.10); border-radius: 10px;
+  background: rgba(10,13,20,.30); }
+.on-avance > summary { cursor: pointer; padding: 9px 14px; font-family: var(--head); font-size: .8rem;
+  letter-spacing: .09em; color: #8b96a6; list-style: none; }
+.on-avance > summary::-webkit-details-marker { display: none; }
+.on-avance > summary::before { content: '▸ '; }
+.on-avance[open] > summary::before { content: '▾ '; }
+.on-avance > summary:hover { color: #dfe5ee; }
+.on-avance > .on-row, .on-avance > button { margin: 0 14px 12px; }
+.on-avance > .on-row { margin-top: 4px; }
+
+/* ---- « aucun terrain » : la seule chose a faire, donc bien en vue ---- */
+.on-manuel { margin: 10px 0 0; padding: 13px 14px; border: 1px solid rgba(255,176,32,.40);
+  border-radius: 10px; background: rgba(255,176,32,.07); }
+.on-manuel > b { display: block; font-size: .84rem; letter-spacing: .06em; text-transform: uppercase;
+  color: #ffb020; margin-bottom: 8px; }
+.on-manuel .aide-manuel { display: block; margin-top: 9px; color: #b9c2cf; font-size: .82rem; line-height: 1.45;
+  letter-spacing: 0; text-transform: none; }
+.on-manuel #on-state { display: block; margin-top: 8px; color: #9aa4b2; font-size: .82rem; letter-spacing: 0;
+  text-transform: none; line-height: 1.45; }
+.on-wifi { margin-top: 10px; width: 100%; }
+.on-wifi[disabled] { opacity: .6; }
+
+/* ---------- MANETTE (js/manette.js, js/manette_menus.js) ---------- */
+/* Le focus des menus n'apparait QUE quand on joue a la manette (body.pad-nav, retire des qu'on reprend la
+   souris, le clavier ou le doigt) : a la souris, un cadre qui suit le dernier bouton vise serait du bruit. Un
+   contour ET un halo : le contour seul disparait sur les boutons orange, le halo seul sur les fonds clairs. */
+body.pad-nav .pad-focus { outline: 3px solid #ffd166 !important; outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(255,209,102,.22), 0 0 26px rgba(255,122,26,.55) !important; }
+body.pad-nav .nav-btn.pad-focus { transform: translateX(10px); border-left-color: var(--accent); background: rgba(27,34,51,.9); }
+body.pad-nav .pick.pad-focus, body.pad-nav .card.pad-focus, body.pad-nav .mode-card.pad-focus,
+body.pad-nav .terrain-card.pad-focus, body.pad-nav .slot.pad-focus { transform: scale(1.03); }
+body.pad-nav input[type=range].pad-focus { outline-offset: 7px; }
+body.pad-nav .toggle.pad-focus { outline-offset: 4px; }
+
+/* telephone + manette Bluetooth : les commandes tactiles s'effacent ; un toucher de l'ecran les rend */
+body.pad-actif #touch { display: none !important; }
+
+/* colonne MANETTE de l'ecran des commandes */
+.pad-cell { display: flex; gap: 6px; min-width: 0; }
+.pad-btn { flex: 1 1 0; min-width: 0; padding: 5px 4px; display: grid; place-items: center; }
+.pad-cell.fixe { justify-content: center; align-items: center; min-height: 38px; border: 1px dashed #3a4457; border-radius: 6px;
+  color: var(--muted); font-size: 11px; letter-spacing: 1.5px; font-family: var(--ui); }
+.pad-etat { font-family: var(--head); font-size: 18px; letter-spacing: 2px; color: var(--muted); padding: 4px 10px; border: 1px solid #3a4457; border-radius: 6px; }
+.pad-etat.on { color: var(--good); border-color: rgba(61,220,132,.5); }
+.pad-doc { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 14px; align-items: center; padding: 4px 8px 14px; font-size: 13px; color: #cdd3de; }
+.pad-doc .k { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: min(200px, 34vw); }
+@media (max-width: 760px) {
+  .bind-head, .bind-row { grid-template-columns: minmax(0, 1fr) 74px 74px 112px; gap: 6px; }
+  .bind-row .lbl { font-size: 12px; min-width: 0; overflow-wrap: anywhere; }
+  .key-btn { padding: 6px 4px; font-size: 12px; min-height: 34px; }
+}
+@media (max-width: 520px) {
+  .bind-head, .bind-row { grid-template-columns: minmax(0, 1fr) 54px 54px 88px; gap: 4px; padding-left: 2px; padding-right: 2px; }
+  .bind-head { letter-spacing: 1px; font-size: 10px; }
+  .key-btn { font-size: 11px; letter-spacing: 0; }
+  .pad-cell { gap: 3px; }
+  .pad-g { min-width: 20px; height: 20px; padding: 0 4px; font-size: 10px; }
+  .pad-g.rond { width: 20px; }
+  .pad-cell.fixe { font-size: 9px; letter-spacing: .5px; }
+}
+
+/* pastilles de boutons : la lettre (ou le symbole PlayStation) a la couleur du vrai bouton */
+.pad-g { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 12px;
+  background: #1c2434; border: 1px solid #3a4457; border-bottom-width: 2px; color: #fff; font: 600 11px/1 var(--ui);
+  letter-spacing: .5px; white-space: nowrap; vertical-align: middle; }
+.pad-g.rond { width: 24px; padding: 0; border-radius: 50%; font-size: 13px; }
+.pad-g.vide { color: #5d6779; }
+.pad-g.c-vert { color: #5fdc6a; border-color: rgba(95,220,106,.6); }
+.pad-g.c-rouge { color: #ff6464; border-color: rgba(255,100,100,.6); }
+.pad-g.c-bleu { color: #6fb2ff; border-color: rgba(111,178,255,.6); }
+.pad-g.c-jaune { color: #ffd43d; border-color: rgba(255,212,61,.6); }
+.pad-g.c-rose { color: #ff8ad8; border-color: rgba(255,138,216,.6); }
+.help-keys .pad-g { margin-right: 3px; }
+.pad-g .pg-court { display: none; }
+/* Forme courte dès 760 px, la largeur où la colonne MANETTE passe à 112 px (bloc plus haut) : en paysage au téléphone
+   (740 × 360), « STICK D ↑ » faisait 57 px dans un bouton de 52 et sortait de son cadre. */
+@media (max-width: 760px) { .pad-btn .pad-g .pg-long { display: none; } .pad-btn .pad-g .pg-court { display: inline; } }
+/* En portrait, les boutons de la colonne MANETTE font 41 px : « CROIX ↓ », « SELECT » ou « FLÈCHE ↓ » en débordaient
+   de 4 à 7 px. Le bouton et la pastille rendent leurs marges intérieures et l'espacement des lettres. */
+@media (max-width: 520px) { .pad-btn { padding-left: 1px; padding-right: 1px; } .pad-btn .pad-g:not(.rond) { padding: 0 2px; letter-spacing: 0; } }
+
+/* notification « Manette connectee » dans les menus (sur le terrain, c'est le HUD qui l'affiche) */
+.pad-toast { position: fixed; top: calc(14px + var(--sa-t, 0px)); left: 50%; z-index: 80; transform: translate(-50%, -140%);
+  padding: 9px 18px; border-radius: 999px; background: rgba(10,13,20,.92); border: 1px solid rgba(255,179,71,.55);
+  color: #ffe2bf; font: 500 14px/1.2 var(--ui); letter-spacing: 1px; pointer-events: none; opacity: 0;
+  transition: transform .28s cubic-bezier(.2,.9,.25,1.1), opacity .2s; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+.pad-toast.on { transform: translate(-50%, 0); opacity: 1; }
+
+/* iPHONE / iPAD : « tourne ton téléphone » en jeu tenu en portrait (index.html, #tourner). Les classes sont posées par
+   js/game.js : `en-jeu` (balade ou match), `portrait` (écran tactile plus haut que large), `portrait-ok` (« JOUER QUAND
+   MÊME » touché : plus de panneau de la session). Dans l'APK Android le paysage est forcé : il n'apparaît jamais. */
+#tourner { display: none; }
+body.en-jeu.portrait:not(.portrait-ok) #tourner {
+  display: flex; position: fixed; inset: 0; z-index: 998; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; background: rgba(11, 14, 20, .94); color: #fff; font: 600 22px/1.3 Oswald, system-ui, sans-serif;
+  letter-spacing: .04em; text-align: center; padding: 24px calc(24px + env(safe-area-inset-right)) 24px calc(24px + env(safe-area-inset-left));
+}
+#tourner small { font: 400 14px/1.45 system-ui, sans-serif; color: #b6c0cc; letter-spacing: 0; max-width: 22em; }
+#tourner small b { color: #fff; }
+#tourner .tourner-ico { font-size: 54px; animation: tourner-ico 1.8s ease-in-out infinite; }
+#tourner button { margin-top: 8px; }
+@keyframes tourner-ico { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
+
+/* ---------- MATCHS EN COURS, LATENCE, SPECTATEUR (js/matchs_ui.js, 06/10/2026) ----------
+   Le bouton du hub passe sous celui du match ; la liste reprend le cadre de l'écran du choix du match (.setup) ; au
+   doigt les boutons d'une ligne prennent toute la largeur quand elle passe à la ligne. */
+.matchs-btn { position: absolute; top: 74px; right: 18px; width: auto; margin: 0; padding: 9px 16px; font-size: 14px; pointer-events: auto; }
+.matchs-btn.vide { opacity: .78; }
+/* (06/10/2026) au doigt, les boutons font 44 px de haut au moins (plus bas, « au format du doigt ») : JOUER descendait
+   jusqu'à 56 px et MATCHS jusqu'à 98, sur MATCHS et sur le ping. Chacun sous le précédent, 6 px d'écart. */
+body.touch .matchs-btn { top: 62px; right: 12px; padding: 7px 12px; font-size: 13px; }
+.hud-ping { position: absolute; left: 18px; bottom: 54px; font-family: var(--head); font-size: 16px; letter-spacing: 1px; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,.45); color: var(--muted); }
+.hud-ping.bon { color: var(--good); }
+.hud-ping.moyen { color: var(--warn); }
+.hud-ping.mauvais { color: var(--bad); }
+body.touch .hud-ping { left: auto; bottom: auto; right: 12px; top: 112px; font-size: 14px; }
+.spect-bar { position: absolute; top: 124px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border-radius: 10px; background: rgba(10,13,20,.82); border: 1px solid #2a3348; pointer-events: auto; white-space: nowrap; }
+.spect-bar .sb-txt { font-family: var(--head); font-size: 20px; letter-spacing: 3px; color: #8fb3ff; }
+@media (max-height: 520px) { .spect-bar { top: 102px; padding: 4px 6px 4px 10px; } }
+.mx-box { width: min(880px, 100%); }
+.mx-rapide { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+.mx-rapide .btn-primary { margin: 0; }
+.mx-rapide p { margin: 0; color: var(--muted); font-size: 14px; flex: 1 1 260px; }
+.mx-liste { display: flex; flex-direction: column; gap: 10px; }
+.mx-ligne { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: rgba(19,24,38,.7); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.mx-ligne.ailleurs { opacity: .6; }
+.mx-ligne.mien { border-color: rgba(255,122,26,.45); }
+.mx-info { flex: 1 1 280px; min-width: 0; }
+.mx-tete { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.mx-tete b { font-family: var(--head); font-size: 22px; letter-spacing: 2px; }
+.mx-taille { font-size: 12px; letter-spacing: 2px; color: var(--accent2); }
+.mx-score { font-family: Impact, "Arial Black", sans-serif; font-size: 22px; color: var(--accent); }
+.mx-tete small { color: var(--muted); font-size: 12px; letter-spacing: 1px; }
+.mx-qui { color: var(--muted); font-size: 13px; margin-top: 4px; overflow-wrap: anywhere; }
+.mx-qui .ok { color: var(--good); }
+.mx-qui .non { color: var(--bad); }
+.mx-boutons { display: flex; gap: 8px; flex: 0 0 auto; }
+.mx-boutons button { margin: 0; }
+.mx-boutons button:disabled { opacity: .35; cursor: not-allowed; }
+.mx-vide { color: var(--muted); margin: 4px 0; font-size: 14px; }
+.ms-matchs { margin-bottom: 16px; }
+.mx-titre { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.mx-titre h3 { margin: 0; }
+@media (max-height: 520px) {
+  .mx-rapide { margin-bottom: 10px; }
+  .mx-rapide p { display: none; }
+  .mx-ligne { padding: 8px 10px; gap: 8px; }
+  .mx-tete b { font-size: 18px; }
+}
+@media (max-width: 520px) {
+  .mx-boutons { width: 100%; }
+  .mx-boutons button { flex: 1; }
+  .spect-bar .sb-txt { font-size: 16px; letter-spacing: 1px; }
+}
+
+/* ==========================================================================================================
+   LES MENUS AU TÉLÉPHONE (06/10/2026 : « sur la version mobile, la boutique et les autres menus sont mal adaptés »).
+   Le jeu se tient en PAYSAGE : 844 × 390 sur un iPhone 12 à 15, 667 × 375 sur un iPhone SE, 740 × 360 sur un petit
+   Android. Mesuré avant ce bloc, en 844 × 390 : la boutique ne montrait que le haut de quatre cartes, et ses onglets
+   comme son bouton de retour partaient avec le défilement de la page ; le choix du match remplissait l'écran avec ses
+   cinq cartes de mode et cachait JOUER TOUT DE SUITE et SUIVANT deux écrans plus bas ; le choix du joueur ne montrait
+   que deux joueurs et poussait ENTRER SUR LE TERRAIN sous le bord ; le téléphone du jeu était réduit à 72 % (bulles
+   en 10 px, libellés du dock en 7,6 px).
+   La règle commune, sous 520 px de haut (paysage) et sous 520 px de large (portrait, avant de tourner l'écran) : une
+   fiche prend la hauteur de l'écran, son en-tête, ses onglets et ses boutons restent en place, et SEUL son contenu
+   défile, à l'intérieur, avec l'inertie du doigt. Au doigt, les cibles font 44 px. Rien ici ne touche l'ordinateur :
+   tout est sous media query, sauf trois corrections qui valaient partout (marquées « partout »).
+   Mesuré après, sur 24 écrans et panneaux en 667 × 375, 740 × 360, 844 × 390, 915 × 412, 932 × 430 et 390 × 844 : aucun
+   bouton hors de l'écran ni derrière un défilement de toute la page, aucune page plus large que l'écran, cibles de
+   44 px, textes de 12 px au moins. En 1366 × 768 et 1920 × 1080, les boîtes de tous les écrans sont celles de main,
+   sauf l'en-tête des vœux et du salon (index.html : le même que les autres écrans, RETOUR à côté du titre).
+   ========================================================================================================== */
+
+/* (partout) ce qui défile dans un menu ne fait pas rebondir ni défiler la page derrière lui */
+.screen, .tab-panels, .select-list, .vx-collec, .on-chat, .shop-grid, .ms-corps, .teams-layout, .teams-cols, .pick-col, .mx-liste,
+.phone-msgs, .plan-liste, .vx-left, .online-left, .help-grid, .terrain-list, .vx-reveal {
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+/* (partout) l'enveloppe des deux équipes (index.html) ne compte pas dans la grille des équipes, sauf au téléphone */
+.teams-cols { display: contents; }
+/* (partout) le joueur choisi glisse de 6 px (translateX) : dans la liste qui défile, ce glissement faisait naître une
+   barre de défilement horizontale sous les joueurs */
+.select-list { overflow-x: hidden; }
+/* (partout) la bulle d'aide du choix du joueur n'est qu'un texte : elle ne prend plus les clics de ce qu'elle frôle */
+.select-hint { pointer-events: none; }
+/* (partout) une fiche plus haute que l'écran, centrée par la grille ou la colonne, débordait en haut ET en bas, et le
+   haut ne se rattrape jamais en défilant : les dix cartes d'un vœu ×10 cachaient CONTINUER en 844 × 390. Les marges
+   automatiques centrent tant qu'il y a la place, puis collent la fiche en haut et laissent défiler le reste. */
+#overlay, .options { place-items: normal; }
+.overlay-box, .options-box { margin: auto; }
+.vx-reveal { overflow-y: auto; justify-content: flex-start; }
+.vx-reveal > .vx-cards { margin-top: auto; }
+.vx-reveal > #vx-ok { margin-bottom: auto; flex: none; }
+
+/* ---- AU DOIGT : des cibles de 44 px (et sur tout écran bas, où l'on joue au téléphone) ---- */
+@media (pointer: coarse), (max-height: 520px) {
+  .back, .seg button, .key-btn, .btn-primary, .btn-secondary { min-height: 44px; }
+  .seg button { min-width: 44px; }
+  .setup-box .tabs button, .options-box .tabs button { min-height: 44px; }
+  .back { display: inline-flex; align-items: center; }
+  /* l'interrupteur garde son dessin, sa zone de toucher s'agrandit autour (::after est la pastille) */
+  .toggle::before { content: ""; position: absolute; inset: -9px -6px; }
+  /* le curseur : piste fine dessinée dans une boîte de 44 px, que le pouce attrape sans viser au pixel ; la marge
+     négative rend à la ligne la hauteur gagnée (la ligne des options ne grandit pas) */
+  input[type=range] { height: 44px; padding: 19px 0; margin: -7px 0; background-clip: content-box; box-sizing: border-box; }
+  input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; }
+  /* « Réglages avancés » du salon : la ligne entière se touche */
+  .on-avance > summary { padding-top: 13px; padding-bottom: 13px; line-height: 18px; }
+  /* le téléphone du jeu : retour, envoi, réponses rapides, dock et plan au format du doigt */
+  #phone-close { min-width: 44px; min-height: 44px; }
+  .phone-bar button { width: 44px; height: 44px; }
+  .phone-bar input { min-height: 44px; }
+  .phone-q { min-height: 44px; padding: 8px 13px; font-size: 13px; }
+  #phone .phone-dock button { min-height: 44px; }
+  .plan-zoom button, .plan-moi { width: 44px; height: 44px; }
+  .plan-nom { min-height: 44px; }
+  .plan-go { min-height: 44px; padding: 11px 12px; }
+}
+/* iPhone : Safari agrandit la page dès qu'on touche un champ écrit en moins de 16 px, et ne la remet pas en place */
+@media (pointer: coarse) {
+  .on-row input, .on-send input, .on-code input, .phone-bar input { font-size: 16px; }
+}
+
+/* ---- HUD : ce qui touche les bords s'écarte de l'encoche et de la barre d'accueil (0 sur un écran sans encoche ;
+   les éléments en position absolue ne voyaient pas la marge intérieure de #hud) ---- */
+.stamina { margin-left: var(--sa-l); margin-bottom: var(--sa-b); }
+.boost-tag, .fps { margin-left: var(--sa-l); }
+.play-btn, .matchs-btn, .hud-ping { margin-right: var(--sa-r); }
+.phone-badge, .keys { margin-right: var(--sa-r); margin-bottom: var(--sa-b); }
+/* le haut (téléphone tenu en portrait, « JOUER QUAND MÊME ») : le tableau de score, les pièces et les boutons du coin
+   passaient sous l'îlot et l'heure. L'ancienne règle visait `.scorebar`, une classe qui n'existe pas. */
+.scoreboard, .momentum, .possession, .ctrl-tag, .spect-bar, .coins, .boost-tag, .fps, .play-btn, .matchs-btn, .hud-ping { margin-top: var(--sa-t); }
+
+/* ---- LES FICHES PLEIN ÉCRAN : choix du match, boutique, matchs en cours, et les écrans du menu ---- */
+@media (max-height: 520px), (max-width: 520px) {
+  .screen, .menu, .setup { padding-top: max(var(--sa-t), 6px); padding-bottom: max(var(--sa-b), 6px); }
+  .setup, .options { grid-template-rows: minmax(0, 1fr); }
+  .setup-box { max-height: 100%; display: flex; flex-direction: column; padding: 10px 14px 12px; border-radius: 10px; }
+  .setup-box .screen-head { flex: none; padding-bottom: 8px; margin-bottom: 8px; gap: 12px; }
+  .setup-box .screen-head h2 { font-size: 26px; letter-spacing: 3px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .setup-box .screen-head .crumb { font-size: 12px; letter-spacing: 2px; white-space: nowrap; }
+  .setup-box .screen-foot { flex: none; margin-top: 0; padding-top: 8px; gap: 8px; border-top: 1px solid var(--line); }
+  .setup-box .screen-foot .btn-primary { padding: 8px 18px; font-size: 20px; letter-spacing: 2px; }
+  .setup-box .screen-foot .btn-secondary { padding: 8px 14px; font-size: 13px; }
+  /* le corps défile ; 3 px de marge pour que l'ombre de la carte choisie ne soit pas rognée par ses bords */
+  #ms-mode, #ms-teams { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  .ms-corps, .teams-layout, .mx-box > .mx-liste { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 3px; margin: -3px; }
+  .ms-corps { padding-bottom: 8px; }
+  .ms-online, .ms-matchs { margin-bottom: 10px; }
+  .opt-block { padding: 8px 12px 10px; }
+  .opt-block h3, .team-col h3, .pick-col h3 { font-size: 16px; letter-spacing: 2px; margin-bottom: 6px; }
+  .names input { padding: 6px 10px; font-size: 18px; min-height: 44px; }
+  .team-col, .pick-col { padding: 10px; }
+  .teams-layout { gap: 10px; }
+  .slot { padding: 6px 10px; }
+  .slot .num { font-size: 24px; }
+  .pick-hint { font-size: 12px; margin: -2px 0 8px; }
+  .roster { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .card { padding: 8px 10px; }
+  .stat { font-size: 12px; }
+  /* matchs en cours : PARTIE RAPIDE reste en haut, la liste défile */
+  .mx-rapide { flex: none; margin-bottom: 10px; }
+  .mx-rapide .btn-primary { padding: 8px 18px; font-size: 20px; }
+
+  /* les écrans du menu : en-tête et bouton du bas fixes, le contenu défile entre les deux */
+  .menu-screen:not(.home) { height: 100%; min-height: 0; padding: 8px max(var(--sa-r), 14px) 6px max(var(--sa-l), 14px); }
+  #menu { padding-left: 0; padding-right: 0; }
+  .menu-screen .screen-head { flex: none; padding-bottom: 8px; margin-bottom: 10px; gap: 14px; }
+  /* un titre sur une ligne : « JOUER EN LIGNE » passait sur deux lignes et poussait tout l'écran vers le bas. Le fil
+     d'Ariane (à droite) se raccourcit avant lui. */
+  .menu-screen .screen-head h2 { font-size: 30px; letter-spacing: 3px; white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .menu-screen .screen-head .crumb { font-size: 12px; letter-spacing: 2px; white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; flex-shrink: 4; }
+  .screen-head .back { flex: none; }
+  .menu-screen .screen-foot { flex: none; padding-top: 8px; margin-top: 0; }
+  .menu-screen .screen-foot .btn-primary { padding: 8px 26px; font-size: 22px; }
+  .panel-wide { flex: 1 1 auto; min-height: 0; }
+  .help-grid, .terrain-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  .help-grid { gap: 12px; }
+  .help-box { padding: 12px 14px; }
+  .terrain-note { flex: none; margin: 6px 0 0; }
+  /* (une carte a `overflow: hidden`, donc aucune hauteur minimale : dans la liste bornée qui défile, la colonne les
+     écrasait à 36 px, texte rogné, au lieu de défiler) */
+  .terrain-card { flex: none; }
+  /* choix du joueur : la liste prend la place qui reste, la fiche se résume, ENTRER reste visible */
+  .select-panel { flex: 1 1 auto; min-height: 0; }
+  .select-list { flex: 1 1 auto; max-height: none; min-height: 96px; }
+  .select-info { flex: none; margin-top: 8px; padding: 8px 12px; }
+  .si-name { font-size: 26px; }
+  .si-style { margin: 2px 0 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .si-avatar { display: none; }
+  .select-info .badge-row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-top: 6px; }
+  .select-info .badge-row::-webkit-scrollbar { display: none; }
+  .badge-chip { flex: none; font-size: 12px; }
+  .select-panel .screen-foot .btn-primary { width: 100%; }
+  /* vœux et salon en ligne : leur grille prend la place sous l'en-tête */
+  .vx-wrap, .online-wrap { flex: 1 1 auto; min-height: 0; }
+  .vx-collec { max-height: none; }
+}
+
+/* ---- PAYSAGE (écran bas) : on se sert de la largeur ---- */
+@media (max-height: 520px) {
+  /* ACCUEIL : la marque à gauche, les sept entrées à droite, toutes visibles sans défiler (7 × 44 px). La description
+     de chaque entrée tient sur la même ligne que son nom, coupée si elle est trop longue. */
+  .menu-screen.home { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: clamp(14px, 3.5vw, 40px); align-items: center; padding: 4px max(var(--sa-r), 16px) 4px max(var(--sa-l), 16px); }
+  .home .brand { grid-column: 1; grid-row: 1; margin: 0; }
+  .home .brand-kicker { font-size: 12px; letter-spacing: 3px; }
+  .home .brand-title { font-size: clamp(54px, 10vw, 96px); }
+  .home .brand-title::after { width: 90px; height: 5px; margin-top: 10px; }
+  .home .brand-sub { font-size: clamp(16px, 2.4vw, 22px); letter-spacing: 4px; margin-top: 10px; }
+  .home .main-nav { grid-column: 2; grid-row: 1 / 3; max-width: 560px; width: 100%; justify-self: end; gap: 4px; }
+  .home .home-foot { grid-column: 1; grid-row: 2; position: static; margin: 0 0 4px; }
+  .home .home-foot > :not(#menu-version) { display: none; }
+  .home .nav-btn { grid-template-columns: 26px auto minmax(0, 1fr); grid-template-rows: auto; column-gap: 10px; min-height: 44px; padding: 0 12px; }
+  .home .nav-idx { grid-row: auto; font-size: 20px; }
+  .home .nav-label { font-size: 22px; letter-spacing: 2px; white-space: nowrap; }
+  .home .nav-desc { font-size: 12px; letter-spacing: .5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .home .nav-btn:hover, .home .nav-btn:focus-visible, body.pad-nav .home .nav-btn.pad-focus { transform: translateX(4px); }
+
+  /* CHOIX DU JOUEUR : la fiche s'élargit un peu et la liste passe sur deux colonnes de cartes de 44 px (le nom et
+     ses étoiles, le poste dessous) ; la fiche du joueur choisi tient en deux lignes (nom et style, capacités). Six
+     joueurs entiers à l'écran en 740 × 360, au lieu de deux.
+     `grid-auto-rows: max-content` : dans la liste bornée qui défile, une rangée « auto » était ramenée à la hauteur
+     minimale de la carte (48 px pour 64 de contenu), et les étoiles débordaient sur la carte du dessous. */
+  .select-panel { width: min(520px, 62vw); }
+  .select-panel .screen-head { padding-bottom: 6px; margin-bottom: 6px; }
+  .select-panel .screen-foot { padding-top: 6px; }
+  .select-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: max-content; align-content: start; gap: 6px;
+    padding-right: 2px; min-height: 44px; }
+  .pick { grid-template-columns: 34px minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 0 8px; padding: 4px 8px; min-height: 44px; }
+  .pick .pick-face { grid-row: 1 / 3; width: 34px; height: 34px; flex-basis: 34px; }
+  .pick .who { display: contents; }
+  .pick .who b { grid-column: 2; font-size: 15px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pick .who small { grid-column: 2 / 4; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pick .rar-st { grid-column: 3; grid-row: 1; margin-left: 0; line-height: 1; }
+  .select-info { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; margin-top: 6px; }
+  .si-name { flex: none; }
+  .si-meta { flex: none; margin: 0; }
+  /* le style de jeu (ou, pour un joueur verrouillé en ligne, le cadenas : le bouton du bas dit déjà où le débloquer)
+     sur la ligne du nom, coupé s'il est trop long ; les capacités dessous */
+  .si-style, .si-lock { order: 1; flex: 1 1 0; min-width: 0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .si-lock ~ .si-style { display: none; }
+  .si-lock { align-self: center; padding: 5px 9px; }
+  .select-info .badge-row { order: 2; flex: 1 1 100%; }
+  /* la bulle d'aide (« le joueur tourne sur le terrain… ») recouvrait le bout d'ENTRER SUR LE TERRAIN, élargi, sur
+     les téléphones de plus de 900 px de large (932 × 430) */
+  .select-hint { display: none; }
+
+  /* CHOIX DU MATCH : les cinq modes sur une ligne (le nom suffit à les distinguer), les réglages serrés */
+  .modes { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .mode-card { min-height: 0; padding: 9px 10px 8px; }
+  .mode-card::before { font-size: 60px; bottom: -12px; }
+  .mode-size { font-size: 30px; }
+  .mode-name { font-size: 17px; letter-spacing: 1px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mode-desc { display: none; }
+  .mode-tag { top: 7px; right: 7px; font-size: 12px; letter-spacing: .5px; padding: 1px 5px; }
+  .match-opts.match-opts-4 { margin-top: 10px; gap: 8px; }
+  .seg button { padding: 0 14px; }
+  /* les équipes l'une sous l'autre à gauche, les fiches à droite : on voit les fiches sans défiler, même en 1 contre 1 */
+  .teams-layout { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: minmax(0, 1fr); overflow: hidden; align-items: stretch; }
+  .teams-cols { display: flex; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; padding: 3px; margin: -3px; }
+  .teams-layout .pick-col { grid-column: auto; min-height: 0; overflow-y: auto; }
+
+  /* BOUTIQUE : l'en-tête et RETOUR À LA BALADE sur une même ligne, puis le mot de Pierrick, le boost, les onglets, et
+     la grille des articles, seule à défiler. Les articles se lisent en ligne (image, texte, prix et bouton à droite),
+     deux ou trois de front. */
+  .shop-box { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto auto minmax(0, 1fr);
+    grid-template-areas: "tete pied" "msg msg" "boost xp" "onglets onglets" "grille grille"; column-gap: 14px; }
+  .shop-box .screen-head { grid-area: tete; min-width: 0; margin: 0; padding-bottom: 6px; }
+  .shop-box .screen-foot { grid-area: pied; margin: 0; padding: 0 0 6px; border-top: 0; border-bottom: 1px solid var(--line); align-items: center; }
+  .shop-box .screen-foot .btn-primary { padding: 0 16px; min-height: 44px; font-size: 18px; }
+  .shop-hint { display: none; }
+  .shop-coins { font-size: 26px; flex: none; }
+  .shop-msg { grid-area: msg; margin: 4px 0 2px; min-height: 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #shop-boost { grid-area: boost; }
+  #shop-xp { grid-area: xp; text-align: right; }
+  .shop-boost { margin: 0 0 4px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* « Aucun boost en cours » (js/ui.js, buildShop : classe `vide`) ne dit rien qu'on doive lire : sa ligne rend ses
+     22 px à la grille des articles (158 px en 740 × 360 avec la barre d'accueil d'un iPhone : moins de deux rangées).
+     Un boost en cours, ou les points d'entraînement (MON JOUEUR, EMOTES), la font revenir. */
+  .shop-boost.vide, .shop-boost:empty { display: none; }
+  .shop-box .tabs { grid-area: onglets; margin-bottom: 0; }
+  .shop-box .tabs button { padding: 0 11px; font-size: 17px; }
+  .shop-grid, .shop-grid-wide { grid-area: grille; min-height: 0; overflow-y: auto; align-content: start; margin: 6px -3px 0; padding: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 8px; }
+
+  /* VŒUX ET SALON EN LIGNE : deux colonnes qui défilent chacune de leur côté */
+  .vx-wrap, .online-wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: stretch; }
+  .vx-left, .online-left { min-height: 0; overflow-y: auto; padding-right: 2px; }
+  .vx-right, .online-right { min-height: 0; display: flex; flex-direction: column; padding: 10px 12px; }
+  .vx-collec { flex: 1 1 auto; min-height: 0; }
+  .vx-banner { padding: 10px 12px; margin-bottom: 8px; }
+  .vx-banner-title { font-size: 17px; margin: 5px 0 8px; }
+  .vx-rate { font-size: 12px; padding: 4px 7px; }
+  .vx-solde { font-size: 15px; }
+  .vx-pity { margin-bottom: 8px; font-size: 12px; }
+  .vx-actions button { padding: 6px 10px; }
+  .vx-actions .btn-primary { font-size: 22px; }
+  .vx-buy { margin-top: 8px; }
+  .vx-note { font-size: 12px; margin-top: 8px; }
+  /* le salon : REJOINDRE LE TERRAIN juste sous l'état du terrain, les explications après */
+  .online-left { display: flex; flex-direction: column; }
+  .online-left > .on-actions { order: 1; margin-top: 10px; }
+  .online-left > .on-share, .online-left > .on-manuel, .online-left > .on-avance, .online-left > .on-note { order: 2; }
+  .online-left > .on-note { margin-top: 10px; }
+  .on-row { margin-bottom: 8px; }
+  .on-actions .btn-primary { padding: 8px 18px; font-size: 22px; }
+  .on-chat { flex: 1 1 auto; max-height: none; min-height: 60px; }
+  /* la liste des joueurs se raccourcit (et défile) avant le chat : à cinq joueurs, le champ « Écris au salon » et
+     ENVOYER sortaient par le bas de l'écran */
+  .on-players { flex: 0 1 auto; min-height: 44px; overflow-y: auto; overscroll-behavior: contain; margin-bottom: 8px; }
+  .on-p { flex: none; padding: 6px 10px; }
+  /* révélation d'un vœu : dix cartes plus basses, deux rangées de cinq, et CONTINUER dessous, à l'écran */
+  .vx-reveal { gap: 10px; padding: 8px max(var(--sa-r), 14px) 8px max(var(--sa-l), 14px); }
+  .vx-cards { gap: 8px; max-width: 640px; }
+  .vx-card { width: 120px; padding: 6px 6px 7px; }
+  .vx-card .vx-face { width: 40px; height: 40px; margin-bottom: 4px; }
+  .vx-card .nm { font-size: 14px; margin: 4px 0 2px; }
+  .vx-card .st { font-size: 12px; }
+  .vx-card .dup { margin-top: 3px; line-height: 1.3; }
+  .vx-card .neuf { margin-top: 4px; }
+  #vx-ok { padding: 6px 30px; font-size: 22px; }
+
+  /* OPTIONS : le titre, les onglets et FERMER sur une même ligne ; le panneau gagne la hauteur d'une ligne */
+  .options-box { max-height: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "titre onglets fermer" "panneau panneau panneau" "pied pied pied"; column-gap: 14px; padding: 8px 14px 10px; }
+  .options-box .screen-head { display: contents; }
+  .options-box .screen-head h2 { grid-area: titre; align-self: center; font-size: 28px; }
+  #opt-close { grid-area: fermer; align-self: center; }
+  .options-box .tabs { grid-area: onglets; margin: 0; align-self: center; }
+  .options-box .tab-panels { grid-area: panneau; min-height: 0; border-top: 1px solid var(--line); }
+  .options-box .screen-foot { grid-area: pied; }
+  .opt-row { padding: 8px; }
+
+  /* PAUSE, FIN DE MATCH, ATELIERS : une fiche plus basse */
+  .overlay-box { padding: 14px 20px 16px; }
+  .overlay-box h2 { font-size: 38px; }
+  .overlay-box p { font-size: 15px; margin-bottom: 12px; }
+  .overlay-box .row { gap: 8px; }
+  .overlay-box .btn-primary { padding: 8px 22px; font-size: 20px; }
+  .overlay-box .btn-secondary { padding: 8px 14px; font-size: 14px; }
+}
+/* le choix des modes à cinq de front n'a pas la place de garder les étiquettes POPULAIRE / NOUVEAU sous 760 px ; la
+   fiche du joueur choisi, celle de garder le numéro et le poste (la liste les montre) à côté du nom et du style */
+@media (max-height: 520px) and (max-width: 760px) { .mode-tag { display: none; } .mode-name { font-size: 15px; } .si-meta { display: none; } }
+
+/* ---- LES ARTICLES DE LA BOUTIQUE EN LIGNE (paysage et portrait) : image | nom, description | prix et bouton ----
+   Les enfants d'une carte sont à plat (js/ui.js, buildShop) : la grille range l'image dans la première colonne, le
+   texte dans la deuxième, ligne après ligne, et dans la troisième le prix (en face du nom) puis le bouton dessous.
+   Six lignes « auto » : celles qui restent vides ne prennent pas de place (pas d'écart entre les lignes, les marges
+   font l'espacement). */
+@media (max-height: 520px), (max-width: 520px) {
+  .shop-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: repeat(6, auto); gap: 0 10px;
+    align-content: center; align-items: center; text-align: left; padding: 6px 10px; }
+  .shop-card > * { grid-column: 2; margin: 0; }
+  .shop-card > .shop-emoji, .shop-card > .shop-swatch, .shop-card > .shop-fit { grid-column: 1; grid-row: 1 / span 6; justify-self: center; }
+  .shop-card > .shop-price { grid-column: 3; grid-row: 1; justify-self: center; text-align: center; margin-bottom: 2px; line-height: 1.15; }
+  .shop-card > button { grid-column: 3; grid-row: 2 / span 5; align-self: start; justify-self: stretch; margin: 0; max-width: 9em; white-space: normal;
+    line-height: 1.05; padding: 6px 12px; font-size: 16px; letter-spacing: 1px; }
+  .shop-emoji { font-size: 34px; }
+  .shop-swatch { width: 40px; height: 40px; }
+  .shop-fit { width: 46px; height: 50px; }
+  .shop-name { font-size: 18px; letter-spacing: 1px; line-height: 1.15; }
+  .shop-desc { min-height: 0; font-size: 12px; line-height: 1.3; margin-top: 2px; }
+  .shop-bonus { font-size: 12px; margin-top: 2px; }
+  /* (« 60 pts d'entraînement », « SUR LA ROUE » passent sur deux lignes plutôt que d'élargir la colonne du bouton) */
+  .shop-price { font-size: 17px; max-width: 7.5em; }
+  .pips { margin: 3px 0 1px; }
+  .up-val { font-size: 24px; line-height: 1.1; }
+  .up-bar { margin: 3px 0 2px; }
+  .shop-sep { margin: 8px 0 0; }
+}
+
+/* ---- PORTRAIT (avant de tourner le téléphone, ou « JOUER QUAND MÊME ») ---- */
+@media (max-width: 520px) {
+  /* la boutique : le bouton de retour reste en bas, sous la liste ; les articles l'un sous l'autre */
+  .shop-box { height: 100%; }
+  .shop-box .screen-head h2 { font-size: 22px; letter-spacing: 2px; }
+  .shop-coins { font-size: 24px; flex: none; }
+  .shop-msg { font-size: 13px; margin-bottom: 4px; }
+  .shop-grid, .shop-grid-wide { flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start; margin: 8px -3px 0; padding: 3px;
+    grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .shop-box .screen-foot { margin-top: 8px; }
+  .shop-box .screen-foot .btn-primary { flex: 1; }
+  /* (le mot de Pierrick a une hauteur minimale de 22 px : dans la colonne, elle remplaçait sa hauteur de contenu, et ses
+     deux lignes passaient sur « Aucun boost en cours ») */
+  .shop-box > :not(.shop-grid) { flex: none; }
+  /* les boutons du bas : le principal sur toute la largeur, les deux autres côte à côte dessous (ils prenaient trois
+     lignes, 150 px de l'écran du choix du match) */
+  .setup-box .screen-foot { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .setup-box .screen-foot > .btn-primary, .setup-box .screen-foot > :only-child { grid-column: 1 / -1; }
+  .setup-box .screen-foot > .btn-primary { order: -1; }
+  .setup-box .screen-foot > .btn-secondary { padding-left: 8px; padding-right: 8px; }
+  /* le fil d'Ariane des écrans du menu laisse toute la ligne au titre */
+  .menu-screen .screen-head .crumb { display: none; }
+  .vx-wrap, .online-wrap { overflow-y: auto; }
+  .vx-reveal .vx-card { width: 96px; padding: 10px 6px; }
+  .vx-reveal .vx-face { width: 50px; height: 50px; }
+}
+
+/* ---- LE TÉLÉPHONE DU JEU SUR UN ÉCRAN BAS (js/phone.js, taille : classe `compact`) ----
+   Il n'est plus réduit (les bulles restent en 14 px) : c'est lui qui raccourcit, le cadre s'amincit, la barre d'état
+   se resserre et la barre d'accueil n'est plus qu'un trait. Il se range aussi hors de l'encoche. */
+/* (partout) en portrait (« JOUER QUAND MÊME »), le téléphone du jeu reste au-dessus de la barre d'accueil de l'iPhone
+   et à l'écart des bords arrondis ; sans encoche, les marges restent celles d'avant */
+#phone { right: max(26px, var(--sa-r)); bottom: max(16px, var(--sa-b)); }
+@media (max-width: 560px) { #phone { right: max(10px, var(--sa-r)); bottom: max(10px, var(--sa-b)); } }
+#phone.compact { right: max(10px, var(--sa-r)); bottom: max(8px, var(--sa-b)); }
+#phone.compact .phone-body { padding: 6px; border-radius: 34px; }
+#phone.compact .phone-screen { border-radius: 28px; }
+#phone.compact .phone-glare { inset: 6px; border-radius: 28px; }
+#phone.compact .phone-status { height: 24px; padding: 2px 22px 0 26px; font-size: 12px; }
+#phone.compact .phone-island { top: 4px; width: 72px; height: 18px; border-radius: 10px; }
+/* (en-tête, barre de saisie et dock serrés autour de leurs boutons de 44 px : 18 px de plus pour le fil en 740 × 360) */
+#phone.compact .phone-head { padding: 0 12px 0 4px; }
+#phone.compact .phone-av { width: 32px; height: 32px; font-size: 14px; }
+#phone.compact .phone-msgs { padding: 6px 10px 8px; }
+#phone.compact .ph-day { display: none; }          /* (« Aujourd'hui » : 30 px du fil, qui en a 118) */
+#phone.compact .phone-quick { padding-top: 4px; }
+#phone.compact .phone-bar { padding: 3px 10px 2px; }
+#phone.compact .phone-dock { padding-top: 0; }
+#phone.compact .phone-home { height: 8px; }
+#phone.compact .phone-home::after { bottom: 3px; width: 90px; height: 3.5px; }
+#phone.compact .ph-vol1, #phone.compact .ph-vol2, #phone.compact .ph-power { display: none; }
+/* le plan (parc entier) tient au-dessus du dock : en 740 × 360, ses minimums (carte 130 px, liste 96) dépassaient les
+   209 px de l'appli et le bas de la liste passait sous le dock (17 px). La liste défile, elle peut rétrécir. */
+#phone.compact .plan-carte { min-height: 90px; }
+#phone.compact .plan-liste { min-height: 0; }
+
+/* ---- LES PETITS TEXTES AU TÉLÉPHONE : 12 px au moins ----
+   Mesuré en 844 × 390 et en 390 × 844 : une trentaine d'étiquettes descendaient à 10 ou 11 px (raretés des vœux, en-têtes
+   des touches, rôles des joueurs, niveaux des capacités, « hôte », l'heure des bulles du téléphone…), et le tableau de
+   score, réduit à 80 %, écrivait les noms des équipes en 11 px et MOMENTUM en 8,5 px. Sur ordinateur, rien ne change. */
+@media (max-height: 520px), (max-width: 520px) {
+  .on-row label, .on-p .tag, .vx-banner-kicker, .vx-actions button small, .vx-grp-nom, .vx-p .st, .vx-card .rar, .vx-card .dup,
+  .vx-card .neuf, .pips .tier, .slot .role, .slot .badge, .pick .badge, .si-lock, .stamina-label, .boost-tag, .wheel-seg .num,
+  .help-box small, .plan-sec, .ph-day, .pw, .phone-title span, .pad-cell.fixe, .vx-rate, .mode-tag, .stats.big .stat, .key-btn, .mo-label,
+  .ph-t, .plan-echelle { font-size: 12px; }
+  /* le joueur choisi ne glisse plus de côté : dans la liste qui défile, son bord droit était rogné (et au doigt le
+     survol reste collé au dernier joueur touché) ; sa couleur suffit */
+  .pick:hover, .pick.selected { transform: none; }
+  .slot .badge, .pick .badge, .pad-cell.fixe { letter-spacing: .5px; }
+  .bind-head { font-size: 12px; letter-spacing: .5px; }
+  #phone .phone-dock button span { font-size: 12px; }
+  /* les pastilles de la colonne MANETTE : 12 px, sans espacement (« CROIX ↓ » tient dans son bouton de 53 px) */
+  .pad-btn { padding-left: 2px; padding-right: 2px; }
+  .pad-g { font-size: 12px; }
+  .pad-btn .pad-g { letter-spacing: 0; padding: 0 3px; }
+}
+@media (max-height: 520px) {
+  .team .name { font-size: 15px; }          /* × 0,8 (tableau réduit) = 12 px */
+  .mo-label { font-size: 14.5px; }          /* × 0,85 = 12,3 px */
+}
+
+/* (LA JAUGE DE TIR AU DOIGT : elle tombait sur les boutons SPIN et DOS de l'ancienne grille en 740 × 360. Les commandes
+   tactiles refaites la posent elles-mêmes à gauche de la grappe de boutons, quelle que soit sa disposition :
+   --tc-droite, plus haut avec les autres règles body.touch.) */
+
+/* ---- LA ROUE DES EMOTES SUR UN ÉCRAN TRÈS BAS : réduite d'un bloc, pour que ses huit cases tiennent dans la hauteur
+   (360 px sur un petit Android : la case du haut et celle du bas touchaient les bords). L'échelle passe par une
+   variable, que reprend l'animation d'ouverture. ---- */
+.emote-wheel { transform: translate(-50%, -50%) scale(var(--ew, 1)); }
+@keyframes wheelIn { from { opacity: 0; transform: translate(-50%, -50%) scale(calc(var(--ew, 1) * .85)); } to { opacity: 1; transform: translate(-50%, -50%) scale(var(--ew, 1)); } }
+/* (les libellés et les numéros des cases passent à 14 px : réduits d'autant, ils restent à 12. Les libellés serrent
+   leurs lettres et leurs lignes : « Échauffement » tient dans sa case, « Trop facile » sur deux lignes aussi.) */
+@media (max-height: 420px) {
+  .emote-wheel { --ew: .86; }
+  .wheel-seg .lbl { font-size: 14px; letter-spacing: 0; line-height: 1.1; }
+  .wheel-seg .num { font-size: 14px; }
+}
+
+/* ---- L'ACCUEIL EN PORTRAIT (avant de tourner le téléphone) : la marque se resserre, et les sept entrées tiennent dans
+   un écran de 844 px de haut au lieu d'en demander un et demi ---- */
+@media (max-width: 520px) {
+  .home .brand { margin-bottom: 18px; }
+  .home .brand-kicker { font-size: 12px; letter-spacing: 3px; }
+  .home .brand-title { font-size: 76px; }
+  .home .brand-title::after { width: 90px; height: 5px; margin-top: 10px; }
+  .home .brand-sub { font-size: 18px; letter-spacing: 5px; margin-top: 10px; }
+  .home .main-nav { gap: 6px; }
+  .home .nav-btn { grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px; padding: 9px 14px; min-height: 44px; }
+  .home .nav-idx { font-size: 24px; }
+  .home .nav-label { font-size: 26px; letter-spacing: 2px; }
+  .home .nav-desc { font-size: 12px; letter-spacing: .5px; }
+  .setup-box .screen-head .crumb { min-width: 0; overflow: hidden; text-overflow: ellipsis; flex-shrink: 4; }
+  .bind-head { letter-spacing: 0; }         /* « SECONDAIRE » dans sa colonne de 54 px */
+  /* la colonne MANETTE gagne 4 px : ses deux boutons passent de 43 à 45 px de large */
+  .bind-head, .bind-row { grid-template-columns: minmax(0, 1fr) 54px 54px 92px; }
+}
+
+/* ---- LES TABLETTES (au doigt, écran de plus de 520 px) : le choix du match, la boutique et les matchs en cours
+   tiennent dans l'écran, leur en-tête et leurs boutons du bas restent en place et seul leur contenu défile. Sur un
+   iPad en paysage (1024 × 768), la boutique faisait défiler toute la page : RETOUR À LA BALADE était quinze articles
+   plus bas, les onglets partaient avec le défilement. Les tailles restent celles de l'ordinateur ; la souris
+   (ordinateur) n'est pas concernée. ---- */
+@media (pointer: coarse) and (min-height: 521px) and (min-width: 521px) {
+  .setup { grid-template-rows: minmax(0, 1fr); }
+  .setup-box { max-height: 100%; display: flex; flex-direction: column; }
+  .setup-box .screen-head, .shop-box > :not(.shop-grid) { flex: none; }
+  .setup-box .screen-foot { flex: none; margin-top: 0; padding-top: 14px; border-top: 1px solid var(--line); }
+  #ms-mode, #ms-teams { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  .ms-corps, .teams-layout, .mx-box > .mx-liste, .shop-grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 3px; margin: -3px -3px 0; }
+  .ms-corps, .teams-layout, .mx-box > .mx-liste { padding-bottom: 14px; }
+  .shop-grid { margin-top: 9px; padding-bottom: 14px; align-content: start; }
+}
+
+/* ---- LES ÉCRANS DU MENU SUR TABLETTE (au doigt, plus de 520 px dans les deux sens) ----
+   Mesuré en 1024 × 768 (iPad en paysage) avant ce bloc : l'accueil demandait 1 054 px (CRÉDITS sous le bord), ENTRER SUR
+   LE TERRAIN tombait à y = 836, l'aide et les crédits faisaient défiler toute la page et RETOUR partait avec. Comme au
+   téléphone : l'en-tête et le bouton du bas restent en place, la liste, l'aide ou les crédits défilent entre les deux ;
+   l'accueil passe sur deux colonnes en paysage (la marque à gauche, les sept entrées à droite, sans défiler). Les
+   tailles restent celles de l'ordinateur, que ce bloc ne touche pas (souris). */
+@media (pointer: coarse) and (min-height: 521px) and (min-width: 521px) {
+  .menu-screen:not(.home) { height: 100%; min-height: 0; }
+  .menu-screen .screen-head, .menu-screen .screen-foot { flex: none; }
+  .panel-wide, .vx-wrap, .online-wrap { flex: 1 1 auto; min-height: 0; }
+  .help-grid, .terrain-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  .terrain-card, .terrain-note { flex: none; }
+  /* choix du joueur : la liste prend la place que laisse la fiche, ENTRER reste à l'écran */
+  .select-panel { flex: 1 1 auto; min-height: 0; }
+  .select-list { flex: 1 1 auto; max-height: none; min-height: 120px; }
+  .select-info { flex: none; }
+  /* vœux et salon : en portrait (une colonne), c'est leur grille qui défile sous l'en-tête */
+  .vx-wrap, .online-wrap { overflow-y: auto; }
+}
+@media (pointer: coarse) and (min-height: 521px) and (min-width: 521px) and (orientation: landscape) {
+  /* (la colonne des entrées garde 520 px : plus étroite, leur description passait sur deux lignes et chaque entrée
+     doublait de hauteur) */
+  .menu-screen.home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: clamp(24px, 4vw, 56px); align-items: center; }
+  .home .brand { grid-column: 1; grid-row: 1; margin: 0; }
+  .home .brand-title { font-size: clamp(80px, 9vw, 140px); }
+  .home .main-nav { grid-column: 2; grid-row: 1 / 3; width: 100%; justify-self: end; }
+  .home .nav-desc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .home .home-foot { grid-column: 1; grid-row: 2; position: static; flex-wrap: wrap; gap: 4px 24px; }
+}
+@media (pointer: coarse) and (min-height: 521px) and (min-width: 521px) and (orientation: portrait) {
+  .home .brand { margin-bottom: 24px; }
+}

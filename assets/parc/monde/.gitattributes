@@ -1,0 +1,6 @@
+# Données du monde du parc, produites par tools/parc/construire_monde.py.
+# Les .bin et le .webp sont binaires : jamais de conversion de fin de ligne, jamais de diff texte. Sans cette ligne,
+# git devine : avec core.autocrlf = true (Windows), un .bin qu'il prendrait pour du texte (aucun octet nul, peu
+# d'octets de contrôle) recevrait un \r devant chaque octet 0x0A à l'extraction, et les grilles seraient décalées.
+*.bin binary
+*.webp binary

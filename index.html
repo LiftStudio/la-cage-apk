@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0b0e14">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<!-- le logo officiel (tools/icones.py) : favicons cadrés sur le ballon, icônes d'écran d'accueil iPhone / iPad -->
+<link rel="icon" href="assets/icons/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="assets/icons/icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152.png">
+<meta name="apple-mobile-web-app-title" content="LA CAGE">
+<title>LA CAGE · Streetball Courbevoie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<!-- L'ÉCRAN DE CHARGEMENT (#boot, js/chargement.js) : ses styles restent ICI, en ligne, pour qu'il se peigne dès la
+     première image, avant que le moindre module ne se charge. Pas d'imbrication CSS (Safari 16.4) ; les animations ne
+     touchent qu'à transform et opacity : elles continuent de tourner pendant que le fil principal construit le terrain. -->
+<style>
+#boot{position:fixed;inset:0;z-index:999;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  background:#07090d;color:#e8edf4;font:400 14px/1.4 Oswald,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;transition:opacity .5s ease,visibility .5s}
+#boot *,#boot *::before,#boot *::after{box-sizing:border-box}
+#boot.boot-sortie{opacity:0;visibility:hidden;pointer-events:none}
+#boot.boot-pret{cursor:pointer}
+.boot-fond{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 46% at 50% 34%,rgba(255,166,38,.16),rgba(255,166,38,0) 70%),radial-gradient(80% 50% at 50% 115%,rgba(64,170,84,.13),rgba(64,170,84,0) 70%),linear-gradient(180deg,#0b0e14 0%,#06080b 100%)}
+.boot-fond::before{content:"";position:absolute;inset:-10%;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,rgba(255,255,255,.04) 0 1px,transparent 1px 26px);
+  -webkit-mask-image:radial-gradient(closest-side at 50% 40%,#000 0%,rgba(0,0,0,.5) 55%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 40%,#000 0%,rgba(0,0,0,.5) 55%,transparent 100%)}
+.boot-fond::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.6) 100%)}
+.boot-scene{position:relative;display:flex;flex-direction:column;align-items:center;gap:clamp(18px,4.6vh,42px);width:100%;max-width:620px}
+.boot-marque{display:flex;flex-direction:column;align-items:center;text-align:center}
+.boot-logo{position:relative;width:clamp(116px,26vh,220px);aspect-ratio:480/521}
+.boot-logo img,.boot-reflet{position:absolute;inset:0;width:100%;height:100%}
+.boot-cage{animation:boot-cage 1s cubic-bezier(.2,.8,.2,1) both}
+.boot-ballon{animation:boot-ballon 1.15s cubic-bezier(.2,.9,.25,1.12) .2s both}
+.boot-lueur{position:absolute;left:3.6%;top:7.8%;width:92%;height:84.8%;border-radius:50%;opacity:.4;
+  background:radial-gradient(closest-side,rgba(255,196,70,.62),rgba(255,140,20,.22) 55%,rgba(255,140,20,0) 100%);animation:boot-lueur 3.4s ease-in-out 1.2s infinite}
+.boot-reflet{overflow:hidden;pointer-events:none;-webkit-mask:url(assets/chargement/logo_ballon.webp) center/100% 100% no-repeat;mask:url(assets/chargement/logo_ballon.webp) center/100% 100% no-repeat}
+.boot-reflet i{position:absolute;top:-20%;bottom:-20%;left:0;width:30%;background:linear-gradient(90deg,rgba(255,250,230,0),rgba(255,246,214,.6),rgba(255,250,230,0));transform:translateX(-140%) skewX(-18deg);animation:boot-reflet 4.4s cubic-bezier(.45,.05,.3,1) 1.5s infinite}
+.boot-titre{margin-top:clamp(8px,1.8vh,16px);padding-left:.14em;font:400 clamp(34px,6.4vh,56px)/1 "Bebas Neue",Impact,"Arial Narrow",sans-serif;letter-spacing:.14em;color:#fff6e4;text-shadow:0 2px 18px rgba(255,150,30,.28);animation:boot-monte .9s ease .45s both}
+.boot-sous{margin-top:6px;padding-left:.32em;font:500 clamp(10px,1.5vh,12px)/1.2 Oswald,system-ui,sans-serif;letter-spacing:.32em;color:#8a97a8;animation:boot-monte .9s ease .6s both}
+.boot-etat{position:relative;width:min(100%,520px);animation:boot-monte .8s ease .3s both}
+.boot-ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:9px}
+#boot-etape{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:500 12px/1.2 Oswald,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#c9d2de}
+#boot-pct{flex:none;min-width:3.4em;text-align:right;font:400 22px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.06em;color:#ffb347;font-variant-numeric:tabular-nums}
+.boot-barre{position:relative;height:6px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+#boot-rempli{position:absolute;inset:0;overflow:hidden;border-radius:inherit;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#ff6a14 0%,#ff9a2e 60%,#ffd166 100%);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+#boot-rempli::after{content:"";position:absolute;top:0;bottom:0;left:0;width:45%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));transform:translateX(-100%);animation:boot-brille 1.5s linear infinite}
+.boot-details{min-height:16px;margin-top:8px;font:400 12px/16px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.02em;color:#7f8b9b;font-variant-numeric:tabular-nums}
+.boot-go{display:none;margin-top:16px;padding-left:.14em;text-align:center;font:400 clamp(17px,min(3.4vh,5.2vw),28px)/1.1 "Bebas Neue",Impact,sans-serif;letter-spacing:.14em;color:#fff;animation:boot-pulse 1.7s ease-in-out infinite}
+.boot-astuce{margin-top:clamp(12px,3vh,26px);min-height:4.1em;padding:9px 14px 10px;border-left:2px solid #ff7a1a;background:linear-gradient(90deg,rgba(255,122,26,.09),rgba(255,122,26,0))}
+.boot-astuce.boot-change span{animation:boot-astuce .6s ease both}
+.boot-astuce b{display:block;margin-bottom:4px;font:500 10px/1.2 Oswald,system-ui,sans-serif;letter-spacing:.28em;color:#ff9a3d}
+#boot-astuce-texte{display:block;font:400 13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#b9c2cd}
+.boot-erreur{display:none;margin-top:14px;padding:13px 16px 15px;border-radius:10px;border:1px solid rgba(255,96,64,.35);background:rgba(255,70,40,.08)}
+.boot-erreur b{display:block;font:400 22px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.1em;color:#ff7a5c}
+.boot-erreur p{margin:6px 0 12px;font:400 13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#c5ccd6}
+.boot-boutons{display:flex;flex-wrap:wrap;gap:10px}
+.boot-boutons button{min-height:44px;padding:0 22px;border:0;border-radius:8px;cursor:pointer;font:400 20px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.12em}
+#boot-reessayer{background:linear-gradient(180deg,#ff8a2a,#ff6a14);color:#1a0b02}
+#boot-continuer{background:rgba(255,255,255,.08);color:#d5dce6;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.boot-alerte{display:none;max-width:30em;text-align:center}
+.boot-alerte b{display:block;margin-bottom:8px;font:400 30px/1.1 "Bebas Neue",Impact,sans-serif;letter-spacing:.06em;color:#ff7a1a}
+.boot-alerte p{margin:0;font:400 15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#b6c0cc}
+.boot-pied{position:absolute;left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:12px;pointer-events:none;font:500 10px/1 Oswald,system-ui,sans-serif;letter-spacing:.28em;color:#4f5a68}
+#boot.boot-pret .boot-go{display:block}
+#boot.boot-pret .boot-details{display:none}
+#boot.boot-en-erreur .boot-erreur{display:block}
+#boot.boot-en-erreur .boot-details,#boot.boot-en-erreur .boot-astuce{display:none}
+#boot.boot-en-erreur #boot-rempli{background:#9c3b29}
+#boot.boot-en-erreur #boot-rempli::after{animation:none;opacity:0}
+#boot.boot-fatal .boot-etat{display:none}
+#boot.boot-fatal .boot-alerte{display:block}
+/* grands écrans : la barre et les textes d'un cran plus grands (le logo, lui, reste à 220 px : sa source est petite) */
+@media (min-width:1600px) and (min-height:900px){
+  .boot-etat{width:min(100%,600px)}
+  #boot-etape{font-size:14px}
+  #boot-pct{font-size:26px}
+  .boot-barre{height:7px}
+  .boot-details{font-size:13px}
+  .boot-astuce b{font-size:11px}
+  #boot-astuce-texte{font-size:15px}
+}
+/* téléphone en paysage : le logo à gauche, la barre à droite */
+@media (orientation:landscape) and (max-height:520px){
+  .boot-scene{flex-direction:row;justify-content:center;gap:clamp(22px,6vw,64px);max-width:880px}
+  .boot-logo{width:clamp(92px,34vh,170px)}
+  .boot-titre{font-size:clamp(28px,9vh,44px)}
+  .boot-etat{flex:1 1 0;width:auto;max-width:430px}
+  .boot-astuce{min-height:0}
+}
+@keyframes boot-cage{0%{opacity:0;transform:translateY(7%) scale(.97)}100%{opacity:1;transform:none}}
+@keyframes boot-ballon{0%{opacity:0;transform:scale(.8) rotate(-24deg)}100%{opacity:1;transform:none}}
+@keyframes boot-lueur{0%,100%{opacity:.35;transform:scale(.94)}50%{opacity:.85;transform:scale(1.04)}}
+@keyframes boot-reflet{0%{transform:translateX(-140%) skewX(-18deg)}45%,100%{transform:translateX(380%) skewX(-18deg)}}
+@keyframes boot-brille{0%{transform:translateX(-100%)}100%{transform:translateX(230%)}}
+@keyframes boot-monte{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+@keyframes boot-pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes boot-astuce{0%{opacity:0;transform:translateY(5px)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  #boot,#boot *,#boot *::before,#boot *::after{animation:none!important;transition:none!important}
+  .boot-reflet{display:none}
+}
+</style>
+</head>
+<body>
+<!-- ECRAN DE CHARGEMENT (js/chargement.js). Il est là dès la première image : le jeu met plusieurs secondes à se
+     construire sans rendre la main, et sur un téléphone qui ouvrait l'adresse pour la première fois c'était douze
+     secondes de BLANC. Le logo officiel en deux plans (tools/logo_chargement.py), la barre, l'étape en cours, les
+     astuces ; « TOUCHE L'ÉCRAN POUR COMMENCER » quand le menu est prêt. Le script du bas (appareil trop ancien, jeu
+     qui ne démarre pas) écrit dans #boot-alerte. -->
+<div id="boot" aria-busy="true">
+  <div class="boot-fond" aria-hidden="true"></div>
+  <div class="boot-scene">
+    <div class="boot-marque">
+      <div class="boot-logo" aria-hidden="true">
+        <div class="boot-lueur"></div>
+        <img class="boot-cage" src="assets/chargement/logo_cage.webp" alt="" width="480" height="521" decoding="async">
+        <img class="boot-ballon" src="assets/chargement/logo_ballon.webp" alt="" width="480" height="521" decoding="async">
+        <div class="boot-reflet"><i></i></div>
+      </div>
+      <div class="boot-titre">LA CAGE</div>
+      <div class="boot-sous">STREETBALL · BÉCON · COURBEVOIE</div>
+    </div>
+    <div class="boot-etat" role="status" aria-live="polite">
+      <div class="boot-ligne"><span id="boot-etape">Chargement…</span><span id="boot-pct">0&#8239;%</span></div>
+      <div class="boot-barre" id="boot-barre" role="progressbar" aria-label="Chargement" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="boot-rempli"></i></div>
+      <div class="boot-details" id="boot-details"></div>
+      <div class="boot-go" id="boot-go"></div>
+      <div class="boot-erreur" role="alert">
+        <b id="boot-erreur-titre">TÉLÉCHARGEMENT INTERROMPU</b>
+        <p id="boot-erreur-texte"></p>
+        <div class="boot-boutons"><button id="boot-reessayer" type="button">RÉESSAYER</button><button id="boot-continuer" type="button">CONTINUER</button></div>
+      </div>
+      <div class="boot-astuce" id="boot-astuce"><b>ASTUCE</b><span id="boot-astuce-texte">En balade, entre dans le cercle bleu au centre du terrain pour lancer un match.</span></div>
+    </div>
+    <div class="boot-alerte" id="boot-alerte" role="alert"></div>
+  </div>
+  <div class="boot-pied" aria-hidden="true"><span>LIFTSTUDIO</span><span id="boot-version"></span></div>
+</div>
+<div id="game"></div>
+<!-- iPHONE / iPAD : Safari ne sait pas verrouiller le paysage (l'APK Android, elle, le force). En jeu, un téléphone tenu en
+     portrait voit ce panneau. Il ne BLOQUE pas : sur un iPhone dont la rotation est verrouillée (Centre de contrôle),
+     l'écran ne tourne jamais, et le panneau restait affiché pour de bon (retour des amis de Haythem, 04/10/2026). Il
+     dit donc comment déverrouiller, et « JOUER QUAND MÊME » le ferme pour la session (js/game.js, majOrientation). -->
+<div id="tourner">
+  <div class="tourner-ico">📱↻</div>
+  <div>Tourne ton téléphone en paysage</div>
+  <small>L'écran ne tourne pas ? Ouvre le <b>Centre de contrôle</b> (glisse depuis le coin en haut à droite) et désactive le <b>verrou de rotation</b> 🔒, puis tourne le téléphone.</small>
+  <button id="tourner-ok" class="btn-primary">JOUER QUAND MÊME</button>
+</div>
+<div id="touch" class="touch-ui" hidden></div>
+
+<!-- ===== MENU PRINCIPAL (le terrain 3D tourne derrière) ===== -->
+<div id="menu" class="screen menu" data-screen="home">
+  <div class="menu-bg"><div class="shade"></div><div class="vignette"></div></div>
+
+  <!-- Accueil -->
+  <section class="menu-screen home" data-screen="home">
+    <div class="brand">
+      <div class="brand-kicker">STREETBALL · BÉCON · COURBEVOIE</div>
+      <h1 class="brand-title"><span class="brand-ligne"><img class="brand-logo" src="assets/icons/logo.webp" alt="" width="250" height="311"><span class="brand-mot">LA </span><span class="brand-mot">CAGE</span></span></h1>
+      <div class="brand-sub">85 RUE ARMAND SILVESTRE</div>
+    </div>
+    <nav class="main-nav">
+      <button class="nav-btn primary" data-go="select"><span class="nav-idx">01</span><span class="nav-label">JOUER</span><span class="nav-desc">Choisis ton joueur · balade libre · matchs depuis le cercle bleu</span></button>
+      <button class="nav-btn" data-go="online"><span class="nav-idx">02</span><span class="nav-label">JOUER EN LIGNE</span><span class="nav-desc">Salon, pseudo, équipes et chat · avec tes amis</span></button>
+      <button class="nav-btn" data-go="voeux"><span class="nav-idx">03</span><span class="nav-label">VŒUX</span><span class="nav-desc">Débloque les personnages · raretés et collection</span></button>
+      <button class="nav-btn" data-go="terrain"><span class="nav-idx">04</span><span class="nav-label">TERRAIN</span><span class="nav-desc">Bécon, les deux terrains du parc de Bécon, le playground Rudy Gobert à Levallois, ou le 144 quai de Jemmapes</span></button>
+      <button class="nav-btn" data-go="options"><span class="nav-idx">05</span><span class="nav-label">OPTIONS</span><span class="nav-desc">Graphismes · Audio · Commandes</span></button>
+      <button class="nav-btn" data-go="help"><span class="nav-idx">06</span><span class="nav-label">COMMENT JOUER</span><span class="nav-desc">Règles et touches</span></button>
+      <button class="nav-btn" data-go="credits"><span class="nav-idx">07</span><span class="nav-label">CRÉDITS</span><span class="nav-desc">Qui a fait quoi · licences des animations et des arbres</span></button>
+    </nav>
+    <div class="home-foot"><span id="menu-version">LA CAGE</span><span>Three.js · animations DeepMotion / CMU / Mixamo · <b>Crédits</b> dans le menu</span></div>
+  </section>
+
+  <!-- Choix du terrain : mêmes dimensions de jeu, décor entièrement différent. -->
+  <section class="menu-screen terrains" data-screen="terrain" hidden>
+    <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>TERRAIN</h2><span class="crumb">OÙ ON JOUE</span></header>
+    <div id="terrain-list" class="terrain-list"></div>
+    <p class="terrain-note">Changer de terrain recharge la partie : tes personnages, tes pièces et tes réglages sont gardés.</p>
+  </section>
+
+  <!-- Vœux : on débloque les personnages en tirant. Quatre raretés, chacune avec sa couleur et ses étoiles. -->
+  <section class="menu-screen voeux" data-screen="voeux">
+    <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>VŒUX</h2><span class="crumb">PERSONNAGES</span></header>
+    <div class="vx-wrap">
+      <div class="vx-left">
+        <div class="vx-banner">
+          <div class="vx-banner-kicker">BANNIÈRE DE LA CAGE</div>
+          <div class="vx-banner-title">TOUS LES JOUEURS DU QUARTIER</div>
+          <div class="vx-rates" id="vx-rates"></div>
+        </div>
+        <div class="vx-solde">
+          <span id="vx-jetons">🎟️ 0 jetons</span>
+          <span id="vx-pieces">🪙 0</span>
+        </div>
+        <div class="vx-pity" id="vx-pity"></div>
+        <div class="vx-actions">
+          <button id="vx-1" class="btn-secondary">VŒU ×1<small>1 jeton</small></button>
+          <button id="vx-10" class="btn-primary">VŒU ×10<small>9 jetons · 1 épique garanti</small></button>
+        </div>
+        <button id="vx-buy" class="btn-secondary vx-buy">ACHETER UN JETON (220 🪙)</button>
+        <div class="vx-note">Les jetons se gagnent aussi en jouant : un par match, deux de plus si tu gagnes, un par record d'atelier.</div>
+      </div>
+      <div class="vx-right">
+        <div class="on-head">TA COLLECTION <span id="vx-count"></span></div>
+        <div class="vx-collec" id="vx-collec"></div>
+      </div>
+    </div>
+    <!-- révélation : la carte du personnage tiré, avec la couleur et les étoiles de sa rareté -->
+    <div class="vx-reveal" id="vx-reveal" hidden>
+      <div class="vx-cards" id="vx-cards"></div>
+      <button id="vx-ok" class="btn-primary">CONTINUER</button>
+    </div>
+  </section>
+
+  <!-- Salon en ligne : tout le flux (pseudo, salon, équipes, prêt, chat, lancement) tourne en local tant qu'aucun
+       serveur n'est branché. Renseigner l'adresse du serveur bascule le même écran sur le vrai réseau. -->
+  <section class="menu-screen online" data-screen="online">
+    <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>JOUER EN LIGNE</h2><span class="crumb">AVEC TES AMIS</span></header>
+    <div class="online-wrap">
+      <div class="online-left">
+        <div class="on-row">
+          <label for="on-name">TON PSEUDO</label>
+          <input id="on-name" maxlength="16" placeholder="Ton nom sur le terrain" autocomplete="off">
+        </div>
+        <!-- L'ETAT DU TERRAIN, EN UNE LIGNE. C'est la seule chose qu'on a besoin de savoir avant de
+             cliquer : est-ce que le terrain repond, et combien on y est. L'adresse du serveur, elle,
+             n'interesse personne tant qu'elle marche — elle est passee sous « Réglages avancés ». -->
+        <div class="on-statut" id="on-statut">
+          <span class="pastille" id="on-pastille"></span>
+          <span class="txt" id="on-statut-txt">Recherche du terrain public…</span>
+        </div>
+        <div class="on-share" id="on-share" hidden></div>
+
+        <!-- QUAND AUCUN TERRAIN N'EST TROUVE, l'adresse est la SEULE chose a faire — elle n'a donc rien a
+             faire sous « Réglages avancés ». Cachee la, l'appli n'avait litteralement aucune issue. -->
+        <div class="on-manuel" id="on-manuel" hidden>
+          <b>Tu connais l’adresse d’un terrain ?</b>
+          <div class="on-code">
+            <input id="on-server" placeholder="http://192.168.1.12:8123" autocomplete="off" inputmode="url" spellcheck="false">
+            <button id="on-connect" class="btn-secondary">REJOINDRE</button>
+          </div>
+          <small id="on-state">Recherche du terrain public…</small>
+          <button id="on-wifi" class="btn-secondary on-wifi">CHERCHER SUR LE WIFI</button>
+          <small class="aide-manuel">Recopie l’adresse affichée par <b>Lancer.bat</b> sur le PC qui héberge — celle qui commence par <b>http://</b>. Elle est retenue&nbsp;: tu ne la taperas qu’une fois.</small>
+        </div>
+
+        <details class="on-avance">
+          <summary>Réglages avancés</summary>
+          <button id="on-demo" class="btn-secondary" title="Fait apparaître trois joueurs fictifs qui se promènent, pour voir à quoi ressemble le terrain partagé sans serveur">VOIR AVEC DES JOUEURS FICTIFS</button>
+        </details>
+        <input type="hidden" id="on-code" value=""><button id="on-join" hidden></button><button id="on-new" hidden></button>
+        <div class="on-note">
+          <b>Un seul terrain, ouvert à tous, dix joueurs au maximum.</b> Il n'y a pas de code à s'échanger, ni
+          d'adresse à taper : tous ceux qui entrent se retrouvent au même endroit.
+          <br><b>Pour faire venir un ami qui est chez toi :</b> lance le jeu avec <b>Lancer.bat</b> — il ouvre
+          le terrain en même temps que le jeu et affiche l’adresse à lui donner (du genre
+          <b>http://192.168.1.12:8123</b>). Il l’ouvre dans son navigateur, et il est là. Pour des amis qui ne
+          sont pas chez toi, il faut un serveur en ligne : <b>serveur/LISEZMOI.md</b>.
+          Une fois sur le terrain tu te promènes avec les autres joueurs connectés. Pour lancer un match, entrez
+          <b>ensemble dans le cercle bleu</b> au milieu du terrain : c'est là qu'on choisit le 1v1, le 2v2, le 3v3
+          ou le 5v5. Pierrick le marchand et les ateliers d'entraînement restent disponibles pendant ce temps.
+        </div>
+        <div class="on-actions">
+          <button id="on-enter" class="btn-primary">REJOINDRE LE TERRAIN ▶</button>
+        </div>
+      </div>
+      <div class="online-right">
+        <div class="on-head">TERRAIN PUBLIC<span id="on-count"></span><b id="on-code-show" hidden></b></div>
+        <div class="on-players" id="on-players"></div>
+        <div class="on-chat" id="on-chat"></div>
+        <div class="on-send"><input id="on-msg" maxlength="140" placeholder="Écris au salon…" autocomplete="off"><button id="on-say" class="btn-secondary">ENVOYER</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Choix du joueur : liste à gauche, le joueur en 3D sur le terrain à droite -->
+  <section class="menu-screen select" data-screen="select" hidden>
+    <div class="select-panel">
+      <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>TON JOUEUR</h2></header>
+      <div class="select-list" id="select-list"></div>
+      <div class="select-info" id="select-info"></div>
+      <footer class="screen-foot"><button class="btn-primary" id="btn-enter">ENTRER SUR LE TERRAIN ▶</button></footer>
+    </div>
+    <div class="select-hint">Le joueur tourne sur le terrain · une fois dehors, entre dans le <b>cercle bleu</b> pour choisir un match (1v1 → 5v5)</div>
+  </section>
+
+  <!-- Aide -->
+  <section class="menu-screen" data-screen="help" hidden>
+    <div class="panel-wide">
+      <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>COMMENT JOUER</h2><span class="crumb">AIDE</span></header>
+      <div class="help-grid">
+        <div class="help-box"><h3>RÈGLES</h3>
+          <p><b>Balade libre :</b> tu arrives seul sur le terrain avec le ballon, caméra à la souris. Entre dans le <b style="color:#4aa3ff">cercle bleu</b> au centre pour choisir un match : 1v1, 2v2, 3v3, 4v4 ou 5v5, difficulté, points pour gagner, équipes.</p>
+          <p>Terrain entier : ton équipe attaque le panier de <b>droite</b> (caméra TV), l'ordinateur celui de gauche. <b>14 secondes</b> par possession. L'équipe qui encaisse un panier remet en jeu depuis sa ligne de fond. Premier arrivé au score choisi.</p>
+          <p>Deux paniers de suite = <b>en feu</b> : vitesse et adresse boostées, balle enflammée. Le contre, l'interception et le rebond font monter le momentum.</p>
+          <p><b>Modes en équipe :</b> tu contrôles le porteur en attaque ; en défense le jeu bascule automatiquement sur le joueur le plus proche de la balle (option désactivable), ou change de joueur à la main. Tes coéquipiers s'écartent, coupent vers le cercle et demandent la balle ; passe-leur quand tu es pris.</p>
+        </div>
+        <div class="help-box"><h3>TOUCHES</h3><div class="help-keys" id="help-keys"></div><p class="help-note">Toutes les touches se changent dans <b>Options → Commandes</b>.</p></div>
+      </div>
+      <footer class="screen-foot"><button class="btn-primary" data-go="home">OK</button></footer>
+    </div>
+  </section>
+
+  <!-- Crédits. Ce n'est pas de la politesse : les animations de danse et les deux dribbles viennent de
+       Sketchfab sous licence CC BY 4.0, qui EXIGE l'attribution partout où l'œuvre est diffusée. Elle vivait
+       jusqu'ici dans le README d'un dépôt privé, donc nulle part pour qui installe l'APK. La base CMU impose
+       en plus une formule précise, reprise mot pour mot ci-dessous. -->
+  <section class="menu-screen" data-screen="credits" hidden>
+    <div class="panel-wide">
+      <header class="screen-head"><button class="back" data-go="home">← RETOUR</button><h2>CRÉDITS</h2><span class="crumb">QUI A FAIT QUOI</span></header>
+      <div class="help-grid">
+        <div class="help-box"><h3>LE JEU</h3>
+          <p>Développé par <b>Haythem TALHA</b> — LiftStudio.</p>
+          <p>Les quatre terrains sont reconstitués d'après photos : <b>La Cage</b>, 85 rue Armand-Silvestre à Courbevoie ; les deux petits terrains du <b>parc de Bécon</b>, au bord de la Seine ; le playground <b>Rudy Gobert</b> à Levallois-Perret ; le <b>144 quai de Jemmapes</b>, Paris 10<sup>e</sup>.</p>
+          <p>Moteur 3D <b>Three.js</b> (licence MIT). Avatars créés avec <b>Avaturn</b>. Tous les sons sont synthétisés à la volée en WebAudio, il n'y a aucun fichier audio.</p>
+          <p>Le ciel est photographique : deux panoramas 360° de <b>Poly Haven</b>, en licence <b>CC0</b> (domaine public) &mdash; <i>Kloofendal 48d Partly Cloudy (Pure Sky)</i> et <i>Kloofendal Overcast (Pure Sky)</i>, de <b>Greg Zaal</b> et <b>Andreas Mischok</b>. Chacun est tourné pour que son soleil tombe pile sur celui qui projette les ombres du jeu.</p>
+          <p>Le relief et le grain photographiques du bitume, du béton et de la terre de La Cage (repris à Levallois et à Jemmapes) viennent de trois textures <b>Poly Haven</b>, elles aussi en <b>CC0</b> : <i>Asphalt 01</i>, <i>Concrete Wall 003</i> et <i>Brown Mud Leaves 01</i>. Le poteau et le panneau des paniers de La Cage ont été modélisés par <b>Haythem TALHA</b> d'après le vrai terrain.</p>
+          <p>La <b>fresque au sol du playground Rudy Gobert</b> est l'œuvre d'un artiste dont le nom ne nous est pas connu ; elle est reproduite ici d'après le plan du projet. Si tu connais son nom, écris-nous : il a sa place sur cette page.</p>
+        </div>
+        <div class="help-box"><h3>CAPTURE DE MOUVEMENT</h3>
+          <p><b>CMU Graphics Lab Motion Capture Database.</b><br>
+            <i>The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with
+            funding from NSF EIA-0196217.</i></p>
+          <p>Animations <b>Mixamo</b> (Adobe).</p>
+          <p>Captures vidéo réalisées avec <b>DeepMotion Animate 3D</b>.</p>
+        </div>
+        <div class="help-box"><h3>SKETCHFAB · CC BY 4.0</h3>
+          <p>Animations utilisées seules, maillage retiré. Licence&nbsp;: <b>Creative Commons Attribution 4.0</b>.</p>
+          <ul class="credits-list">
+            <li>« Lakers LeBron James Dribbles Basketball » — <b>LasquetiSpice</b></li>
+            <li>« Kid Dribble Basketball but No Ball » — <b>nur in (mochi16)</b></li>
+            <li>« Hip Hop Dance by Sarwar (3D scan) » — <b>Muhammad Rahman</b></li>
+            <li>« Josh Breakdance 1990 » — <b>Mixamo</b></li>
+            <li>« Kachujin G Rosales Chicken Dance » — <b>Mixamo</b></li>
+            <li>« Gangnam Style » — <b>reizibarrientos</b></li>
+            <li>« Ymca Dance Bani » — <b>Shivay gaming</b></li>
+          </ul>
+        </div>
+        <!-- Les arbres du parc de Bécon (assets/parc/) : modèles Sketchfab CC BY 4.0, modifiés (allégés). Textes repris
+             mot pour mot de assets/parc/manifeste.json, suivis du lien de chaque modèle (CREDITS.md n'est pas copié
+             dans l'APK : c'est ici que la licence doit trouver le lien vers l'œuvre). -->
+        <div class="help-box"><h3>ARBRES DU PARC DE BÉCON · CC BY 4.0</h3>
+          <p>Modèles 3D de <b>Sketchfab</b>, modifiés (allégés pour le jeu). Licence&nbsp;: <b>Creative Commons Attribution 4.0</b> — creativecommons.org/licenses/by/4.0</p>
+          <ul class="credits-list">
+            <li>« Linden tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/linden-tree-c0c3aa73cc9945d2a36c01a0d8d6d4bb</small></li>
+            <li>« Silver willow tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/silver-willow-tree-dc36cac786c34948a5ae2cb41faaecfd</small></li>
+            <li>« Cedar Of Lebanon » par Valery.Li (sketchfab.com/Valery.Li), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/cedar-of-lebanon-6bf28d5c230a4dbcbc350ab7e4964a89</small></li>
+            <li>« Realistic HD Mexican orange blossom (8/10) » par PlantCatalog (sketchfab.com/PlantCatalog), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/realistic-hd-mexican-orange-blossom-810-790a6aa9051d4ceea55eae4f1498089e</small></li>
+            <li>« Topiary bush - Bell shape - Sceaux Park » par Luis 3D (sketchfab.com/luism3D), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/topiary-bush-bell-shape-sceaux-park-ac98e638a0994e9e96884d7189af56eb</small></li>
+            <li>« Platano Tree » par gelmi.com.br (sketchfab.com/rodrigogelmi), CC BY 4.0 — modèle simplifié pour le jeu<br><small style="opacity:.75;overflow-wrap:anywhere">sketchfab.com/3d-models/platano-tree-ef48485b7c534acc905c0d9964c5fe7c</small></li>
+          </ul>
+          <p>Écorces, feuilles et sols photographiques du parc, et le ciel qui l'éclaire (<i>Spree Bank</i>)&nbsp;: <b>Poly Haven</b> et <b>ambientCG</b>, en licence <b>CC0</b> (domaine public).</p>
+        </div>
+      </div>
+      <footer class="screen-foot"><button class="btn-primary" data-go="home">OK</button></footer>
+    </div>
+  </section>
+</div>
+
+<!-- ===== CHOIX DU MATCH (depuis le cercle bleu de la balade) ===== -->
+<div id="matchsetup" class="screen setup" hidden>
+  <div class="setup-box">
+    <div id="ms-mode">
+      <header class="screen-head"><h2 id="ms-title">CHOISIR UN MATCH</h2><span class="crumb">1 / 2 · MODE</span></header>
+      <!-- .ms-corps : tout ce qui est entre l'en-tête et les boutons du bas. Au téléphone c'est LUI qui défile, et
+           JOUER TOUT DE SUITE / SUIVANT restent à l'écran (css/style.css, « LES MENUS AU TÉLÉPHONE »). Les blocs
+           MATCHS EN COURS et JOUEURS EN LIGNE y sont insérés par js/ui.js, avant #modes. -->
+      <div class="ms-corps">
+      <div class="modes" id="modes"></div>
+      <div class="match-opts match-opts-4">
+        <div class="opt-block">
+          <h3>DIFFICULTÉ</h3>
+          <div class="seg" id="difficulty">
+            <button data-v="facile">Facile</button>
+            <button data-v="normal" class="on">Normal</button>
+            <button data-v="difficile">Difficile</button>
+          </div>
+        </div>
+        <div class="opt-block">
+          <h3>TERRAIN</h3>
+          <div class="seg" id="court">
+            <button data-v="0" class="on">Terrain entier</button>
+            <button data-v="1">Demi-terrain</button>
+          </div>
+        </div>
+        <div class="opt-block">
+          <h3>POINTS POUR GAGNER</h3>
+          <div class="seg" id="target">
+            <button data-v="7">7</button>
+            <button data-v="11" class="on">11</button>
+            <button data-v="15">15</button>
+            <button data-v="21">21</button>
+          </div>
+        </div>
+        <div class="opt-block">
+          <h3>NOMS DES ÉQUIPES</h3>
+          <div class="names"><input id="name-a" maxlength="14" value="BÉCON"><span>vs</span><input id="name-b" maxlength="14" value="VISITEURS"></div>
+        </div>
+      </div>
+      </div>
+      <footer class="screen-foot"><button class="btn-secondary" id="ms-cancel">Retour à la balade</button><button class="btn-primary" id="ms-next">SUIVANT : ÉQUIPES →</button></footer>
+    </div>
+    <div id="ms-teams" hidden>
+      <header class="screen-head"><button class="back" id="ms-back">← MODE</button><h2 id="teams-title">ÉQUIPES</h2><span class="crumb">2 / 2 · ÉQUIPES</span></header>
+      <div class="teams-layout">
+        <!-- .teams-cols : sans effet sur ordinateur (display: contents) ; au téléphone en paysage, les deux équipes
+             l'une sous l'autre à gauche, et les fiches à droite, chaque côté défilant pour lui-même -->
+        <div class="teams-cols">
+        <div class="team-col user"><h3 id="team-a-title">TON ÉQUIPE</h3><div class="slots" id="slots-a"></div></div>
+        <div class="team-col cpu"><h3 id="team-b-title">ADVERSAIRES (ORDINATEUR)</h3><div class="slots" id="slots-b"></div></div>
+        </div>
+        <div class="pick-col">
+          <h3 id="pick-title">CHOISIS UN JOUEUR</h3>
+          <p class="pick-hint">Ton joueur de balade est le capitaine (poste 1). Clique sur un autre poste puis sur une fiche pour le remplir ; les doublons sont autorisés (« bis »).</p>
+          <div class="roster" id="roster-pick"></div>
+        </div>
+      </div>
+      <footer class="screen-foot"><button class="btn-secondary" id="ms-cancel2">Retour à la balade</button><button class="btn-secondary" id="ms-shuffle">🔀 Mélanger</button><button class="btn-primary" id="ms-start">LANCER LE MATCH ▶</button></footer>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TELEPHONE (groupe de messages « LA CAGE ») ===== -->
+<div id="phone" hidden>
+  <!-- Un vrai telephone : cadre metal, boutons sur la tranche, ecran avec barre d'etat et ilot, puis
+       l'appli de messagerie du groupe. Les identifiants phone-* sont ceux que lit js/phone.js. -->
+  <div class="phone-body">
+    <i class="ph-btn ph-vol1"></i><i class="ph-btn ph-vol2"></i><i class="ph-btn ph-power"></i>
+    <div class="phone-screen">
+      <div class="phone-status">
+        <span id="phone-clock">12:00</span>
+        <div class="phone-island"></div>
+        <span class="ph-icons">
+          <svg viewBox="0 0 18 12" width="17" height="11"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.5 7a6.4 6.4 0 0 1 9 0l1.5-1.5a8.5 8.5 0 0 0-12 0zM.5 4a10.6 10.6 0 0 1 15 0L16 3.4a11.7 11.7 0 0 0-16 0z"/></svg>
+          <i class="ph-batt"><i id="phone-batt"></i></i>
+        </span>
+      </div>
+      <header class="phone-head">
+        <button id="phone-close" title="Ranger le téléphone" aria-label="Ranger le téléphone"><svg viewBox="0 0 12 20" width="11" height="18"><path d="M10 2 2 10l8 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="phone-av">LC</div>
+        <div class="phone-title"><b>LA CAGE 🏀</b><span id="phone-sub">groupe · 6 membres</span></div>
+        <span class="ph-act"><svg viewBox="0 0 24 16" width="22" height="15"><rect x="1" y="2" width="15" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="m17 6 6-3.5v11L17 10z" fill="currentColor"/></svg></span>
+        <span class="ph-act"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5.2 1.8 7.8 5c.5.6.4 1.4-.1 2L6.2 8.4a11.5 11.5 0 0 0 5.4 5.4l1.4-1.5c.6-.5 1.4-.6 2-.1l3.2 2.6c.7.6.8 1.6.2 2.3l-1.4 1.6c-.8.8-2 1.1-3.1.7A18 18 0 0 1 1.5 5c-.4-1.1-.1-2.3.7-3.1L3.8.5c.4-.4 1-.3 1.4.1z" fill="currentColor"/></svg></span>
+      </header>
+      <div class="phone-msgs" id="phone-msgs"></div>
+      <div class="phone-quick" id="phone-quick"></div>
+      <div class="phone-bar">
+        <span class="ph-plus">+</span>
+        <input id="phone-input" maxlength="140" placeholder="Message" autocomplete="off">
+        <button id="phone-send" aria-label="Envoyer"><svg viewBox="0 0 20 20" width="17" height="17"><path d="M10 17V4M4 9.5 10 3.5l6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <!-- L'appli « Plan » du parc (js/plan_parc.js remplit ce cadre), et le dock qui passe d'une appli à l'autre -->
+      <div class="phone-plan" id="phone-plan" hidden></div>
+      <nav class="tabs phone-dock" id="phone-dock">
+        <button data-tab="messages" class="on"><svg viewBox="0 0 22 20" width="21" height="19"><path d="M11 1.5c-5.2 0-9.5 3.5-9.5 7.9 0 2.4 1.3 4.6 3.4 6l-.9 3.1 3.7-1.8c1 .3 2.1.5 3.3.5 5.2 0 9.5-3.5 9.5-7.8S16.2 1.5 11 1.5z" fill="currentColor"/></svg><span>Messages</span><i class="ph-dot" id="phone-dot" hidden></i></button>
+        <button data-tab="plan"><svg viewBox="0 0 22 20" width="21" height="19"><path d="M1.5 4.2 7.4 1.8l7.2 2.6 5.9-2.4v14L14.6 18.4l-7.2-2.6-5.9 2.4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M7.4 1.8v14M14.6 4.4v14" fill="none" stroke="currentColor" stroke-width="1.9"/></svg><span>Plan</span></button>
+      </nav>
+      <div class="phone-home"></div>
+    </div>
+    <div class="phone-glare"></div>
+  </div>
+</div>
+
+<!-- ===== LE MARCHAND (boutique de la balade) ===== -->
+<div id="shop" class="screen setup" hidden>
+  <div class="setup-box shop-box">
+    <header class="screen-head"><h2>PIERRICK · LE MARCHAND</h2><span class="shop-coins" id="shop-coins">🪙 0</span></header>
+    <p class="shop-msg" id="shop-msg"></p>
+    <div class="shop-boost" id="shop-boost"></div>
+    <div class="shop-boost" id="shop-xp"></div>
+    <nav class="tabs" id="shop-tabs">
+      <button data-tab="food" class="on">NOURRITURE · BOOSTS</button>
+      <button data-tab="balls">BALLONS</button>
+      <button data-tab="outfits">TENUES</button>
+      <button data-tab="shoes">CHAUSSURES</button>
+      <button data-tab="chef">COUVRE-CHEFS</button>
+      <button data-tab="emotes">EMOTES</button>
+      <button data-tab="badges">CAPACITÉS</button>
+      <button data-tab="player">MON JOUEUR</button>
+    </nav>
+    <div class="shop-grid" id="shop-grid"></div>
+    <footer class="screen-foot"><span class="shop-hint">Pièces : +5 par panier en balade, +40 par match joué, +100 si tu gagnes, +3 par point marqué. Un boost dure jusqu'à la fin de ton prochain match.</span><button class="btn-primary" id="shop-close">RETOUR À LA BALADE</button></footer>
+  </div>
+</div>
+
+<!-- ===== OPTIONS (menu et pause) ===== -->
+<div id="options" class="screen options" hidden>
+  <div class="options-box">
+    <header class="screen-head"><h2>OPTIONS</h2><button class="back" id="opt-close">FERMER ✕</button></header>
+    <nav class="tabs" id="opt-tabs">
+      <button data-tab="graphics" class="on">GRAPHISMES</button>
+      <button data-tab="audio">AUDIO</button>
+      <button data-tab="controls">COMMANDES</button>
+    </nav>
+    <div class="tab-panels" id="opt-panels"></div>
+    <footer class="screen-foot"><button class="btn-secondary" id="opt-reset">Réinitialiser cet onglet</button><button class="btn-primary" id="opt-ok">OK</button></footer>
+  </div>
+</div>
+
+<!-- ===== HUD ===== -->
+<div id="hud" hidden>
+  <div class="scoreboard">
+    <div class="team user"><span class="name" id="hud-user-name">TOI</span><span class="score" id="hud-user-score">0</span></div>
+    <div class="clock" id="hud-clock">12</div>
+    <div class="team cpu"><span class="score" id="hud-cpu-score">0</span><span class="name" id="hud-cpu-name">CPU</span></div>
+  </div>
+  <div class="momentum" id="momentum">
+    <div class="mo user"><div class="mo-fill" id="mo-user"></div></div>
+    <div class="mo-label" id="mo-label">MOMENTUM</div>
+    <div class="mo cpu"><div class="mo-fill" id="mo-cpu"></div></div>
+  </div>
+  <div class="possession" id="hud-poss"></div>
+  <div class="fire-vignette" id="fire-vignette"></div>
+  <div class="streak" id="hud-streak"></div>
+  <div class="feedback" id="hud-feedback"></div>
+    <div class="gains" id="hud-gains"></div>
+  <div class="ctrl-tag" id="hud-ctrl"></div>
+  <div class="hint" id="hud-hint"></div>
+  <div class="meter" id="meter" hidden>
+    <div class="meter-zone" id="meter-zone"></div>
+    <div class="meter-fill" id="meter-fill"></div>
+    <div class="meter-mark" id="meter-mark" hidden></div>
+  </div>
+  <button id="btn-play" class="btn-primary play-btn" hidden>CHOISIR UN MATCH</button>
+  <div class="stamina"><div class="stamina-label">ENDURANCE</div><div class="stamina-bar"><div class="stamina-fill" id="stamina-fill"></div></div></div>
+  <div class="keys" id="hud-keys"></div>
+  <div class="fps" id="hud-fps" hidden>60 FPS</div>
+  <div class="coins" id="hud-coins">🪙 0</div>
+  <div class="boost-tag" id="hud-boost"></div>
+  <div class="phone-badge" id="phone-badge" hidden>0</div>
+  <div class="emote-wheel" id="emote-wheel" hidden></div>
+</div>
+
+<!-- ===== OVERLAY (pause / fin) ===== -->
+<div id="overlay" class="screen" hidden>
+  <div class="overlay-box">
+    <h2 id="overlay-title">PAUSE</h2>
+    <p id="overlay-text"></p>
+    <div class="row" id="overlay-buttons"></div>
+  </div>
+</div>
+
+<!-- APPAREILS PLUS ANCIENS (05/10/2026).
+     1. Les « import maps » (ci-dessous) n'existent dans Safari que depuis iOS 16.4 : avant, aucun module ne se chargeait et
+        l'écran restait sur « Chargement du terrain… ». es-module-shims (MIT, vendor/) les ajoute là où elles manquent, et
+        ne fait rien ailleurs.
+     2. Sans WebGL2 (vieux téléphones, navigateurs très anciens), le jeu ne PEUT pas tourner : on le dit, au lieu d'un
+        chargement sans fin. Même chose si rien n'a démarré au bout de 90 s ou si un module ne se charge pas. -->
+<script>
+(function () {
+  function dire(titre, texte) {
+    var b = document.getElementById('boot'), a = document.getElementById('boot-alerte'); if (!b || !a) return;
+    a.innerHTML = '<b></b><p></p>';
+    a.firstChild.textContent = titre; a.lastChild.textContent = texte;
+    b.className += ' boot-fatal';
+  }
+  var gl2 = false;
+  try { var c = document.createElement('canvas'); gl2 = !!(window.WebGL2RenderingContext && c.getContext('webgl2')); } catch (e) { gl2 = false; }
+  var SOLUTION = 'Sur iPhone et iPad : iOS 16.4 ou plus récent (Réglages → Général → Mise à jour logicielle). Sur Android : mets à jour Chrome (ou l’application « Android System WebView ») depuis le Play Store. Sur ordinateur : Chrome, Edge ou Firefox à jour.';
+  if (!gl2) {
+    window.__incompatible = true;
+    document.addEventListener('DOMContentLoaded', function () {
+      dire('Appareil trop ancien', 'LA CAGE a besoin de WebGL 2 pour la 3D, et ce navigateur ne l’a pas (ou l’a désactivé). ' + SOLUTION);
+    });
+    return;
+  }
+  // garde-fou : un module qui ne se charge pas (syntaxe trop récente pour ce navigateur), ou rien de démarré après 90 s
+  var vu = false;
+  function bloque(detail) {
+    if (vu || window.__game) return; vu = true;
+    dire('Le jeu ne démarre pas', 'Ce navigateur n’arrive pas à lancer LA CAGE' + (detail ? ' (' + detail + ')' : '') + '. ' + SOLUTION
+      + ' Si ta connexion est lente, attends encore un peu puis recharge la page.');
+  }
+  window.addEventListener('error', function (e) {
+    var t = e && e.target;
+    if (t && t.tagName === 'SCRIPT') bloque('script non chargé');
+    else if (e && e.message && /SyntaxError|import|module/i.test(e.message) && !window.__game) bloque(e.message.slice(0, 80));
+  }, true);
+  // (un téléchargement qui avance encore — connexion lente — ou qui attend RÉESSAYER n'est pas un jeu bloqué : js/chargement.js)
+  (function veille() {
+    setTimeout(function () {
+      if (window.__game || !document.getElementById('boot')) return;
+      var ch = window.__chargement;
+      if (ch && (ch.enErreur() || Date.now() - ch.actif() < 60000)) return veille();
+      bloque('');
+    }, 90000);
+  })();
+})();
+</script>
+<script src="js/chargement.js"></script>
+<script async src="vendor/es-module-shims.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/build/three.module.js",
+  "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

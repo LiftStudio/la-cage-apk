@@ -1,0 +1,1525 @@
+{
+  "version": 1,
+  "genere": "2026-09-26",
+  "dossier": "assets/parc/",
+  "moteur": "three.js r170, GLTFLoader nu (sans Draco ni meshopt) ; seule extension : EXT_texture_webp (requise).",
+  "conventions": {
+    "axes": "Y haut, pied du tronc à l'origine, aucune rotation à appliquer",
+    "tangentes": "retirées : three calcule le repère tangent par dérivées d'écran pour les normal maps",
+    "uv": "un seul jeu (TEXCOORD_0)",
+    "normalesTextures": "normal maps convention OpenGL (+Y), comme three",
+    "couleursSommets": "uniquement sur les aiguilles du cèdre (occlusion)",
+    "alphaTest": "feuillage en MASK ; conseil : material.alphaToCoverage = true avec antialias pour limiter la disparition des feuilles au loin (mipmaps)"
+  },
+  "modeles": {
+    "platane": {
+      "nom": "Platane",
+      "espece": "Platanus x hispanica (platane commun)",
+      "fichiers": {
+        "pc": "platane.glb",
+        "mobile": "platane_mobile.glb"
+      },
+      "unite": "cm",
+      "versMetres": 0.01,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab : racine « Sketchfab_model » (-90° X) + FBX (+90° X) ; spec-gloss ; unites en cm"
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 6.4,
+        "profondeurSousSolMetres": 0.064
+      },
+      "bbox": {
+        "unite": "cm",
+        "pc": {
+          "min": [
+            -168.775,
+            -6.4,
+            -168.835
+          ],
+          "max": [
+            182.779,
+            639.442,
+            195.827
+          ]
+        },
+        "mobile": {
+          "min": [
+            -169.355,
+            -6.4,
+            -169.374
+          ],
+          "max": [
+            183.38,
+            639.838,
+            196.416
+          ]
+        }
+      },
+      "hauteurFichier": 639.442,
+      "hauteurFichierMetres": 6.394,
+      "largeurFichierMetres": 3.647,
+      "hauteurReelleConseilleeMetres": 12,
+      "plageRealisteMetres": [
+        10,
+        20
+      ],
+      "echelleConseillee": 0.01877,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [
+          {
+            "nom": "leafs_Platano",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          },
+          {
+            "nom": "treetop_platano",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          }
+        ],
+        "feuillageOpaque": [],
+        "ecorce": [
+          "Platano_Trunk"
+        ],
+        "autres": [],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 39669,
+        "mobile": 14782,
+        "budget": {
+          "pc": 40000,
+          "mobile": 15000
+        },
+        "source": 143586
+      },
+      "sommets": {
+        "pc": 43383,
+        "mobile": 22871
+      },
+      "appelsDessin": {
+        "pc": 3,
+        "mobile": 3
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 2088340,
+          "ko": 2039
+        },
+        "mobile": {
+          "octets": 1012532,
+          "ko": 989
+        }
+      },
+      "textures": {
+        "pc": [
+          "leafs_Platano_couleur 512x1024",
+          "leafs_Platano_normale 512x1024",
+          "Platano_Trunk_couleur 512x1024",
+          "Platano_Trunk_normale 512x1024",
+          "treetop_platano_couleur 1024x1024",
+          "treetop_platano_normale 1024x1024"
+        ],
+        "mobile": [
+          "leafs_Platano_couleur 256x512",
+          "leafs_Platano_normale 256x512",
+          "Platano_Trunk_couleur 256x512",
+          "Platano_Trunk_normale 256x512",
+          "treetop_platano_couleur 512x512",
+          "treetop_platano_normale 512x512"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "leafs_Platano": {
+            "op": "grid",
+            "avant": 101918,
+            "apres": 20524,
+            "cartes": 5095,
+            "cartesGardees": 5095,
+            "cartesReduites": 5087
+          },
+          "Platano_Trunk": {
+            "op": "simplify",
+            "avant": 32516,
+            "apres": 9993
+          },
+          "treetop_platano": {
+            "op": "aucune",
+            "avant": 9152,
+            "apres": 9152
+          }
+        },
+        "mobile": {
+          "leafs_Platano": {
+            "op": "grid",
+            "avant": 101918,
+            "apres": 9282,
+            "cartes": 5095,
+            "cartesGardees": 4561,
+            "cartesReduites": 4553,
+            "agrandissementCartes": 1.05
+          },
+          "Platano_Trunk": {
+            "op": "simplify",
+            "avant": 32516,
+            "apres": 2758
+          },
+          "treetop_platano": {
+            "op": "cards",
+            "avant": 9152,
+            "apres": 2742,
+            "cartes": 71,
+            "cartesGardees": 24,
+            "agrandissementCartes": 1.2
+          }
+        }
+      },
+      "notes": [
+        "Feuillage d'origine en teintes d'automne (doré/orangé) : couleurs conservées. Pour un platane vert, tex/feuilles_platane.webp (LeafSet010, 2x2 feuilles) peut remplacer la map de « leafs_Platano » (UV 0..1 par carte : on verra 4 feuilles par carte).",
+        "KHR_materials_pbrSpecularGlossiness converti en metal-rough (metallic 0, rugosité = 1 - glossiness) ; les extensions specular/ior ajoutées par la conversion ont été retirées.",
+        "Feuilles BLEND -> MASK (alphaTest 0,4). Cartes-feuilles en grille 3x6 (20 triangles) réduites à 4 triangles (PC, pli central gardé) / 2 triangles (mobile) : contour et placage exacts, seule la courbure disparaît.",
+        "Nœuds Camera et Directional Light du fichier Sketchfab supprimés."
+      ],
+      "credit": {
+        "titre": "Platano Tree",
+        "auteur": "gelmi.com.br",
+        "identifiant": "rodrigogelmi",
+        "profil": "https://sketchfab.com/rodrigogelmi",
+        "lien": "https://sketchfab.com/3d-models/platano-tree-ef48485b7c534acc905c0d9964c5fe7c",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Platano Tree » par gelmi.com.br (sketchfab.com/rodrigogelmi), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Platano Tree\" (https://sketchfab.com/3d-models/platano-tree-ef48485b7c534acc905c0d9964c5fe7c) by gelmi.com.br (https://sketchfab.com/rodrigogelmi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    },
+    "tilleul": {
+      "nom": "Tilleul",
+      "espece": "Tilia (tilleul)",
+      "fichiers": {
+        "pc": "tilleul.glb",
+        "mobile": "tilleul_mobile.glb"
+      },
+      "unite": "m",
+      "versMetres": 1,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab : racine (Z-up -> Y-up) + FBX (180° X, échelle 0,01 x 0,0123) ; seul LOD0 présent dans le fichier (pas de LOD1)"
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 2.405,
+        "profondeurSousSolMetres": 2.405
+      },
+      "bbox": {
+        "unite": "m",
+        "pc": {
+          "min": [
+            -4.933,
+            -2.405,
+            -5.278
+          ],
+          "max": [
+            5.188,
+            15.417,
+            5.221
+          ]
+        },
+        "mobile": {
+          "min": [
+            -5.006,
+            -2.405,
+            -5.399
+          ],
+          "max": [
+            5.372,
+            15.565,
+            5.394
+          ]
+        }
+      },
+      "hauteurFichier": 15.417,
+      "hauteurFichierMetres": 15.417,
+      "largeurFichierMetres": 10.499,
+      "hauteurReelleConseilleeMetres": 15,
+      "plageRealisteMetres": [
+        12,
+        20
+      ],
+      "echelleConseillee": 0.973,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [
+          {
+            "nom": "M_Branch.005",
+            "alphaTest": 0.261,
+            "doubleFace": true
+          }
+        ],
+        "feuillageOpaque": [],
+        "ecorce": [
+          "M_Bark.005"
+        ],
+        "autres": [],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 24715,
+        "mobile": 9598,
+        "budget": {
+          "pc": 25000,
+          "mobile": 10000
+        },
+        "source": 46236
+      },
+      "sommets": {
+        "pc": 25929,
+        "mobile": 10713
+      },
+      "appelsDessin": {
+        "pc": 2,
+        "mobile": 2
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 1409708,
+          "ko": 1377
+        },
+        "mobile": {
+          "octets": 555344,
+          "ko": 542
+        }
+      },
+      "textures": {
+        "pc": [
+          "M_Bark.005_couleur 256x1024",
+          "M_Bark.005_normale 256x1024",
+          "M_Branch.005_couleur 1024x1024",
+          "M_Branch.005_normale 1024x1024"
+        ],
+        "mobile": [
+          "M_Bark.005_couleur 128x512",
+          "M_Bark.005_normale 128x512",
+          "M_Branch.005_couleur 512x512",
+          "M_Branch.005_normale 512x512"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "M_Bark.005": {
+            "op": "simplify",
+            "avant": 16689,
+            "apres": 5925
+          },
+          "M_Branch.005": {
+            "op": "cards",
+            "avant": 29547,
+            "apres": 18790,
+            "cartes": 1753,
+            "cartesGardees": 1112,
+            "agrandissementCartes": 1.1
+          }
+        },
+        "mobile": {
+          "M_Bark.005": {
+            "op": "simplify",
+            "avant": 16689,
+            "apres": 1500
+          },
+          "M_Branch.005": {
+            "op": "cards",
+            "avant": 29547,
+            "apres": 8098,
+            "cartes": 1753,
+            "cartesGardees": 478,
+            "agrandissementCartes": 1.45
+          }
+        }
+      },
+      "notes": [
+        "Racines sous y = 0 (2,4 m) : à enterrer, le pied du tronc est à l'origine.",
+        "Cartes de branches (polygones découpés dans un atlas) : une partie retirée, les restantes agrandies (x1,1 PC, x1,45 mobile) pour garder la densité."
+      ],
+      "credit": {
+        "titre": "Linden tree",
+        "auteur": "Georgeous",
+        "identifiant": "intice184",
+        "profil": "https://sketchfab.com/intice184",
+        "lien": "https://sketchfab.com/3d-models/linden-tree-c0c3aa73cc9945d2a36c01a0d8d6d4bb",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Linden tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Linden tree\" (https://sketchfab.com/3d-models/linden-tree-c0c3aa73cc9945d2a36c01a0d8d6d4bb) by Georgeous (https://sketchfab.com/intice184) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    },
+    "saule": {
+      "nom": "Saule argenté",
+      "espece": "Salix alba (saule blanc/argenté)",
+      "fichiers": {
+        "pc": "saule.glb",
+        "mobile": "saule_mobile.glb"
+      },
+      "unite": "m",
+      "versMetres": 1,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab : racine (Z-up -> Y-up) + FBX (180° X, échelle 0,01 x 0,0001) ; seul LOD0 présent dans le fichier (pas de LOD1)"
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 2.544,
+        "profondeurSousSolMetres": 2.544
+      },
+      "bbox": {
+        "unite": "m",
+        "pc": {
+          "min": [
+            -4.918,
+            -2.544,
+            -5.692
+          ],
+          "max": [
+            6.731,
+            12.693,
+            8.382
+          ]
+        },
+        "mobile": {
+          "min": [
+            -4.758,
+            -2.544,
+            -5.843
+          ],
+          "max": [
+            6.843,
+            12.837,
+            7.914
+          ]
+        }
+      },
+      "hauteurFichier": 12.693,
+      "hauteurFichierMetres": 12.693,
+      "largeurFichierMetres": 14.074,
+      "hauteurReelleConseilleeMetres": 12.5,
+      "plageRealisteMetres": [
+        10,
+        18
+      ],
+      "echelleConseillee": 0.9848,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [
+          {
+            "nom": "M_Branch",
+            "alphaTest": 0.163,
+            "doubleFace": true
+          }
+        ],
+        "feuillageOpaque": [],
+        "ecorce": [
+          "M_Bark"
+        ],
+        "autres": [],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 19593,
+        "mobile": 7703,
+        "budget": {
+          "pc": 20000,
+          "mobile": 8000
+        },
+        "source": 30524
+      },
+      "sommets": {
+        "pc": 20488,
+        "mobile": 8350
+      },
+      "appelsDessin": {
+        "pc": 2,
+        "mobile": 2
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 1209488,
+          "ko": 1181
+        },
+        "mobile": {
+          "octets": 457444,
+          "ko": 447
+        }
+      },
+      "textures": {
+        "pc": [
+          "M_Bark_couleur 256x1024",
+          "M_Bark_normale 256x1024",
+          "M_Branch_couleur 1024x1024",
+          "M_Branch_normale 1024x1024"
+        ],
+        "mobile": [
+          "M_Bark_couleur 128x512",
+          "M_Bark_normale 128x512",
+          "M_Branch_couleur 512x512",
+          "M_Branch_normale 512x512"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "M_Bark": {
+            "op": "simplify",
+            "avant": 12659,
+            "apres": 4795
+          },
+          "M_Branch": {
+            "op": "cards",
+            "avant": 17865,
+            "apres": 14798,
+            "cartes": 1168,
+            "cartesGardees": 968,
+            "agrandissementCartes": 1.06
+          }
+        },
+        "mobile": {
+          "M_Bark": {
+            "op": "simplify",
+            "avant": 12659,
+            "apres": 1707
+          },
+          "M_Branch": {
+            "op": "cards",
+            "avant": 17865,
+            "apres": 5996,
+            "cartes": 1168,
+            "cartesGardees": 392,
+            "agrandissementCartes": 1.3
+          }
+        }
+      },
+      "notes": [
+        "Racines sous y = 0 (2,5 m) : à enterrer.",
+        "Cartes de branches : une partie retirée, les restantes agrandies (x1,06 PC, x1,3 mobile)."
+      ],
+      "credit": {
+        "titre": "Silver willow tree",
+        "auteur": "Georgeous",
+        "identifiant": "intice184",
+        "profil": "https://sketchfab.com/intice184",
+        "lien": "https://sketchfab.com/3d-models/silver-willow-tree-dc36cac786c34948a5ae2cb41faaecfd",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Silver willow tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Silver willow tree\" (https://sketchfab.com/3d-models/silver-willow-tree-dc36cac786c34948a5ae2cb41faaecfd) by Georgeous (https://sketchfab.com/intice184) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    },
+    "cedre": {
+      "nom": "Cèdre du Liban",
+      "espece": "Cedrus libani",
+      "fichiers": {
+        "pc": "cedre.glb",
+        "mobile": "cedre_mobile.glb"
+      },
+      "unite": "m",
+      "versMetres": 1,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab glTF : racine translatée de (0,349 ; -12,908 ; 0) + FBX (180° X, échelle 0,3048 pied->m). N'était PAS couché en Z : déjà Y haut, mais décalé de -12,9 m. Recentré : pied du tronc à l'origine."
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 1.222,
+        "profondeurSousSolMetres": 1.222
+      },
+      "bbox": {
+        "unite": "m",
+        "pc": {
+          "min": [
+            -10.235,
+            -1.222,
+            -9.783
+          ],
+          "max": [
+            9.379,
+            14.112,
+            8.247
+          ]
+        },
+        "mobile": {
+          "min": [
+            -10.297,
+            -1.222,
+            -9.946
+          ],
+          "max": [
+            9.185,
+            14.083,
+            8.072
+          ]
+        }
+      },
+      "hauteurFichier": 14.112,
+      "hauteurFichierMetres": 14.112,
+      "largeurFichierMetres": 19.614,
+      "hauteurReelleConseilleeMetres": 15,
+      "plageRealisteMetres": [
+        12,
+        25
+      ],
+      "echelleConseillee": 1.063,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [
+          {
+            "nom": "Branches_01",
+            "alphaTest": 0.756,
+            "doubleFace": true
+          },
+          {
+            "nom": "CedarOfLebanonNeedles",
+            "alphaTest": 0.269,
+            "doubleFace": true
+          }
+        ],
+        "feuillageOpaque": [],
+        "ecorce": [
+          "CedarOfLebanonBark",
+          "Cap_04"
+        ],
+        "autres": [],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 39689,
+        "mobile": 14719,
+        "budget": {
+          "pc": 40000,
+          "mobile": 15000
+        },
+        "source": 206076
+      },
+      "sommets": {
+        "pc": 52105,
+        "mobile": 21523
+      },
+      "appelsDessin": {
+        "pc": 4,
+        "mobile": 3
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 3223380,
+          "ko": 3148
+        },
+        "mobile": {
+          "octets": 1170800,
+          "ko": 1143
+        }
+      },
+      "textures": {
+        "pc": [
+          "CedarOfLebanonBark_couleur 256x1024",
+          "CedarOfLebanonBark_normale 256x1024",
+          "Branches_01_couleur 512x1024",
+          "Branches_01_normale 512x1024",
+          "Cap_04_couleur 512x512",
+          "Cap_04_normale 512x512",
+          "CedarOfLebanonNeedles_couleur 1024x1024",
+          "CedarOfLebanonNeedles_normale 1024x1024"
+        ],
+        "mobile": [
+          "CedarOfLebanonBark_couleur 128x512",
+          "CedarOfLebanonBark_normale 128x512",
+          "Branches_01_couleur 256x512",
+          "Branches_01_normale 256x512",
+          "CedarOfLebanonNeedles_couleur 512x512",
+          "CedarOfLebanonNeedles_normale 512x512"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "CedarOfLebanonBark": {
+            "op": "simplify",
+            "avant": 40730,
+            "apres": 8994
+          },
+          "Branches_01": {
+            "op": "cards",
+            "avant": 13166,
+            "apres": 4996,
+            "cartes": 454,
+            "cartesGardees": 167,
+            "agrandissementCartes": 1.1
+          },
+          "Cap_04": {
+            "op": "simplify",
+            "avant": 2108,
+            "apres": 700
+          },
+          "CedarOfLebanonNeedles": {
+            "op": "cards",
+            "avant": 150072,
+            "apres": 24999,
+            "cartes": 16636,
+            "cartesGardees": 8232,
+            "cartesEnQuad": 9556,
+            "agrandissementCartes": 1.15
+          }
+        },
+        "mobile": {
+          "CedarOfLebanonBark": {
+            "op": "simplify",
+            "avant": 40730,
+            "apres": 2119
+          },
+          "Branches_01": {
+            "op": "cards",
+            "avant": 13166,
+            "apres": 1200,
+            "cartes": 454,
+            "cartesGardees": 42,
+            "agrandissementCartes": 1.3
+          },
+          "Cap_04": {
+            "op": "retire",
+            "avant": 2108,
+            "apres": 0
+          },
+          "CedarOfLebanonNeedles": {
+            "op": "cards",
+            "avant": 150072,
+            "apres": 11400,
+            "cartes": 16636,
+            "cartesGardees": 3694,
+            "cartesEnQuad": 9556,
+            "agrandissementCartes": 1.4
+          }
+        }
+      },
+      "notes": [
+        "Très large (≈ 20 m pour 14 m de haut) : houppier en plateaux typique du cèdre âgé.",
+        "Aiguilles sombres sous un éclairage direct (texture + AO de sommets SpeedTree) : c'est le rendu d'origine, pas une perte de la conversion.",
+        "Rugosité des aiguilles (0) et des frondes (0,09) portée à 0,8 : à 0 elles devenaient des miroirs blancs avec l'HDR.",
+        "COLOR_0 gardé sur les aiguilles seulement (occlusion SpeedTree 0,5..1, en unorm8) : three active vertexColors automatiquement.",
+        "Aiguilles : les cartes à cellule d'atlas rectangulaire ont été remplacées par un quad ajusté (même zone de texture, 2 triangles), puis une partie des cartes retirée. Normal map des aiguilles repassée de TEXCOORD_1 à TEXCOORD_0 (identiques).",
+        "Mobile : les capuchons de branches (Cap_04) sont retirés."
+      ],
+      "credit": {
+        "titre": "Cedar Of Lebanon",
+        "auteur": "Valery.Li",
+        "identifiant": "Valery.Li",
+        "profil": "https://sketchfab.com/Valery.Li",
+        "lien": "https://sketchfab.com/3d-models/cedar-of-lebanon-6bf28d5c230a4dbcbc350ab7e4964a89",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Cedar Of Lebanon » par Valery.Li (sketchfab.com/Valery.Li), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Cedar Of Lebanon\" (https://sketchfab.com/3d-models/cedar-of-lebanon-6bf28d5c230a4dbcbc350ab7e4964a89) by Valery.Li (https://sketchfab.com/Valery.Li) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    },
+    "arbuste": {
+      "nom": "Oranger du Mexique",
+      "espece": "Choisya ternata",
+      "fichiers": {
+        "pc": "arbuste.glb",
+        "mobile": "arbuste_mobile.glb"
+      },
+      "unite": "m",
+      "versMetres": 1,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab : racine (-90° X) + FBX (+90° X) + nœud (-90° X), cuits dans les sommets"
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 0.056,
+        "profondeurSousSolMetres": 0.056
+      },
+      "bbox": {
+        "unite": "m",
+        "pc": {
+          "min": [
+            -0.835,
+            -0.056,
+            -0.733
+          ],
+          "max": [
+            0.917,
+            0.986,
+            0.766
+          ]
+        },
+        "mobile": {
+          "min": [
+            -0.847,
+            -0.069,
+            -0.73
+          ],
+          "max": [
+            0.906,
+            0.968,
+            0.775
+          ]
+        }
+      },
+      "hauteurFichier": 0.986,
+      "hauteurFichierMetres": 0.986,
+      "largeurFichierMetres": 1.752,
+      "hauteurReelleConseilleeMetres": 1.4,
+      "plageRealisteMetres": [
+        1,
+        2.5
+      ],
+      "echelleConseillee": 1.42,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [
+          {
+            "nom": "Choisya_leaf_01_dry_1",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          },
+          {
+            "nom": "Choisya_leaf_02_dry_1_back",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          },
+          {
+            "nom": "Choisya_leaf_01",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          },
+          {
+            "nom": "Choisya_leaf_02_back",
+            "alphaTest": 0.4,
+            "doubleFace": true
+          }
+        ],
+        "feuillageOpaque": [],
+        "ecorce": [
+          "Choisya_twig_01",
+          "Choisya_bark",
+          "Choisya_twig"
+        ],
+        "autres": [
+          "Choisya_bud"
+        ],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 7852,
+        "mobile": 2978,
+        "budget": {
+          "pc": 8000,
+          "mobile": 3000
+        },
+        "source": 31352
+      },
+      "sommets": {
+        "pc": 14765,
+        "mobile": 5995
+      },
+      "appelsDessin": {
+        "pc": 8,
+        "mobile": 6
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 604016,
+          "ko": 590
+        },
+        "mobile": {
+          "octets": 277368,
+          "ko": 271
+        }
+      },
+      "textures": {
+        "pc": [
+          "Choisya_leaf_01_dry_1_couleur 512x512",
+          "Choisya_leaf_01_normale 512x512",
+          "Choisya_leaf_02_dry_1_back_couleur 512x512",
+          "Choisya_leaf_02_back_normale 512x512",
+          "Choisya_twig_01_couleur 128x512",
+          "Choisya_leaf_01_couleur 1024x1024",
+          "Choisya_leaf_02_back_couleur 512x512",
+          "Choisya_bark_couleur 16x1024",
+          "Choisya_bark_normale 16x1024",
+          "Choisya_bud_couleur 256x128"
+        ],
+        "mobile": [
+          "Choisya_leaf_01_dry_1_couleur 512x512",
+          "Choisya_leaf_01_normale 512x512",
+          "Choisya_leaf_02_dry_1_back_couleur 512x512",
+          "Choisya_leaf_02_back_normale 512x512",
+          "Choisya_leaf_01_couleur 512x512",
+          "Choisya_leaf_02_back_couleur 512x512",
+          "Choisya_bark_couleur 8x512",
+          "Choisya_bark_normale 8x512"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "Choisya_leaf_01_dry_1": {
+            "op": "grid",
+            "avant": 120,
+            "apres": 30,
+            "cartes": 15,
+            "cartesGardees": 15,
+            "cartesReduites": 15
+          },
+          "Choisya_leaf_02_dry_1_back": {
+            "op": "grid",
+            "avant": 88,
+            "apres": 22,
+            "cartes": 11,
+            "cartesGardees": 11,
+            "cartesReduites": 11
+          },
+          "Choisya_twig_01": {
+            "op": "simplify",
+            "avant": 780,
+            "apres": 300
+          },
+          "Choisya_leaf_01": {
+            "op": "grid",
+            "avant": 9184,
+            "apres": 2296,
+            "cartes": 1148,
+            "cartesGardees": 1148,
+            "cartesReduites": 1148
+          },
+          "Choisya_leaf_02_back": {
+            "op": "grid",
+            "avant": 6576,
+            "apres": 1644,
+            "cartes": 822,
+            "cartesGardees": 822,
+            "cartesReduites": 822
+          },
+          "Choisya_bark": {
+            "op": "simplify",
+            "avant": 3966,
+            "apres": 1566
+          },
+          "Choisya_bud": {
+            "op": "simplify",
+            "avant": 7800,
+            "apres": 1100
+          },
+          "Choisya_twig": {
+            "op": "simplify",
+            "avant": 2838,
+            "apres": 894
+          }
+        },
+        "mobile": {
+          "Choisya_leaf_01_dry_1": {
+            "op": "grid",
+            "avant": 120,
+            "apres": 30,
+            "cartes": 15,
+            "cartesGardees": 15,
+            "cartesReduites": 15
+          },
+          "Choisya_leaf_02_dry_1_back": {
+            "op": "grid",
+            "avant": 88,
+            "apres": 22,
+            "cartes": 11,
+            "cartesGardees": 11,
+            "cartesReduites": 11
+          },
+          "Choisya_twig_01": {
+            "op": "retire",
+            "avant": 780,
+            "apres": 0
+          },
+          "Choisya_leaf_01": {
+            "op": "grid",
+            "avant": 9184,
+            "apres": 1418,
+            "cartes": 1148,
+            "cartesGardees": 709,
+            "cartesReduites": 709,
+            "agrandissementCartes": 1.2
+          },
+          "Choisya_leaf_02_back": {
+            "op": "grid",
+            "avant": 6576,
+            "apres": 1032,
+            "cartes": 822,
+            "cartesGardees": 516,
+            "cartesReduites": 516,
+            "agrandissementCartes": 1.2
+          },
+          "Choisya_bark": {
+            "op": "simplify",
+            "avant": 3966,
+            "apres": 434
+          },
+          "Choisya_bud": {
+            "op": "retire",
+            "avant": 7800,
+            "apres": 0
+          },
+          "Choisya_twig": {
+            "op": "simplify",
+            "avant": 2838,
+            "apres": 42
+          }
+        }
+      },
+      "notes": [
+        "Feuilles BLEND -> MASK (alphaTest 0,4). Feuilles en grille 3x3 (8 triangles) réduites à un quad (2 triangles).",
+        "Boutons floraux (Choisya_bud) simplifiés (PC) ou retirés (mobile) ; brindilles fines « twig_01 » retirées sur mobile ; 40 % des feuilles retirées sur mobile (restantes x1,2).",
+        "Texture 32x32 unie de « Choisya_twig » remplacée par la couleur équivalente (baseColorFactor)."
+      ],
+      "credit": {
+        "titre": "Realistic HD Mexican orange blossom (8/10)",
+        "auteur": "PlantCatalog",
+        "identifiant": "PlantCatalog",
+        "profil": "https://sketchfab.com/PlantCatalog",
+        "lien": "https://sketchfab.com/3d-models/realistic-hd-mexican-orange-blossom-810-790a6aa9051d4ceea55eae4f1498089e",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Realistic HD Mexican orange blossom (8/10) » par PlantCatalog (sketchfab.com/PlantCatalog), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Realistic HD Mexican orange blossom (8/10)\" (https://sketchfab.com/3d-models/realistic-hd-mexican-orange-blossom-810-790a6aa9051d4ceea55eae4f1498089e) by PlantCatalog (https://sketchfab.com/PlantCatalog) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    },
+    "topiaire": {
+      "nom": "Topiaire en cloche (parc de Sceaux)",
+      "espece": "if taillé (scan Scaniverse)",
+      "fichiers": {
+        "pc": "topiaire.glb",
+        "mobile": "topiaire_mobile.glb"
+      },
+      "unite": "m",
+      "versMetres": 1,
+      "orientation": {
+        "hautApresChargement": "+Y",
+        "rotationAAppliquer": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Toutes les transformations du fichier source ont été cuites dans les sommets : le modèle se charge debout (Y haut), sans rotation à appliquer, un seul niveau de nœuds.",
+        "source": "Sketchfab : racine (-90° X) + FBX (+90° X, échelle 0,01) + nœud (+90° X) ; scan incliné de 2,9° redressé sur le disque de sol"
+      },
+      "pied": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explication": "Le pied du tronc (point où il entre dans le sol) est à l'origine : poser le modèle avec position.y = hauteur du sol. Ce qui est sous y = 0 (racines, base du pot) doit être enterré.",
+        "profondeurSousSol": 0.055,
+        "profondeurSousSolMetres": 0.055
+      },
+      "bbox": {
+        "unite": "m",
+        "pc": {
+          "min": [
+            -0.633,
+            -0.055,
+            -0.628
+          ],
+          "max": [
+            0.62,
+            1.885,
+            0.643
+          ]
+        },
+        "mobile": {
+          "min": [
+            -0.633,
+            -0.053,
+            -0.628
+          ],
+          "max": [
+            0.62,
+            1.88,
+            0.643
+          ]
+        }
+      },
+      "hauteurFichier": 1.885,
+      "hauteurFichierMetres": 1.885,
+      "largeurFichierMetres": 1.271,
+      "hauteurReelleConseilleeMetres": 1.9,
+      "plageRealisteMetres": [
+        1.8,
+        2.2
+      ],
+      "echelleConseillee": 1.008,
+      "echelleConseilleeExplication": "object.scale.setScalar(echelleConseillee) donne hauteurReelleConseilleeMetres au-dessus du sol (hauteur mesurée de y = 0 au sommet).",
+      "materiaux": {
+        "feuillageAlphaTest": [],
+        "feuillageOpaque": [
+          "main"
+        ],
+        "ecorce": [],
+        "autres": [],
+        "remarque": "Les matériaux feuillage sont déjà en alphaMode MASK dans le GLB : GLTFLoader règle alphaTest et transparent = false tout seul."
+      },
+      "triangles": {
+        "pc": 7897,
+        "mobile": 2950,
+        "budget": {
+          "pc": 8000,
+          "mobile": 3000
+        },
+        "source": 19936
+      },
+      "sommets": {
+        "pc": 6371,
+        "mobile": 2763
+      },
+      "appelsDessin": {
+        "pc": 1,
+        "mobile": 1
+      },
+      "taillesFichiers": {
+        "pc": {
+          "octets": 331836,
+          "ko": 324
+        },
+        "mobile": {
+          "octets": 130400,
+          "ko": 127
+        }
+      },
+      "textures": {
+        "pc": [
+          "main_couleur 1024x512"
+        ],
+        "mobile": [
+          "main_couleur 512x256"
+        ],
+        "format": "WebP (EXT_texture_webp), PC 1024 max, mobile 512 max"
+      },
+      "extensions": [
+        "EXT_texture_webp"
+      ],
+      "operations": {
+        "pc": {
+          "main": {
+            "op": "simplify",
+            "avant": 19936,
+            "apres": 7897
+          }
+        },
+        "mobile": {
+          "main": {
+            "op": "simplify",
+            "avant": 19936,
+            "apres": 2950
+          }
+        }
+      },
+      "notes": [
+        "Scan à l'échelle réelle (garder 1:1).",
+        "KHR_materials_unlit retiré : matériau éclairé. La texture du scan contient l'éclairage du jour de la prise (tons gris-vert sombres).",
+        "Le disque de sol scanné (≈ 2,4 m de diamètre, herbe/gravier) a été découpé : il reste un collet de ≈ 0,6 m de rayon au pied du pot."
+      ],
+      "credit": {
+        "titre": "Topiary bush - Bell shape - Sceaux Park",
+        "auteur": "Luis 3D",
+        "identifiant": "luism3D",
+        "profil": "https://sketchfab.com/luism3D",
+        "lien": "https://sketchfab.com/3d-models/topiary-bush-bell-shape-sceaux-park-ac98e638a0994e9e96884d7189af56eb",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texteJeu": "« Topiary bush - Bell shape - Sceaux Park » par Luis 3D (sketchfab.com/luism3D), CC BY 4.0 — modèle simplifié pour le jeu",
+        "texteOfficiel": "This work is based on \"Topiary bush - Bell shape - Sceaux Park\" (https://sketchfab.com/3d-models/topiary-bush-bell-shape-sceaux-park-ac98e638a0994e9e96884d7189af56eb) by Luis 3D (https://sketchfab.com/luism3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)"
+      }
+    }
+  },
+  "textures": {
+    "dossier": "tex/",
+    "format": "JPG qualité 82 : <nom>_couleur / _normale / _rugosite en 1024 (sans suffixe) et 512 (_512) ; feuilles_platane en WebP RGBA",
+    "liste": {
+      "asphalte": {
+        "source": "Poly Haven asphalt_04",
+        "lien": "https://polyhaven.com/a/asphalt_04",
+        "licence": "CC0",
+        "fichiers": {
+          "asphalte_couleur.jpg": "190 Ko",
+          "asphalte_couleur_512.jpg": "35 Ko",
+          "asphalte_normale.jpg": "225 Ko",
+          "asphalte_normale_512.jpg": "36 Ko",
+          "asphalte_rugosite.jpg": "36 Ko",
+          "asphalte_rugosite_512.jpg": "5 Ko"
+        }
+      },
+      "ecorce_platane": {
+        "source": "Poly Haven bark_platanus",
+        "lien": "https://polyhaven.com/a/bark_platanus",
+        "licence": "CC0",
+        "fichiers": {
+          "ecorce_platane_couleur.jpg": "183 Ko",
+          "ecorce_platane_couleur_512.jpg": "48 Ko",
+          "ecorce_platane_normale.jpg": "437 Ko",
+          "ecorce_platane_normale_512.jpg": "128 Ko",
+          "ecorce_platane_rugosite.jpg": "39 Ko",
+          "ecorce_platane_rugosite_512.jpg": "10 Ko"
+        }
+      },
+      "ecorce_pin": {
+        "source": "Poly Haven pine_bark",
+        "lien": "https://polyhaven.com/a/pine_bark",
+        "licence": "CC0",
+        "fichiers": {
+          "ecorce_pin_couleur.jpg": "152 Ko",
+          "ecorce_pin_couleur_512.jpg": "42 Ko",
+          "ecorce_pin_normale.jpg": "379 Ko",
+          "ecorce_pin_normale_512.jpg": "113 Ko",
+          "ecorce_pin_rugosite.jpg": "68 Ko",
+          "ecorce_pin_rugosite_512.jpg": "18 Ko"
+        }
+      },
+      "sol_foret": {
+        "source": "Poly Haven forrest_ground_03",
+        "lien": "https://polyhaven.com/a/forrest_ground_03",
+        "licence": "CC0",
+        "fichiers": {
+          "sol_foret_couleur.jpg": "300 Ko",
+          "sol_foret_couleur_512.jpg": "60 Ko",
+          "sol_foret_normale.jpg": "785 Ko",
+          "sol_foret_normale_512.jpg": "132 Ko",
+          "sol_foret_rugosite.jpg": "129 Ko",
+          "sol_foret_rugosite_512.jpg": "27 Ko"
+        }
+      },
+      "mur_pierre_jaune": {
+        "source": "Poly Haven yellow_stone_wall",
+        "lien": "https://polyhaven.com/a/yellow_stone_wall",
+        "licence": "CC0",
+        "fichiers": {
+          "mur_pierre_jaune_couleur.jpg": "172 Ko",
+          "mur_pierre_jaune_couleur_512.jpg": "42 Ko",
+          "mur_pierre_jaune_normale.jpg": "361 Ko",
+          "mur_pierre_jaune_normale_512.jpg": "110 Ko",
+          "mur_pierre_jaune_rugosite.jpg": "71 Ko",
+          "mur_pierre_jaune_rugosite_512.jpg": "16 Ko"
+        }
+      },
+      "blocs_gres": {
+        "source": "Poly Haven sandstone_blocks_04",
+        "lien": "https://polyhaven.com/a/sandstone_blocks_04",
+        "licence": "CC0",
+        "fichiers": {
+          "blocs_gres_couleur.jpg": "132 Ko",
+          "blocs_gres_couleur_512.jpg": "29 Ko",
+          "blocs_gres_normale.jpg": "251 Ko",
+          "blocs_gres_normale_512.jpg": "48 Ko",
+          "blocs_gres_rugosite.jpg": "132 Ko",
+          "blocs_gres_rugosite_512.jpg": "33 Ko"
+        }
+      },
+      "terre_rouge": {
+        "source": "Poly Haven terrain_red_01",
+        "lien": "https://polyhaven.com/a/terrain_red_01",
+        "licence": "CC0",
+        "fichiers": {
+          "terre_rouge_couleur.jpg": "198 Ko",
+          "terre_rouge_couleur_512.jpg": "62 Ko",
+          "terre_rouge_normale.jpg": "435 Ko",
+          "terre_rouge_normale_512.jpg": "157 Ko",
+          "terre_rouge_rugosite.jpg": "211 Ko",
+          "terre_rouge_rugosite_512.jpg": "67 Ko"
+        }
+      },
+      "dalles_beton": {
+        "source": "Poly Haven concrete_pavement_02",
+        "lien": "https://polyhaven.com/a/concrete_pavement_02",
+        "licence": "CC0",
+        "fichiers": {
+          "dalles_beton_couleur.jpg": "215 Ko",
+          "dalles_beton_couleur_512.jpg": "45 Ko",
+          "dalles_beton_normale.jpg": "356 Ko",
+          "dalles_beton_normale_512.jpg": "53 Ko",
+          "dalles_beton_rugosite.jpg": "70 Ko",
+          "dalles_beton_rugosite_512.jpg": "14 Ko"
+        }
+      },
+      "herbe": {
+        "source": "ambientCG Grass004",
+        "lien": "https://ambientcg.com/view?id=Grass004",
+        "licence": "CC0",
+        "fichiers": {
+          "herbe_couleur.jpg": "275 Ko",
+          "herbe_couleur_512.jpg": "72 Ko",
+          "herbe_normale.jpg": "631 Ko",
+          "herbe_normale_512.jpg": "139 Ko",
+          "herbe_rugosite.jpg": "266 Ko",
+          "herbe_rugosite_512.jpg": "59 Ko"
+        }
+      },
+      "gravier": {
+        "source": "ambientCG Gravel037",
+        "lien": "https://ambientcg.com/view?id=Gravel037",
+        "licence": "CC0",
+        "fichiers": {
+          "gravier_couleur.jpg": "268 Ko",
+          "gravier_couleur_512.jpg": "69 Ko",
+          "gravier_normale.jpg": "601 Ko",
+          "gravier_normale_512.jpg": "143 Ko",
+          "gravier_rugosite.jpg": "186 Ko",
+          "gravier_rugosite_512.jpg": "53 Ko"
+        }
+      },
+      "feuilles_platane": {
+        "source": "ambientCG LeafSet010",
+        "lien": "https://ambientcg.com/view?id=LeafSet010",
+        "licence": "CC0",
+        "fichiers": {
+          "feuilles_platane.webp": "79 Ko",
+          "feuilles_platane_512.webp": "29 Ko",
+          "feuilles_platane_normale.jpg": "128 Ko",
+          "feuilles_platane_normale_512.jpg": "29 Ko",
+          "feuilles_platane_rugosite.jpg": "14 Ko",
+          "feuilles_platane_rugosite_512.jpg": "4 Ko"
+        },
+        "remarque": "Color + Opacity de LeafSet010 fusionnés en WebP RGBA (couleur diluée sous l'alpha nul pour éviter les liserés), 1024 et 512 ; atlas 2x2 feuilles vertes. Normale/rugosité fournies en JPG à part."
+      }
+    }
+  },
+  "ciel": {
+    "fichier": "ciel_berge.hdr",
+    "source": "Poly Haven spree_bank (1K)",
+    "lien": "https://polyhaven.com/a/spree_bank",
+    "licence": "CC0"
+  },
+  "credits": {
+    "ccBy": [
+      {
+        "modele": "tilleul",
+        "titre": "Linden tree",
+        "auteur": "Georgeous",
+        "identifiantSketchfab": "intice184",
+        "profil": "https://sketchfab.com/intice184",
+        "lien": "https://sketchfab.com/3d-models/linden-tree-c0c3aa73cc9945d2a36c01a0d8d6d4bb",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Linden tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu"
+      },
+      {
+        "modele": "platane",
+        "titre": "Platano Tree",
+        "auteur": "gelmi.com.br",
+        "identifiantSketchfab": "rodrigogelmi",
+        "profil": "https://sketchfab.com/rodrigogelmi",
+        "lien": "https://sketchfab.com/3d-models/platano-tree-ef48485b7c534acc905c0d9964c5fe7c",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Platano Tree » par gelmi.com.br (sketchfab.com/rodrigogelmi), CC BY 4.0 — modèle simplifié pour le jeu"
+      },
+      {
+        "modele": "topiaire",
+        "titre": "Topiary bush - Bell shape - Sceaux Park",
+        "auteur": "Luis 3D",
+        "identifiantSketchfab": "luism3D",
+        "profil": "https://sketchfab.com/luism3D",
+        "lien": "https://sketchfab.com/3d-models/topiary-bush-bell-shape-sceaux-park-ac98e638a0994e9e96884d7189af56eb",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Topiary bush - Bell shape - Sceaux Park » par Luis 3D (sketchfab.com/luism3D), CC BY 4.0 — modèle simplifié pour le jeu"
+      },
+      {
+        "modele": "arbuste",
+        "titre": "Realistic HD Mexican orange blossom (8/10)",
+        "auteur": "PlantCatalog",
+        "identifiantSketchfab": "PlantCatalog",
+        "profil": "https://sketchfab.com/PlantCatalog",
+        "lien": "https://sketchfab.com/3d-models/realistic-hd-mexican-orange-blossom-810-790a6aa9051d4ceea55eae4f1498089e",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Realistic HD Mexican orange blossom (8/10) » par PlantCatalog (sketchfab.com/PlantCatalog), CC BY 4.0 — modèle simplifié pour le jeu"
+      },
+      {
+        "modele": "saule",
+        "titre": "Silver willow tree",
+        "auteur": "Georgeous",
+        "identifiantSketchfab": "intice184",
+        "profil": "https://sketchfab.com/intice184",
+        "lien": "https://sketchfab.com/3d-models/silver-willow-tree-dc36cac786c34948a5ae2cb41faaecfd",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Silver willow tree » par Georgeous (sketchfab.com/intice184), CC BY 4.0 — modèle simplifié pour le jeu"
+      },
+      {
+        "modele": "cedre",
+        "titre": "Cedar Of Lebanon",
+        "auteur": "Valery.Li",
+        "identifiantSketchfab": "Valery.Li",
+        "profil": "https://sketchfab.com/Valery.Li",
+        "lien": "https://sketchfab.com/3d-models/cedar-of-lebanon-6bf28d5c230a4dbcbc350ab7e4964a89",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "http://creativecommons.org/licenses/by/4.0/",
+        "modifie": true,
+        "texte": "« Cedar Of Lebanon » par Valery.Li (sketchfab.com/Valery.Li), CC BY 4.0 — modèle simplifié pour le jeu"
+      }
+    ],
+    "cc0": [
+      {
+        "fichiers": "tex/asphalte_*",
+        "source": "Poly Haven — asphalt_04",
+        "lien": "https://polyhaven.com/a/asphalt_04",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/ecorce_platane_*",
+        "source": "Poly Haven — bark_platanus",
+        "lien": "https://polyhaven.com/a/bark_platanus",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/ecorce_pin_*",
+        "source": "Poly Haven — pine_bark",
+        "lien": "https://polyhaven.com/a/pine_bark",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/sol_foret_*",
+        "source": "Poly Haven — forrest_ground_03",
+        "lien": "https://polyhaven.com/a/forrest_ground_03",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/mur_pierre_jaune_*",
+        "source": "Poly Haven — yellow_stone_wall",
+        "lien": "https://polyhaven.com/a/yellow_stone_wall",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/blocs_gres_*",
+        "source": "Poly Haven — sandstone_blocks_04",
+        "lien": "https://polyhaven.com/a/sandstone_blocks_04",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/terre_rouge_*",
+        "source": "Poly Haven — terrain_red_01",
+        "lien": "https://polyhaven.com/a/terrain_red_01",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/dalles_beton_*",
+        "source": "Poly Haven — concrete_pavement_02",
+        "lien": "https://polyhaven.com/a/concrete_pavement_02",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/herbe_*",
+        "source": "ambientCG — Grass004",
+        "lien": "https://ambientcg.com/view?id=Grass004",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/gravier_*",
+        "source": "ambientCG — Gravel037",
+        "lien": "https://ambientcg.com/view?id=Gravel037",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "tex/feuilles_platane_*",
+        "source": "ambientCG — LeafSet010",
+        "lien": "https://ambientcg.com/view?id=LeafSet010",
+        "licence": "CC0 1.0"
+      },
+      {
+        "fichiers": "ciel_berge.hdr",
+        "source": "Poly Haven — spree_bank",
+        "lien": "https://polyhaven.com/a/spree_bank",
+        "licence": "CC0 1.0"
+      }
+    ],
+    "remarque": "CC BY 4.0 impose d'afficher titre, auteur, lien et licence, et d'indiquer que le modèle a été modifié. Les sources CC0 ne l'exigent pas (mention facultative)."
+  }
+}
